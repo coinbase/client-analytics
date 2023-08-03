@@ -1,0 +1,29 @@
+{
+  "name": "open-analytics",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/open-analytics.umd.cjs",
+  "module": "./dist/open-analytics.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/open-analytics.js",
+      "require": "./dist/open-analytics.umd.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^20.4.6",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-dts": "^3.4.0",
+    "vitest": "^0.34.1"
+  }
+}

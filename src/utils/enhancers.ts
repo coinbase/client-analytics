@@ -14,23 +14,18 @@ const locationPagePathEnhancer = <T extends Metric>(entity: T) => {
   return entity;
 };
 
-const identityFlowEnhancer = <T extends Metric>(entity: T) => {
+const tagsEnhancer = <T extends Metric>(entity: T) => {
   // const identityFlow = getIdentityFlow();
+  // const identity = getIdentity();
   entity.tags = {
     ...entity.tags,
     // ...identityFlow ?? {},
-  };
-
-  return entity;
-}
-
-const identityEnhancer = <T extends Metric>(entity: T) => {
-  // identity = getIdentity();
-  // entity.local = identity.locale;
-  return entity;
+    // locale: identity.locale,
+  }
+  return entity
 }
 
 export const metricEnhancers = (metric: Metric) => {
-  return compose(locationPagePathEnhancer, identityEnhancer, identityFlowEnhancer)(metric);
+  return compose(locationPagePathEnhancer, tagsEnhancer)(metric);
 };
 

@@ -1,8 +1,12 @@
-import { Metric } from './types/metric.ts';
-import { isValidPlatform } from './utils/validators.ts';
-import { metricEnhancers } from './utils/enhancers.ts';
-import { getConfig, getMetricScheduler } from './storage/storage.ts';
+import { Metric } from './types/metric';
+import { isValidPlatform } from './utils/validators';
+import { metricEnhancers } from './utils/enhancers';
+import { getConfig, getMetricScheduler } from './storage/storage';
 
+/**
+ * log a metric to analytics service
+ * @param metric returns a promise that resolves when the metric is added to the queue
+ */
 export const trackMetric = (metric: Metric): Promise<Metric | null> => {
   const config = getConfig();
   if (config.disabled) {

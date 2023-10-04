@@ -1,5 +1,5 @@
 import { describe, beforeEach, vi, test, expect } from 'vitest';
-import { getStorage } from '../storage.ts';
+import { getStorage } from '../storage/storage';
 import { isValidPlatform } from './validators.ts';
 
 describe('validatePlatform', () => {

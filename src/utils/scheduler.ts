@@ -1,12 +1,5 @@
-import { createQueue, Queue } from './queue';
-import { Importance } from '../types/event';
-
-export type Scheduler<T> = {
-  queue: Queue<T>;
-  add: (item: T, importance: Importance) => void;
-  items: T[];
-  length: number;
-};
+import { createQueue } from './queue';
+import { Scheduler } from '../types/scheduler';
 
 const DEFAULT_BATCH_THRESHOLD = 30;
 const DEFAULT_TIME_THRESHOLD = 5000;

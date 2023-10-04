@@ -13,7 +13,8 @@ describe('getDefaultConfig', () => {
       eventPath: '/events',
       metricPath: '/metrics',
       onError: expect.any(Function),
-      serviceUrl: 'provide.service.url'
+      serviceUrl: 'provide.service.url',
+      disabled: false,
     });
   });
   test('should return config with custom props', () => {
@@ -24,8 +25,9 @@ describe('getDefaultConfig', () => {
       isDebug: true,
       eventPath: '/custom-events',
       metricPath: '/custom-metrics',
-      onError: () => undefined,
-      serviceUrl: 'https://open.analytics'
+      onError:expect.any(Function),
+      serviceUrl: 'https://open.analytics',
+      disabled: false,
     });
 
     expect(config).toEqual({
@@ -36,7 +38,8 @@ describe('getDefaultConfig', () => {
       eventPath: '/custom-events',
       metricPath: '/custom-metrics',
       onError: expect.any(Function),
-      serviceUrl: 'https://open.analytics'
+      serviceUrl: 'https://open.analytics',
+      disabled: false,
     });
   });
 

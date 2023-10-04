@@ -1,2 +1,2 @@
 
-export {DEFAULT_CONFIG, init} from './utils/config';
+export {init} from './init.ts';

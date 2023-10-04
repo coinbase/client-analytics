@@ -23,7 +23,7 @@ export type RequiredConfig = {
 export type CustomConfig = {
   eventPath: string;
   metricPath: string;
-  disable: boolean;
+  disabled: boolean;
   serviceUrl: string;
   onError: (err: Error, metadata?: Record<string, unknown>) => void;
   isDebug: boolean;

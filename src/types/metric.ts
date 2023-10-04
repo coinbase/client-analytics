@@ -7,11 +7,13 @@ export enum MetricType {
   histogram = 'histogram',
 }
 
-export type LogMetric = {
+
+export type Tags = Record<string, string | boolean>;
+export type Metric = {
   apiPath?: string;
   metricName: string;
   metricType: MetricType;
   pagePath?: string;
-  tags?: Record<string, string | boolean>;
+  tags?: Tags;
   value: number;
 };

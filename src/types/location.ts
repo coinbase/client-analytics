@@ -1,4 +1,3 @@
-
 export type Breadcrumb = {
   label: string;
   href: string;
@@ -26,14 +25,12 @@ export type SetLocation = {
   breadcrumbs?: Breadcrumb[];
   initialUAAData?: UAAData;
   pagePath?: string;
-  prevPageKey?: string;
   prevPagePath?: string;
 };
 
 export type Location = {
-    breadcrumbs: Breadcrumb[];
-    initialUAAData: UAAData;
-    pagePath: string;
-    prevPageKey: string;
-    prevPagePath: string;
-  };
+  breadcrumbs: Breadcrumb[];
+  initialUAAData: UAAData;
+  pagePath: string;
+  prevPagePath: string;
+};

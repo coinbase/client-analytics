@@ -1,7 +1,7 @@
 import { Metric } from '../types/metric.ts';
 import { compose } from './compose.ts';
 import { getLocation, getIdentityFlow } from '../storage/storage';
-import { getIdentity } from '../indentity.ts'; // double check if we want to use this or create a getIdentity 
+import { getIdentity } from '../indentity.ts';
 
 /**
  * Enhance the metric with the pagePath.

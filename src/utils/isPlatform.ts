@@ -9,8 +9,6 @@ const Platforms: PlatformName[] = [
 export const deviceBreakpoints = {
     phone: 360,
     phoneLandscape: 560,
-    tablet: 768,
-    tabletLandscape: 1024,
     desktop: 1280,
     desktopLarge: 1440,
     extraWide: 1600,

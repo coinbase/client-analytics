@@ -4,7 +4,6 @@ export const location: Location = {
   breadcrumbs: [],
   initialUAAData: {},
   pagePath: '',
-  prevPageKey: '',
   prevPagePath: '',
 };
 

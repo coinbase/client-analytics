@@ -4,10 +4,10 @@ import { OptionalData } from "../types/event";
 
 import { isEventKeyFormatValid } from "../utils/strings";
 
-const BLOCKED_PROPS = ['action', 'component_type', 'component_name', 'context', 'logging_id'];
+// left blank for now - unsure if we want to block any
+const BLOCKED_PROPS: string[] = [];
 
-// num_non_hardware_accounts valid values: small | medium | large | x-large
-const ALLOWED_PROPERTIES: string[] = ['num_non_hardware_accounts', 'ujs'];
+const ALLOWED_PROPERTIES: string[] = ['ujs'];
 
 const UJS_PREFIX = 'ujs_';
 

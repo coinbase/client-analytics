@@ -43,6 +43,12 @@
     }
   },
   "lint-staged": {
-    "*.{ts,json,md}": ["prettier --write", "git add"]
+    "*.{ts,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "ua-parser-js": "^1.0.36"
   }
 }

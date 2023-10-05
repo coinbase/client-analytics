@@ -1,6 +1,7 @@
 import { Metric } from '../types/metric.ts';
 import { compose } from './compose.ts';
-import { getLocation } from '../storage/storage';
+import { getLocation, getIdentityFlow } from '../storage/storage';
+import { getIdentity } from '../indentity.ts'; // double check if we want to use this or create a getIdentity 
 
 /**
  * Enhance the metric with the pagePath.
@@ -16,13 +17,15 @@ const locationPagePathEnhancer = <T extends Metric>(entity: T) => {
 };
 
 const tagsEnhancer = <T extends Metric>(entity: T) => {
-  // const identityFlow = getIdentityFlow();
-  // const identity = getIdentity();
+  const identityFlow = getIdentityFlow();
+  const identity = getIdentity();
+
   entity.tags = {
     ...entity.tags,
-    // ...identityFlow ?? {},
-    // locale: identity.locale,
+    ...identityFlow ?? {},
+    locale: identity.locale ?? '',
   }
+
   return entity
 }
 

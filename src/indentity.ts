@@ -4,8 +4,6 @@ import { PlatformName } from "./types/config";
 import { isMobileWeb, isWebPlatform, isIOSPlatform, isAndroidPlatform } from "./utils/isPlatform";
 import UAParser from 'ua-parser-js';
 
-
-
 /**
  * Cross-platform device information
  */
@@ -41,9 +39,8 @@ export const device: Device = {
   };
 
   export const getIsAuthed = (): boolean => {
-    // const config = getConfig(); - TODO add in extra config params
-    // return config.isAlwaysAuthed || !!identity.userId;
-    return !!identity.userId;
+    const config = getConfig();
+    return config.isAlwaysAuthed || !!identity.userId;
   };
 
   export const getPlatformValue = (): PlatformName => {
@@ -64,7 +61,7 @@ export const setDevice = () => {
     if (isWebPlatform()) {
       if ('requestIdleCallback' in window) {
         window.requestIdleCallback(setUAParser, {
-          // timeout: getConfig().ricTimeoutSetDevice, - TODO need to add to config
+          timeout: getConfig().ricTimeoutSetDevice,
         });
       } else {
         setUAParser();
@@ -134,4 +131,6 @@ export const setDevice = () => {
       },
     });
   };
+
+  export const getIdentity = (): Identity => identity;
 

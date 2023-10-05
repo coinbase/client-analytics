@@ -1,5 +1,5 @@
 type BaseData = string | number | boolean | undefined | null;
-type OptionalData = Record<string, BaseData | BaseData[]>;
+export type OptionalData = Record<string, BaseData | BaseData[]>;
 type RequiredData = {
   action: string;
   component: string;

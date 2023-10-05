@@ -28,6 +28,16 @@ export type CustomConfig = {
   onError: (err: Error, metadata?: Record<string, unknown>) => void;
   isDebug: boolean;
   isProd: boolean;
+  ricTimeoutScheduleEvent: number;
+  ricTimeoutSetDevice: number;
+  batchEventsPeriod?: number;
+  batchEventsThreshold?: number;
+  batchMetricsPeriod?: number;
+  batchMetricsThreshold?: number;
+  isAlwaysAuthed?: boolean;
+  version?: string | number | null;
+  apiEndpoint: string;
+  overrideWindowLocation?: boolean;
 }
 
 /**

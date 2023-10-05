@@ -3,6 +3,7 @@ import { Device, Identity, SetDeviceSize, SetIdentity } from "./types/identity";
 import { PlatformName } from "./types/config";
 import { isMobileWeb, isWebPlatform, isIOSPlatform, isAndroidPlatform } from "./utils/isPlatform";
 import UAParser from 'ua-parser-js';
+import { updateConfig } from "./storage/config";
 
 /**
  * Cross-platform device information
@@ -108,7 +109,7 @@ export const setDevice = () => {
   };
 
   export const setPlatform = () => {
-    // setConfig({ platform: getPlatformValue() }); // TODO find replacement to setConfig
+    // updateConfig({ platform: getPlatformValue() }); - I dont think we need this anymore since platform is apart of required config
     if (isWebPlatform()) {
       postMessage({
         config: {

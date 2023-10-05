@@ -1,5 +1,6 @@
 import { Metric } from '../types/metric.ts';
 import { compose } from './compose.ts';
+import { getLocation } from '../storage/storage';
 
 /**
  * Enhance the metric with the pagePath.
@@ -7,10 +8,10 @@ import { compose } from './compose.ts';
  * @param entity any object with pagePath property
  */
 const locationPagePathEnhancer = <T extends Metric>(entity: T) => {
-  // const location = getLocation();
-  // if (!entity.pagePath && location.pagePath) {
-  //   entity.pagePath = location.pagePath;
-  // }
+  const location = getLocation();
+  if (!entity.pagePath && location.pagePath) {
+    entity.pagePath = location.pagePath;
+  }
   return entity;
 };
 

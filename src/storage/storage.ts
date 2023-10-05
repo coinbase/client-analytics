@@ -5,11 +5,15 @@ import { createScheduler } from '../utils/scheduler';
 import { Scheduler } from '../types/scheduler';
 import { Metric } from '../types/metric';
 import { Event } from '../types/event';
+import { Location } from '../types/location';
+
+import { location } from './location';
 
 const storage: Storage = {
   config: DEFAULT_CONFIG as Config,
   metricScheduler: createScheduler<Metric>(),
   eventScheduler: createScheduler<Event>(),
+  location: location,
 };
 
 export const init = (config: Config): void => {
@@ -29,5 +33,6 @@ export const getStorage = (): Storage => storage;
 export const getConfig = (): Config => getStorage().config;
 export const getMetricScheduler = (): Scheduler<Metric> => getStorage().metricScheduler;
 export const getEventScheduler = (): Scheduler<Event> => getStorage().eventScheduler;
+export const getLocation = (): Location => getStorage().location;
 
 

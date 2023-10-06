@@ -13,8 +13,6 @@ export const DEFAULT_CONFIG = {
   disabled: false,
   isAlwaysAuthed: false,
   version: null,
-  ricTimeoutScheduleEvent: 1000,
-  ricTimeoutSetDevice: 500,
   apiEndpoint: 'https://cca-lite.coinbase.com',
 };
 

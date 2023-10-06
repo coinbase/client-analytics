@@ -28,8 +28,6 @@ export type CustomConfig = {
   onError: (err: Error, metadata?: Record<string, unknown>) => void;
   isDebug: boolean;
   isProd: boolean;
-  ricTimeoutScheduleEvent: number;
-  ricTimeoutSetDevice: number;
   batchEventsPeriod?: number;
   batchEventsThreshold?: number;
   batchMetricsPeriod?: number;

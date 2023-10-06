@@ -1,6 +1,7 @@
 import { Event, Importance } from './types/event';
 import { isValidPlatform } from './utils/validators';
 import { getEventScheduler, getIdentity, getConfig } from './storage/storage';
+import { eventEnhancers } from './utils/enhancers';
 
 export const trackEvent = (
   event: Event,
@@ -22,7 +23,7 @@ export const trackEvent = (
   }
 
   // TODO: add enhancers: same as trackMetric
-  const enhancedEvent = event;
+  const enhancedEvent = eventEnhancers(event);
 
   const eventScheduler = getEventScheduler();
   eventScheduler.add(enhancedEvent, importance);

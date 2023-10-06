@@ -43,13 +43,15 @@ const validPropertiesEnhancer = <T extends Event>(entity: T) => {
   const config = getConfig();
   if (!logData) {
     config.onError(new Error('missing logData'));
-    return {
+    const properties = {
       ...enhanceProperties('unknown', 'uknown', 'unknown'),
       locale: identity.locale,
       session_lcc_id: identity.session_lcc_id,
       timestamp,
       time_start: timeStone.timeStart,
-    } as Event;
+    };
+    Object.assign(entity, properties);
+    return entity;
   }
 
   const validatedEvent = {
@@ -59,7 +61,8 @@ const validPropertiesEnhancer = <T extends Event>(entity: T) => {
     session_lcc_id: identity.session_lcc_id,
     timestamp,
     time_start: timeStone.timeStart,
-  } as Event;
+  };
+  Object.assign(entity, validatedEvent)
   // When passed componentType or loggingId it's important
   // to removed them from the original reference,
   // and keep only component_type and logging_id
@@ -67,7 +70,7 @@ const validPropertiesEnhancer = <T extends Event>(entity: T) => {
   // delete validatedEvent.componentType;
   // delete validatedEvent.loggingId;
   // TODO: CHECK IF NEEDED
-  return validatedEvent;
+  return entity;
 }
 
 export const enhanceProperties = (
@@ -141,4 +144,8 @@ const identityFlowEnhancer = <T extends Event>(entity: T) => {
 
 export const metricEnhancers = (metric: Metric) => {
   return compose(locationPagePathEnhancer, tagsEnhancer)(metric);
+};
+
+export const eventEnhancers = (event: Event) => {
+  return compose(pageviewEnhancer, userAttributionEnhancer, identityFlowEnhancer, validPropertiesEnhancer)(event);
 };

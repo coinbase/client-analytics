@@ -1,7 +1,6 @@
 import { Metric } from '../types/metric.ts';
 import { compose } from './compose.ts';
-import { getLocation, getIdentityFlow } from '../storage/storage';
-import { getIdentity } from '../indentity.ts';
+import { getLocation, getIdentityFlow, getIdentity } from '../storage/storage';
 
 /**
  * Enhance the metric with the pagePath.
@@ -22,14 +21,13 @@ const tagsEnhancer = <T extends Metric>(entity: T) => {
 
   entity.tags = {
     ...entity.tags,
-    ...identityFlow ?? {},
+    ...(identityFlow ?? {}),
     locale: identity.locale ?? '',
-  }
+  };
 
-  return entity
-}
+  return entity;
+};
 
 export const metricEnhancers = (metric: Metric) => {
   return compose(locationPagePathEnhancer, tagsEnhancer)(metric);
 };
-

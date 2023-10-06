@@ -10,6 +10,8 @@ import { identityFlow } from './identityFlow';
 
 import { location } from './location';
 import { IdentityFlow } from '../types/identityFlow';
+import { identity } from './identity';
+import { Identity } from '../types/identity';
 
 const storage: Storage = {
   config: DEFAULT_CONFIG as Config,
@@ -17,20 +19,28 @@ const storage: Storage = {
   eventScheduler: createScheduler<Event>(),
   location: location,
   identityFlow: identityFlow,
-
+  identity: identity,
 };
 
 export const init = (config: Config): void => {
   storage.config = config;
-  storage.metricScheduler = createScheduler<Metric>(config.batchMetricsThreshold, config.batchMetricsPeriod);
-  storage.eventScheduler = createScheduler<Event>(config.batchEventsThreshold, config.batchEventsPeriod);
-
+  storage.metricScheduler = createScheduler<Metric>(
+    config.batchMetricsThreshold,
+    config.batchMetricsPeriod
+  );
+  storage.eventScheduler = createScheduler<Event>(
+    config.batchEventsThreshold,
+    config.batchEventsPeriod
+  );
 };
 
 export const getStorage = (): Storage => storage;
 
 export const getConfig = (): Config => getStorage().config;
-export const getMetricScheduler = (): Scheduler<Metric> => getStorage().metricScheduler;
-export const getEventScheduler = (): Scheduler<Event> => getStorage().eventScheduler;
+export const getMetricScheduler = (): Scheduler<Metric> =>
+  getStorage().metricScheduler;
+export const getEventScheduler = (): Scheduler<Event> =>
+  getStorage().eventScheduler;
 export const getLocation = (): Location => getStorage().location;
 export const getIdentityFlow = (): IdentityFlow => getStorage().identityFlow;
+export const getIdentity = (): Identity => getStorage().identity;

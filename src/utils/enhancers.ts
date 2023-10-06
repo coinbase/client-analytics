@@ -1,6 +1,7 @@
 import { Metric } from '../types/metric.ts';
 import { compose } from './compose.ts';
-import { getLocation, getIdentityFlow, getIdentity } from '../storage/storage';
+import { getLocation, getIdentityFlow, getIdentity, getConfig } from '../storage/storage';
+import { PageviewConfig } from '../types/event.ts';
 
 /**
  * Enhance the metric with the pagePath.
@@ -27,6 +28,27 @@ const tagsEnhancer = <T extends Metric>(entity: T) => {
 
   return entity;
 };
+
+export const pageview: PageviewConfig = {
+  blacklistRegex: [],
+  isEnabled: false,
+};
+
+export function getPageviewProperties(): Record<string, string | null> {
+  const location = getLocation();
+  return {
+    page_path: location.pagePath,
+    prev_page_path: location.prevPagePath,
+  };
+}
+
+const pageviewEnhancer = <T extends Event>(entity: T) => {
+  if (pageview.isEnabled) {
+    Object.assign(entity, getPageviewProperties());
+  }
+  
+  return entity;
+}
 
 export const metricEnhancers = (metric: Metric) => {
   return compose(locationPagePathEnhancer, tagsEnhancer)(metric);

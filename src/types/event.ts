@@ -9,3 +9,8 @@ type RequiredData = {
 export type Event = RequiredData & OptionalData;
 
 export type Importance = 'low' | 'high';
+
+export type PageviewConfig = {
+  blacklistRegex: RegExp[];
+  isEnabled: boolean;
+};

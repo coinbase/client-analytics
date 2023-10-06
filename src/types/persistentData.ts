@@ -1,7 +1,6 @@
 import { UAAData } from "./location";
 
 export type AnalyticsPersistentData = {
-  // TODO: Include Legacy Amplitude?
   // Session definitions
   lastEventTime: number;
   sessionStart: number;
@@ -19,7 +18,6 @@ export type AnalyticsPersistentData = {
 } & UAAData;
 
 export type AnalyticsSetPersistentData = {
-  // TODO: Include Legacy Amplitude?
   // Session definitions
   lastEventTime?: number;
   sessionStart?: number;

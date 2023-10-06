@@ -34,6 +34,3 @@ export type ValidationType = ValidationData & {
 export type AuthStatus = 
   | 'notLoggedIn'
   | 'loggedIn';
-
-
-// const AuthStatus: AuthStatus[] = ['web', 'mobile_web'];

@@ -44,7 +44,7 @@ const validPropertiesEnhancer = <T extends Event>(entity: T) => {
   if (!logData) {
     config.onError(new Error('missing logData'));
     const properties = {
-      ...enhanceProperties('unknown', 'uknown', 'unknown'),
+      ...enhanceProperties('unknown', 'unknown', 'unknown'), // missing logData so action, component, and name are unknown
       locale: identity.locale,
       session_lcc_id: identity.session_lcc_id,
       timestamp,

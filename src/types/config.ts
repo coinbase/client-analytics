@@ -1,4 +1,6 @@
-// If you add to this enum, please also update the allowed_platform variable in: https://config.cbhq.net/development/data/analytics-service-development and https://config.cbhq.net/production/data/analytics-service-production
+/**
+ * The platform name
+ */
 export type PlatformName =
   | 'unknown'
   | 'web'

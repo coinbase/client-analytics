@@ -13,6 +13,7 @@ import {
 
 import { init as setConfig } from './config';
 import { describe, test, expect, beforeEach, afterAll, SpyInstance } from 'vitest';
+import { isMobileWeb } from '../utils/isPlatform';
 
 const customGlobal: any = global;
 
@@ -332,8 +333,8 @@ describe('identity', () => {
   describe('getPlatformValue() mobile_web platform', () => {
     beforeEach(() => {
       resetState();
-      jest.resetAllMocks();
-      jest.spyOn(isMobileWeb, 'isMobileWeb').mockImplementation(() => true);
+      // jest.resetAllMocks();
+      // jest.spyOn(isMobileWeb, 'isMobileWeb').mockImplementation(() => true);
     });
 
     test('should set platform to mobile_web when isMobileWeb is true', () => {

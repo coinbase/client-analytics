@@ -31,7 +31,9 @@ export type ValidationType = ValidationData & {
   project_name: string;
 };
 
-export enum AuthStatus {
-  notLoggedIn,
-  loggedIn,
-}
+export type AuthStatus = 
+  | 'notLoggedIn'
+  | 'loggedIn';
+
+
+// const AuthStatus: AuthStatus[] = ['web', 'mobile_web'];

@@ -3,9 +3,13 @@ import { isValidPlatform } from './utils/validators';
 import { getEventScheduler, getIdentity, getConfig } from './storage/storage';
 import { eventEnhancers } from './utils/enhancers';
 
+/**
+ * log an event to analytics service
+ * @param event returns a promise that resolves when the event is added to the queue
+ */
 export const trackEvent = (
   event: Event,
-  importance: Importance = 'low'
+  importance: Importance = 'low',
 ): Promise<Event | null> => {
   // Stop event if user opt out analytics
   const identity = getIdentity();
@@ -22,7 +26,6 @@ export const trackEvent = (
     return Promise.resolve(null);
   }
 
-  // TODO: add enhancers: same as trackMetric
   const enhancedEvent = eventEnhancers(event);
 
   const eventScheduler = getEventScheduler();

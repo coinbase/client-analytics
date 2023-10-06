@@ -16,10 +16,8 @@ export function getNow(): number {
 export const timeStone: TimeStone = {
     timeStart: getNow(),
     timeOnPagePath: 0,
-    timeOnPageKey: 0,
     prevTimeOnPagePath: 0,
-    prevTimeOnPageKey: 0,
-    // TODO @zizzamia re-visit if we need to keep storing
+    // TODO re-visit if we need to keep storing
     // sessionDuration and sessionEnd here, it seems we don't
     // need to persist this information.
     sessionDuration: 0,

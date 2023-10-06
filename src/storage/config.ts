@@ -1,5 +1,5 @@
 import { Config, InputConfig } from '../types/config';
-import { SERVICE_URL_ERROR } from './errors.ts'; // TODO: fix this or create this
+import { SERVICE_URL_ERROR } from '../utils/errors';
 
 export const DEFAULT_CONFIG = {
   isProd: false,

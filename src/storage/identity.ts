@@ -20,6 +20,7 @@ export const device: Device = {
   width: null,
   height: null,
 };
+
 /**
  * Information need it to identify the user experience.
  */

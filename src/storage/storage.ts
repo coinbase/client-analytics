@@ -37,10 +37,8 @@ export const init = (config: Config): void => {
 export const getStorage = (): Storage => storage;
 
 export const getConfig = (): Config => getStorage().config;
-export const getMetricScheduler = (): Scheduler<Metric> =>
-  getStorage().metricScheduler;
-export const getEventScheduler = (): Scheduler<Event> =>
-  getStorage().eventScheduler;
+export const getMetricScheduler = (): Scheduler<Metric> => getStorage().metricScheduler;
+export const getEventScheduler = (): Scheduler<Event> => getStorage().eventScheduler;
 export const getLocation = (): Location => getStorage().location;
 export const getIdentityFlow = (): IdentityFlow => getStorage().identityFlow;
 export const getIdentity = (): Identity => getStorage().identity;

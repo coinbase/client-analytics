@@ -1,15 +1,14 @@
-import { init as configInit } from './storage/config.ts';
-import { init as storageInit } from './storage/storage.ts';
-import { InputConfig } from './types/config.ts';
-import { setLanguageCode, setDevice } from './storage/identity.ts';
-import { setIdentity } from './storage/identity.ts';
-import { SetIdentity } from './types/identity.ts';
+import { init as configInit } from './storage/config';
+import { init as storageInit } from './storage/storage';
+import { InputConfig } from './types/config';
+import { setLanguageCode, setDevice } from './storage/identity';
+import { setIdentity } from './storage/identity';
+import { SetIdentity } from './types/identity';
 
 export const init = (config: InputConfig) => {
   const configuration = configInit(config);
   storageInit(configuration);
   setLanguageCode();
-
   setDevice();
 };
 

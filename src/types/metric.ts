@@ -7,8 +7,8 @@ export enum MetricType {
   histogram = 'histogram',
 }
 
-
 export type Tags = Record<string, string | boolean>; // double check these additions are fine
+
 export type Metric = {
   apiPath?: string;
   metricName: string;

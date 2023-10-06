@@ -63,13 +63,14 @@ const validPropertiesEnhancer = <T extends Event>(entity: T) => {
     time_start: timeStone.timeStart,
   };
   Object.assign(entity, validatedEvent)
+
   // When passed componentType or loggingId it's important
   // to removed them from the original reference,
   // and keep only component_type and logging_id
-  
   // delete validatedEvent.componentType;
   // delete validatedEvent.loggingId;
   // TODO: CHECK IF NEEDED
+
   return entity;
 }
 
@@ -79,9 +80,8 @@ export const enhanceProperties = (
   name: string,
 ): ValidationType => {
   const config = getConfig();
-  
   const properties = {
-    auth: getIsAuthed() ? AuthStatus.loggedIn : AuthStatus.notLoggedIn,
+    auth: getIsAuthed() ? 'loggedIn' : 'notLoggedIn',
     action: action,
     component: component,
     name: name,

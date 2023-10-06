@@ -1,15 +1,8 @@
-import { IdentityFlow, IdentityFlowProps } from "../types/identityFlow";
-import { getConfig } from "./storage";
-import { OptionalData } from "../types/event";
+import { IdentityFlow, IdentityFlowProps } from '../types/identityFlow';
 
-import { isEventKeyFormatValid } from "../utils/strings";
-
-// left blank for now - unsure if we want to block any
-const BLOCKED_PROPS: string[] = [];
-
-const ALLOWED_PROPERTIES: string[] = ['ujs'];
-
-const UJS_PREFIX = 'ujs_';
+// left blank for now - unsure if we want to block or specifically allow any
+// const BLOCKED_PROPS: string[] = [];
+// const ALLOWED_PROPERTIES: string[] = [''];
 
 /**
  * Use these object to store properties that will be attached to each event
@@ -17,22 +10,20 @@ const UJS_PREFIX = 'ujs_';
  * If a user reloads the page this info will disappear
  */
 export const identityFlow: IdentityFlow = {
-    //  this feature is currently in alpha release
-    //  in order to add properties you must submit a PR
-  };
+  //  this feature is currently in alpha release
+  //  in order to add properties you must submit a PR
+};
 
-  /**
+/**
  * Clears identity flow by deleting properties. Delete only properties you have introduced
  * @param {string[]} properties to delete
  * @return {void}
  */
 export function removeFromIdentifyFlow(properties: IdentityFlowProps[]) {
-    properties.forEach((prop) => {
-      if (ALLOWED_PROPERTIES.includes(prop)) {
-        delete identityFlow[prop];
-      }
-    });
-  }
+  properties.forEach((prop) => {
+    delete identityFlow[prop];
+  });
+}
 
 /**
  * Appends properties to identify flow
@@ -40,53 +31,41 @@ export function removeFromIdentifyFlow(properties: IdentityFlowProps[]) {
  * @return {void}
  */
 export function identifyFlow(identityData: IdentityFlow) {
-    //  filter for blocked words
-    const filteredProps: IdentityFlow = Object.entries(identityData).reduce((acc, entry) => {
+  //  filter for blocked words
+  const filteredProps: IdentityFlow = Object.entries(identityData).reduce(
+    (acc, entry) => {
       const [key, value] = entry;
-      if (!BLOCKED_PROPS.includes(key) && ALLOWED_PROPERTIES.includes(key)) {
-        //  check for snake case otherwise error_out
-        if (isEventKeyFormatValid(key)) {
-          return {
-            ...acc,
-            [key]: value,
-          };
-        }
-        getConfig().onError(new Error(`IdentityFlow property names must have snake case format`), {
-          [key]: value,
-        });
-        return acc;
-      }
-      return acc;
-    }, {} as OptionalData);
-  
-    if (filteredProps.ujs?.length) {
-      filteredProps.ujs = filteredProps.ujs.map((value: string) => `${UJS_PREFIX}${value}`);
-    }
-  
-    Object.assign(identityFlow, filteredProps);
-  }
+      return {
+        ...acc,
+        [key]: value,
+      };
+    },
+    {} as IdentityFlow
+  );
 
+  Object.assign(identityFlow, filteredProps);
+}
 
-  /**
+/**
  * DANGEROUS: use `removeFromIdentifyFlow` instead.
  * Clears all entries from identify flow. Make sure you know what you are doing becuase you may remove someone's properties
  * @return {void}
  */
 export function clearIdentifyFlow() {
-    removeFromIdentifyFlow(Object.keys(identityFlow) as IdentityFlowProps[]);
+  removeFromIdentifyFlow(Object.keys(identityFlow) as IdentityFlowProps[]);
+}
+
+/**
+ * Enriches validated event data with identity flow properties
+ * @param {AnalyticsValidatedData} validatedEvent
+ * @return {void}
+ */
+export function setIdentityFlowEnrichment(validatedEvent: Event) {
+  if (Object.keys(identityFlow).length > 0) {
+    Object.assign(validatedEvent, identityFlow);
   }
-  
-  /**
-   * Enriches validated event data with identity flow properties
-   * @param {AnalyticsValidatedData} validatedEvent
-   * @return {void}
-   */
-  export function setIdentityFlowEnrichment(validatedEvent: Event) {
-    if (Object.keys(identityFlow).length > 0) {
-      Object.assign(validatedEvent, identityFlow);
-    }
-  }
-  
-  export function isIdentifyFlowEmpty() {
-    return !Object.keys(identityFlow).length;
-  }
+}
+
+export function isIdentifyFlowEmpty() {
+  return !Object.keys(identityFlow).length;
+}

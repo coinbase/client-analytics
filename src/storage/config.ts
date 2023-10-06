@@ -15,7 +15,7 @@ export const DEFAULT_CONFIG = {
   version: null,
   ricTimeoutScheduleEvent: 1000,
   ricTimeoutSetDevice: 500,
-  apiEndpoint: 'https://cca-lite.coinbase.com', // TODO followup - where we are going to default sent the data
+  apiEndpoint: 'https://cca-lite.coinbase.com',
 };
 
 const validateUrl = (url?: string): boolean => {

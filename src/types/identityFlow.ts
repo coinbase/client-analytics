@@ -1,5 +1,3 @@
-export type IdentityFlow = {
-    ujs?: string[];
-  };
+export type IdentityFlow = Record<string, string | boolean>;
 
 export type IdentityFlowProps = keyof IdentityFlow;

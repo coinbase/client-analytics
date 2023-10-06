@@ -21,6 +21,18 @@ export type UAAData = {
   utm_content?: string;
 } & ReferrerData;
 
+export type AnalyticsQueries =
+  | 'fbclid'
+  | 'gclid'
+  | 'msclkid'
+  | 'ptclid'
+  | 'ttclid'
+  | 'utm_source'
+  | 'utm_medium'
+  | 'utm_campaign'
+  | 'utm_term'
+  | 'utm_content';
+
 export type SetLocation = {
   breadcrumbs?: Breadcrumb[];
   initialUAAData?: UAAData;

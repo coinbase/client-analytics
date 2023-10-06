@@ -1,7 +1,11 @@
 import { Metric } from '../types/metric.ts';
 import { compose } from './compose.ts';
 import { getLocation, getIdentityFlow, getIdentity, getConfig } from '../storage/storage';
-import { PageviewConfig } from '../types/event.ts';
+import { AuthStatus, PageviewConfig, ValidationType } from '../types/event.ts';
+import { Event } from '../types/event.ts';
+import { getNow, timeStone } from './time.ts';
+import { getIsAuthed } from '../storage/identity.ts';
+import { getReferrerData, persistentUAAData, uaaValuesFromUrl } from '../storage/location.ts';
 
 /**
  * Enhance the metric with the pagePath.
@@ -29,6 +33,62 @@ const tagsEnhancer = <T extends Metric>(entity: T) => {
   return entity;
 };
 
+const validPropertiesEnhancer = <T extends Event>(entity: T) => {
+  const timestamp = getNow();
+  const logData = {
+    ...entity,
+  }
+
+  const identity = getIdentity();
+  const config = getConfig();
+  if (!logData) {
+    config.onError(new Error('missing logData'));
+    return {
+      ...enhanceProperties('unknown', 'uknown', 'unknown'),
+      locale: identity.locale,
+      session_lcc_id: identity.session_lcc_id,
+      timestamp,
+      time_start: timeStone.timeStart,
+    } as Event;
+  }
+
+  const validatedEvent = {
+    ...logData,
+    ...enhanceProperties(logData.action, logData.component, logData.name),
+    locale: identity.locale,
+    session_lcc_id: identity.session_lcc_id,
+    timestamp,
+    time_start: timeStone.timeStart,
+  } as Event;
+  // When passed componentType or loggingId it's important
+  // to removed them from the original reference,
+  // and keep only component_type and logging_id
+  
+  // delete validatedEvent.componentType;
+  // delete validatedEvent.loggingId;
+  // TODO: CHECK IF NEEDED
+  return validatedEvent;
+}
+
+export const enhanceProperties = (
+  action: string,
+  component: string,
+  name: string,
+): ValidationType => {
+  const config = getConfig();
+  
+  const properties = {
+    auth: getIsAuthed() ? AuthStatus.loggedIn : AuthStatus.notLoggedIn,
+    action: action,
+    component: component,
+    name: name,
+    platform: config.platform,
+    project_name: config.projectName,
+  } as ValidationType;
+
+  return properties;
+};
+
 export const pageview: PageviewConfig = {
   blacklistRegex: [],
   isEnabled: false,
@@ -49,6 +109,35 @@ const pageviewEnhancer = <T extends Event>(entity: T) => {
   
   return entity;
 }
+
+const userAttributionEnhancer = <T extends Event>(entity: T) => {
+  // User Attribution enhancement
+  const location = getLocation();
+  // When UAA data exist we return always the initial value
+  if (Object.keys(location.initialUAAData).length > 0) {
+    location.initialUAAData;
+    Object.assign(entity, location.initialUAAData);
+
+    return entity;
+  }
+
+  // Set prev value to avoid extra calls;
+  location.initialUAAData = { ...persistentUAAData(), ...uaaValuesFromUrl(), ...getReferrerData() };
+
+  Object.assign(entity, location.initialUAAData);
+
+  return entity;
+};
+
+const identityFlowEnhancer = <T extends Event>(entity: T) => {
+  const identityFlow = getIdentityFlow();
+  if (Object.keys(identityFlow).length > 0) {
+    Object.assign(entity, identityFlow);
+  }
+
+  return entity;
+};
+
 
 export const metricEnhancers = (metric: Metric) => {
   return compose(locationPagePathEnhancer, tagsEnhancer)(metric);

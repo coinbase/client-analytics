@@ -283,7 +283,6 @@ describe('identity', () => {
 
   describe('setDeviceSize()', () => {
     beforeEach(() => {
-      // jest.resetAllMocks();
       resetState();
       customGlobal.innerWidth = 500;
       customGlobal.innerHeight = 900;
@@ -296,24 +295,6 @@ describe('identity', () => {
       expect(device.width).toEqual(800);
     });
 
-    // test('should set device height and width on resize', () => {
-    //     setConfig({
-    //         platform: 'web',
-    //         projectName: 'testing'
-    //       });
-    //   expect(device.height).toBeNull();
-    //   expect(window.innerHeight).toEqual(900);
-    //   initPageResize();
-
-    //   void act(() => {
-    //     customGlobal.innerWidth = 230;
-    //     customGlobal.innerHeight = 315;
-
-    //     fireEvent(customGlobal, new Event('resize'));
-    //   });
-
-    //   expect(device.height).toEqual(315);
-    // });
   });
 
   describe('setLanguageCode()', () => {
@@ -333,8 +314,7 @@ describe('identity', () => {
   describe('getPlatformValue() mobile_web platform', () => {
     beforeEach(() => {
       resetState();
-      // jest.resetAllMocks();
-      // jest.spyOn(isMobileWeb, 'isMobileWeb').mockImplementation(() => true);
+
     });
 
     test('should set platform to mobile_web when isMobileWeb is true', () => {

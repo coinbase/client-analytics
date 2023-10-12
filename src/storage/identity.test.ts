@@ -12,8 +12,7 @@ import {
 } from './identity';
 
 import { init as setConfig } from './config';
-import { describe, test, expect, beforeEach, afterAll, SpyInstance } from 'vitest';
-import { isMobileWeb } from '../utils/isPlatform';
+import { describe, test, expect, beforeEach, afterAll } from 'vitest';
 
 const customGlobal: any = global;
 
@@ -47,8 +46,6 @@ describe('identity', () => {
     'Mozilla/5.0 (darwin) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/11.12.0';
 
   beforeEach(() => {
-    // jest.resetAllMocks(); - Do we still need this?
-    // jest.clearAllMocks();
     resetState();
     Object.defineProperty(window.navigator, 'languages', {
       value: ['en'],
@@ -82,7 +79,6 @@ describe('identity', () => {
 
   describe('getIsAuthed()', () => {
     beforeEach(() => {
-      // jest.resetAllMocks();
       resetState();
     });
 
@@ -99,7 +95,6 @@ describe('identity', () => {
 
   describe('setDevice()', () => {
     beforeEach(() => {
-      // jest.resetAllMocks();
       resetState();
     });
 
@@ -142,12 +137,10 @@ describe('identity', () => {
 
   describe('setIdentity()', () => {
     beforeEach(() => {
-      //jest.resetAllMocks();
       resetState();
     });
 
     afterAll(() => {
-      // jest.resetAllMocks();
       identity.countryCode = null;
       identity.deviceId = null;
       identity.device_os = null;

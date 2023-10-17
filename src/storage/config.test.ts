@@ -13,8 +13,8 @@ describe('getDefaultConfig', () => {
       eventPath: '/events',
       metricPath: '/metrics',
       onError: expect.any(Function),
-      serviceUrl: 'provide.service.url',
       disabled: false,
+      apiEndpoint: 'https://cca-lite.coinbase.com',
     });
   });
   test('should return config with custom props', () => {
@@ -26,7 +26,7 @@ describe('getDefaultConfig', () => {
       eventPath: '/custom-events',
       metricPath: '/custom-metrics',
       onError:expect.any(Function),
-      serviceUrl: 'https://open.analytics',
+      apiEndpoint: 'https://open.analytics',
       disabled: false,
     });
 
@@ -38,16 +38,16 @@ describe('getDefaultConfig', () => {
       eventPath: '/custom-events',
       metricPath: '/custom-metrics',
       onError: expect.any(Function),
-      serviceUrl: 'https://open.analytics',
+      apiEndpoint: 'https://open.analytics',
       disabled: false,
     });
   });
 
-  test('should throw error if serviceUrl is not valid', () => {
+  test('should throw error if apiEndpoint is not valid', () => {
     expect(() => {
       // @ts-ignore
       init({
-        serviceUrl: 'not-valid-url'
+        apiEndpoint: 'not-valid-url'
       });
     }).toThrow();
   });

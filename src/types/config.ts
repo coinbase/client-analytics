@@ -26,7 +26,6 @@ export type CustomConfig = {
   eventPath: string;
   metricPath: string;
   disabled: boolean;
-  serviceUrl: string;
   onError: (err: Error, metadata?: Record<string, unknown>) => void;
   isDebug: boolean;
   isProd: boolean;
@@ -37,7 +36,7 @@ export type CustomConfig = {
   isAlwaysAuthed?: boolean;
   version?: string | number | null;
   apiEndpoint: string;
-  overrideWindowLocation?: boolean;
+  reset?: () => void;
 }
 
 /**

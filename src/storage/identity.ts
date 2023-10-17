@@ -76,10 +76,7 @@ export const setIdentity = (properties: SetIdentity) => {
 };
 
 export const setLanguageCode = () => {
-  if (isWebPlatform()) {
-    identity.languageCode =
-      navigator?.languages[0] || navigator?.language || '';
-  }
+  identity.languageCode = navigator?.languages[0] || navigator?.language || '';
 };
 
 export const setDeviceSize = (properties: SetDeviceSize) => {

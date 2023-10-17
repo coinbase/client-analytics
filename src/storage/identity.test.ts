@@ -29,7 +29,8 @@ const resetState = () => {
   identity.countryCode = null;
   identity.deviceId = null;
   identity.device_os = null;
-  (identity.isOptOut = false), (identity.languageCode = null);
+  identity.isOptOut = false;
+  identity.languageCode = null;
   identity.locale = null;
   identity.session_lcc_id = null;
   identity.userAgent = null;
@@ -287,7 +288,6 @@ describe('identity', () => {
       expect(device.height).toEqual(1000);
       expect(device.width).toEqual(800);
     });
-
   });
 
   describe('setLanguageCode()', () => {
@@ -296,10 +296,11 @@ describe('identity', () => {
     });
 
     test('should set languageCode when is web', () => {
-        setConfig({
-            platform: 'web',
-            projectName: 'testing'
-          });      setLanguageCode();
+      setConfig({
+        platform: 'web',
+        projectName: 'testing',
+      });
+      setLanguageCode();
       expect(identity.languageCode).toBe('en');
     });
   });
@@ -307,7 +308,6 @@ describe('identity', () => {
   describe('getPlatformValue() mobile_web platform', () => {
     beforeEach(() => {
       resetState();
-
     });
 
     test('should set platform to mobile_web when isMobileWeb is true', () => {
@@ -315,10 +315,11 @@ describe('identity', () => {
     });
 
     test('should set platform to mobile_web', () => {
-        setConfig({
-            platform: 'mobile_web',
-            projectName: 'testing'
-          });      expect(getPlatformValue()).toBe('mobile_web');
+      setConfig({
+        platform: 'mobile_web',
+        projectName: 'testing',
+      });
+      expect(getPlatformValue()).toBe('mobile_web');
     });
   });
 });

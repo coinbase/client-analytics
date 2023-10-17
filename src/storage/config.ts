@@ -1,5 +1,6 @@
 import { Config, InputConfig } from '../types/config';
-import { SERVICE_URL_ERROR } from '../utils/errors';
+import { APIENDPOINT_URL_ERROR } from '../utils/errors';
+import { getConfig } from './storage';
 
 export const DEFAULT_CONFIG = {
   isProd: false,
@@ -9,11 +10,11 @@ export const DEFAULT_CONFIG = {
   onError: () => undefined,
   eventPath: '/events',
   metricPath: '/metrics',
-  serviceUrl: 'provide.service.url',
   disabled: false,
   isAlwaysAuthed: false,
   version: null,
   apiEndpoint: 'https://cca-lite.coinbase.com',
+  reset: () => Object.assign(getConfig(), DEFAULT_CONFIG)    
 };
 
 const validateUrl = (url?: string): boolean => {
@@ -28,8 +29,8 @@ const validateUrl = (url?: string): boolean => {
 
 export const init = (config: InputConfig): Config => {
   // validated config
-  if (!validateUrl(config.serviceUrl)) {
-    throw SERVICE_URL_ERROR;
+  if (!validateUrl(config.apiEndpoint)) {
+    throw APIENDPOINT_URL_ERROR;
   }
 
   return {

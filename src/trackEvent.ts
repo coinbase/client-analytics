@@ -1,6 +1,6 @@
 import { Event, Importance } from './types/event';
 import { isValidPlatform } from './utils/validators';
-import { getEventScheduler, getIdentity, getConfig } from './storage/storage';
+import { getEventScheduler, getStorage } from './storage/storage';
 import { eventEnhancers } from './utils/enhancers';
 
 /**
@@ -9,11 +9,11 @@ import { eventEnhancers } from './utils/enhancers';
  */
 export const trackEvent = (
   event: Event,
-  importance: Importance = 'low',
+  importance: Importance = 'low'
 ): Promise<Event | null> => {
+  const { config, identity } = getStorage();
+
   // Stop event if user opt out analytics
-  const identity = getIdentity();
-  const config = getConfig();
   if (identity.isOptOut) {
     return Promise.resolve(null);
   }

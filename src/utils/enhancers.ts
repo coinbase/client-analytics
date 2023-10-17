@@ -1,6 +1,6 @@
 import { Metric } from '../types/metric.ts';
 import { compose } from './compose.ts';
-import { getLocation, getIdentityFlow, getIdentity, getConfig } from '../storage/storage';
+import { getLocation, getIdentity, getConfig } from '../storage/storage';
 import { AuthStatus, PageviewConfig, ValidationType } from '../types/event.ts';
 import { Event } from '../types/event.ts';
 import { getNow, timeStone } from './time.ts';
@@ -21,12 +21,10 @@ const locationPagePathEnhancer = <T extends Metric>(entity: T) => {
 };
 
 const tagsEnhancer = <T extends Metric>(entity: T) => {
-  const identityFlow = getIdentityFlow();
   const identity = getIdentity();
 
   entity.tags = {
     ...entity.tags,
-    ...(identityFlow ?? {}),
     locale: identity.locale ?? '',
   };
 
@@ -74,7 +72,7 @@ const validPropertiesEnhancer = <T extends Event>(entity: T) => {
   return entity;
 }
 
-export const enhanceProperties = (
+const enhanceProperties = (
   action: string,
   component: string,
   name: string,
@@ -132,20 +130,11 @@ const userAttributionEnhancer = <T extends Event>(entity: T) => {
   return entity;
 };
 
-const identityFlowEnhancer = <T extends Event>(entity: T) => {
-  const identityFlow = getIdentityFlow();
-  if (Object.keys(identityFlow).length > 0) {
-    Object.assign(entity, identityFlow);
-  }
-
-  return entity;
-};
-
 
 export const metricEnhancers = (metric: Metric) => {
   return compose(locationPagePathEnhancer, tagsEnhancer)(metric);
 };
 
 export const eventEnhancers = (event: Event) => {
-  return compose(pageviewEnhancer, userAttributionEnhancer, identityFlowEnhancer, validPropertiesEnhancer)(event);
+  return compose(pageviewEnhancer, userAttributionEnhancer, validPropertiesEnhancer)(event);
 };

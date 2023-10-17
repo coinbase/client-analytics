@@ -6,15 +6,6 @@ export type AnalyticsPersistentData = {
   sessionStart: number;
   sessionUUID: string | null;
   userId: string | null;
-  // Session Quality
-  ac: number; // action click
-  af: number; // action focus
-  ah: number; // action hover
-  al: number; // action scroll
-  am: number; // action move
-  as: number; // action select
-  ar: number; // action search
-  pv: number; // pageview
 } & UAAData;
 
 export type AnalyticsSetPersistentData = {
@@ -23,13 +14,4 @@ export type AnalyticsSetPersistentData = {
   sessionStart?: number;
   sessionUUID?: string | null;
   userId?: string | null;
-  // Session Quality
-  ac?: number; // action click
-  af?: number; // action focus
-  ah?: number; // action hover
-  al?: number; // action scroll
-  am?: number; // action move
-  as?: number; // action select
-  ar?: number; // action search
-  pv?: number; // pageview
 } & UAAData;

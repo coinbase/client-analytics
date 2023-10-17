@@ -1,4 +1,4 @@
-import { PlatformName } from "./config";
+import { PlatformName } from './config';
 
 type BaseData = string | number | boolean | undefined | null;
 export type OptionalData = Record<string, BaseData | BaseData[]>;
@@ -21,7 +21,7 @@ type ValidationData = {
   action: string;
   component: string;
   name: string;
-}
+};
 
 export type ValidationType = ValidationData & {
   auth: AuthStatus;
@@ -31,6 +31,4 @@ export type ValidationType = ValidationData & {
   project_name: string;
 };
 
-export type AuthStatus = 
-  | 'notLoggedIn'
-  | 'loggedIn';
+export type AuthStatus = 'notLoggedIn' | 'loggedIn';

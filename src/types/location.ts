@@ -33,16 +33,11 @@ export type AnalyticsQueries =
   | 'utm_term'
   | 'utm_content';
 
-export type SetLocation = {
-  breadcrumbs?: Breadcrumb[];
-  initialUAAData?: UAAData;
-  pagePath?: string;
-  prevPagePath?: string;
-};
-
 export type Location = {
   breadcrumbs: Breadcrumb[];
   initialUAAData: UAAData;
   pagePath: string;
   prevPagePath: string;
 };
+
+export type SetLocation = Partial<Location>;

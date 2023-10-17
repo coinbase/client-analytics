@@ -6,10 +6,8 @@ import { Scheduler } from '../types/scheduler';
 import { Metric } from '../types/metric';
 import { Event } from '../types/event';
 import { Location } from '../types/location';
-import { identityFlow } from './identityFlow';
 
 import { location } from './location';
-import { IdentityFlow } from '../types/identityFlow';
 import { identity } from './identity';
 import { Identity } from '../types/identity';
 
@@ -18,7 +16,6 @@ const storage: Storage = {
   metricScheduler: createScheduler<Metric>(),
   eventScheduler: createScheduler<Event>(),
   location: location,
-  identityFlow: identityFlow,
   identity: identity,
 };
 
@@ -40,5 +37,4 @@ export const getConfig = (): Config => getStorage().config;
 export const getMetricScheduler = (): Scheduler<Metric> => getStorage().metricScheduler;
 export const getEventScheduler = (): Scheduler<Event> => getStorage().eventScheduler;
 export const getLocation = (): Location => getStorage().location;
-export const getIdentityFlow = (): IdentityFlow => getStorage().identityFlow;
 export const getIdentity = (): Identity => getStorage().identity;

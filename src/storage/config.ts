@@ -14,7 +14,7 @@ export const DEFAULT_CONFIG = {
   isAlwaysAuthed: false,
   version: null,
   apiEndpoint: 'https://cca-lite.coinbase.com',
-  reset: () => Object.assign(getConfig(), DEFAULT_CONFIG)    
+  reset: () => Object.assign(getConfig(), DEFAULT_CONFIG)
 };
 
 const validateUrl = (url?: string): boolean => {

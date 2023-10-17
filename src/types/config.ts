@@ -36,7 +36,7 @@ export type CustomConfig = {
   isAlwaysAuthed?: boolean;
   version?: string | number | null;
   apiEndpoint: string;
-  reset?: () => void;
+  reset: () => void;
 }
 
 /**

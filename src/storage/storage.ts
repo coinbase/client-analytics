@@ -8,8 +8,8 @@ import { Event } from '../types/event';
 import { Location } from '../types/location';
 
 import { location } from './location';
-import { identity } from './identity';
-import { Identity } from '../types/identity';
+import { identify, identity, device } from './identity';
+import { Device, Identity } from '../types/identity';
 
 const storage: Storage = {
   config: DEFAULT_CONFIG as Config,
@@ -17,6 +17,7 @@ const storage: Storage = {
   eventScheduler: createScheduler<Event>(),
   location: location,
   identity: identity,
+  device: device,
 };
 
 export const init = (config: Config): void => {
@@ -29,6 +30,8 @@ export const init = (config: Config): void => {
     config.batchEventsThreshold,
     config.batchEventsPeriod
   );
+  storage.identity = identify(identity);
+  storage.device = device;
 };
 
 export const getStorage = (): Storage => storage;
@@ -38,3 +41,4 @@ export const getMetricScheduler = (): Scheduler<Metric> => getStorage().metricSc
 export const getEventScheduler = (): Scheduler<Event> => getStorage().eventScheduler;
 export const getLocation = (): Location => getStorage().location;
 export const getIdentity = (): Identity => getStorage().identity;
+export const getDevice = (): Device => getStorage().device;

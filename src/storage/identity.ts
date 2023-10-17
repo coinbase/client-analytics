@@ -34,6 +34,7 @@ export const identity: Identity = {
   session_lcc_id: null,
   userAgent: null,
   userId: null,
+  isAuthed: () => { const config = getConfig(); return config.isAlwaysAuthed || !!identity.userId; }
 };
 
 export const generateUUID = (input?: any) => {
@@ -62,17 +63,16 @@ export const getPlatformValue = (): PlatformName => {
  * Set device information based on the platform used
  */
 export const setDevice = () => {
-  if (isWebPlatform()) {
     device.userAgent = window?.navigator?.userAgent || null;
     setDeviceSize({
       height: window?.innerHeight ?? null,
       width: window?.innerWidth ?? null,
     });
-  }
 };
 
 export const setIdentity = (properties: SetIdentity) => {
   Object.assign(identity, properties);
+  return identity;
 };
 
 export const setLanguageCode = () => {
@@ -82,4 +82,31 @@ export const setLanguageCode = () => {
 export const setDeviceSize = (properties: SetDeviceSize) => {
   device.height = properties.height;
   device.width = properties.width;
+};
+
+/**
+ * Sets the User ID and updates user properties for future events.
+ */
+export const identify = (properties: SetIdentity) => {
+  setIdentity(properties);
+  if (properties.userAgent) {
+    setDevice();
+  }
+  return identity;
+};
+
+/**
+ * Turns off logging for the user.
+ * No events will be saved or sent to Analytics Service
+ * while this is enabled.
+ */
+export const optOut = () => {
+  setIdentity({ isOptOut: true });
+};
+
+/**
+ * Turns on logging for the user.
+ */
+export const optIn = () => {
+  setIdentity({ isOptOut: false });
 };

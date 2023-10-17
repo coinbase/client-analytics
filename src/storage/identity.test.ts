@@ -18,6 +18,7 @@ const customGlobal: any = global;
 
 const resetState = () => {
   const config = getConfig();
+  config.reset();
   device.browserName = null;
   device.browserMajor = null;
   device.osName = null;

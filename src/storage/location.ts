@@ -6,6 +6,12 @@ export const location: Location = {
   initialUAAData: {},
   pagePath: '',
   prevPagePath: '',
+  getPageviewProperties: () => {
+    return {
+      page_path: location.pagePath,
+      prev_page_path: location.prevPagePath,
+    };
+  },
 };
 
 const UAA_QUERIES: AnalyticsQueries[] = [

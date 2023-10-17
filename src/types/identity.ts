@@ -22,6 +22,7 @@ export type Identity = {
   session_lcc_id: string | null;
   userAgent: string | null;
   userId: string | null;
+  isAuthed: () => boolean;
 };
 
 export type SetIdentity = Partial<Identity>;

@@ -34,6 +34,7 @@ export type AnalyticsQueries =
   | 'utm_content';
 
 export type Location = {
+  getPageviewProperties: () => Record<string, string | null>;
   breadcrumbs: Breadcrumb[];
   initialUAAData: UAAData;
   pagePath: string;

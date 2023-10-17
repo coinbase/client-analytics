@@ -1,11 +1,28 @@
 import { Metric } from '../types/metric.ts';
 import { compose } from './compose.ts';
-import { getLocation, getIdentity, getConfig } from '../storage/storage';
+import { getLocation, getIdentity, getConfig, getDevice } from '../storage/storage';
 import { AuthStatus, PageviewConfig, ValidationType } from '../types/event.ts';
 import { Event } from '../types/event.ts';
 import { getNow, timeStone } from './time.ts';
 import { getIsAuthed } from '../storage/identity.ts';
 import { getReferrerData, persistentUAAData, uaaValuesFromUrl } from '../storage/location.ts';
+import { SetDeviceSize } from '../types/identity.ts';
+
+// export const setLanguageCode = () => {
+//   const identity = getIdentity();
+//   identity.languageCode = navigator?.languages[0] || navigator?.language || '';
+// };
+
+// export const setDeviceSize = (properties: SetDeviceSize) => {
+//   const device = getDevice();
+//   device.height = properties.height;
+//   device.width = properties.width;
+// };
+
+// export const identityEnhancers = (properties: SetDeviceSize) => {
+//   setLanguageCode();
+//   setDeviceSize(properties);
+// }
 
 /**
  * Enhance the metric with the pagePath.
@@ -78,8 +95,9 @@ const enhanceProperties = (
   name: string,
 ): ValidationType => {
   const config = getConfig();
+  const identity = getIdentity();
   const properties = {
-    auth: getIsAuthed() ? 'loggedIn' : 'notLoggedIn',
+    auth: identity.isAuthed() ? 'loggedIn' : 'notLoggedIn',
     action: action,
     component: component,
     name: name,
@@ -90,22 +108,15 @@ const enhanceProperties = (
   return properties;
 };
 
-export const pageview: PageviewConfig = {
+const pageview: PageviewConfig = {
   blacklistRegex: [],
   isEnabled: false,
 };
 
-export function getPageviewProperties(): Record<string, string | null> {
-  const location = getLocation();
-  return {
-    page_path: location.pagePath,
-    prev_page_path: location.prevPagePath,
-  };
-}
-
 const pageviewEnhancer = <T extends Event>(entity: T) => {
+  const location = getLocation();
   if (pageview.isEnabled) {
-    Object.assign(entity, getPageviewProperties());
+    Object.assign(entity, location.getPageviewProperties());
   }
   
   return entity;

@@ -36,7 +36,6 @@ const resetState = () => {
   identity.session_lcc_id = null;
   identity.userAgent = null;
   identity.userId = null;
-  config.isAlwaysAuthed = false;
   setConfig({
     platform: 'web',
     projectName: 'testing',

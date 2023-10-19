@@ -1,28 +1,42 @@
 import { Metric } from '../types/metric.ts';
 import { compose } from './compose.ts';
 import { getLocation, getIdentity, getConfig, getDevice } from '../storage/storage';
-import { AuthStatus, PageviewConfig, ValidationType } from '../types/event.ts';
+import { PageviewConfig, ValidationType } from '../types/event.ts';
 import { Event } from '../types/event.ts';
 import { getNow, timeStone } from './time.ts';
-import { getIsAuthed } from '../storage/identity.ts';
 import { getReferrerData, persistentUAAData, uaaValuesFromUrl } from '../storage/location.ts';
-import { SetDeviceSize } from '../types/identity.ts';
+import { SetDeviceSize } from '../types/device.ts';
 
-// export const setLanguageCode = () => {
-//   const identity = getIdentity();
-//   identity.languageCode = navigator?.languages[0] || navigator?.language || '';
-// };
+const setLanguageCode = () => {
+  const identity = getIdentity();
+  identity.languageCode = navigator?.languages[0] || navigator?.language || '';
+};
 
-// export const setDeviceSize = (properties: SetDeviceSize) => {
-//   const device = getDevice();
-//   device.height = properties.height;
-//   device.width = properties.width;
-// };
+const setDeviceSize = (properties: SetDeviceSize) => {
+  const device = getDevice();
+  device.height = properties.height;
+  device.width = properties.width;
+};
 
-// export const identityEnhancers = (properties: SetDeviceSize) => {
-//   setLanguageCode();
-//   setDeviceSize(properties);
-// }
+/**
+ * Set device information based on the platform used
+ */
+export const setDevice = () => {
+  const device = getDevice();
+  device.userAgent = window?.navigator?.userAgent || null;
+  setDeviceSize({
+    height: window?.innerHeight ?? null,
+    width: window?.innerWidth ?? null,
+  });
+};
+
+export const identityEnhancer = () => {
+  setLanguageCode();
+}
+
+export const deviceEnhancer = () => {
+  setDevice();
+}
 
 /**
  * Enhance the metric with the pagePath.

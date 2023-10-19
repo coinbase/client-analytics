@@ -1,30 +1,16 @@
-import { getConfig } from './storage';
+import { getConfig, getIdentity, getStorage } from './storage';
 import {
-  Device,
   Identity,
-  SetDeviceSize,
   SetIdentity,
 } from '../types/identity';
 import { PlatformName } from '../types/config';
-import { isMobileWeb, isWebPlatform } from '../utils/isPlatform';
-
-/**
- * Cross-platform device information
- */
-export const device: Device = {
-  // Device information
-  browserName: null,
-  browserMajor: null,
-  osName: null,
-  userAgent: null,
-  width: null,
-  height: null,
-};
+import { isMobileWeb } from '../utils/isPlatform';
+import { setDevice } from '../utils/enhancers';
 
 /**
  * Information need it to identify the user experience.
  */
-export const identity: Identity = {
+export const DEFAULT_IDENTITY = {
   countryCode: null,
   deviceId: null,
   device_os: null,
@@ -34,7 +20,7 @@ export const identity: Identity = {
   session_lcc_id: null,
   userAgent: null,
   userId: null,
-  isAuthed: () => { const config = getConfig(); return config.isAlwaysAuthed || !!identity.userId; }
+  isAuthed: () => { const config = getConfig(); return config.isAlwaysAuthed || !!getIdentity().userId; }
 };
 
 export const generateUUID = (input?: any) => {
@@ -45,7 +31,7 @@ export const generateUUID = (input?: any) => {
 
 export const getIsAuthed = (): boolean => {
   const config = getConfig();
-  return config.isAlwaysAuthed || !!identity.userId;
+  return config.isAlwaysAuthed || !!getIdentity().userId;
 };
 
 export const getPlatformValue = (): PlatformName => {
@@ -59,29 +45,9 @@ export const getPlatformValue = (): PlatformName => {
   return platform;
 };
 
-/**
- * Set device information based on the platform used
- */
-export const setDevice = () => {
-    device.userAgent = window?.navigator?.userAgent || null;
-    setDeviceSize({
-      height: window?.innerHeight ?? null,
-      width: window?.innerWidth ?? null,
-    });
-};
-
 export const setIdentity = (properties: SetIdentity) => {
-  Object.assign(identity, properties);
-  return identity;
-};
-
-export const setLanguageCode = () => {
-  identity.languageCode = navigator?.languages[0] || navigator?.language || '';
-};
-
-export const setDeviceSize = (properties: SetDeviceSize) => {
-  device.height = properties.height;
-  device.width = properties.width;
+  Object.assign(getStorage().identity, properties);
+  return getStorage().identity;
 };
 
 /**
@@ -92,7 +58,7 @@ export const identify = (properties: SetIdentity) => {
   if (properties.userAgent) {
     setDevice();
   }
-  return identity;
+  return getStorage().identity;
 };
 
 /**
@@ -110,3 +76,10 @@ export const optOut = () => {
 export const optIn = () => {
   setIdentity({ isOptOut: false });
 };
+
+export const identityInit = () : Identity => {
+
+  return {
+    ...DEFAULT_IDENTITY
+  }
+}

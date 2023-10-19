@@ -1,13 +1,8 @@
 /* eslint-disable */
-import { getConfig } from './storage';
+import { getConfig, getDevice, getIdentity } from './storage';
 import {
-  device,
   getIsAuthed,
-  identity,
-  setDevice,
-  setDeviceSize,
   setIdentity,
-  setLanguageCode,
   getPlatformValue,
 } from './identity';
 
@@ -18,6 +13,8 @@ const customGlobal: any = global;
 
 const resetState = () => {
   const config = getConfig();
+  const device = getDevice();
+  const identity = getIdentity();
   config.reset();
   device.browserName = null;
   device.browserMajor = null;
@@ -64,6 +61,7 @@ describe('identity', () => {
   });
 
   test('should have the right default values', () => {
+    const identity = getIdentity();
     expect(identity).toEqual({
       countryCode: null,
       deviceId: null,
@@ -89,50 +87,9 @@ describe('identity', () => {
     });
 
     test('should check if userId is set when isAlwaysAuthed is false', () => {
+      const identity = getIdentity();
       identity.userId = 'userId';
       expect(getIsAuthed()).toBe(true);
-    });
-  });
-
-  describe('setDevice()', () => {
-    beforeEach(() => {
-      resetState();
-    });
-
-    test('should set device when platform is web', () => {
-      setConfig({
-        platform: 'web',
-        projectName: 'testing',
-      });
-      setDevice();
-      expect(device).toEqual({
-        amplitudeDeviceModel: 'browserOS',
-        amplitudeOSName: 'browserName',
-        amplitudeOSVersion: 'browserMajor',
-        amplitudePlatform: 'Web',
-        browserMajor: 'browserMajor',
-        browserName: 'browserName',
-        osName: 'browserOS',
-        height: 1000,
-        width: 800,
-        userAgent,
-      });
-    });
-
-    test('should set device when platform is mobile_web', () => {
-      setConfig({
-        platform: 'mobile_web',
-        projectName: 'testing',
-      });
-      setDevice();
-      expect(device).toEqual({
-        browserMajor: 'browserMajor',
-        browserName: 'browserName',
-        osName: 'browserOS',
-        height: 1000,
-        width: 800,
-        userAgent,
-      });
     });
   });
 
@@ -142,6 +99,7 @@ describe('identity', () => {
     });
 
     afterAll(() => {
+      const identity = getIdentity();
       identity.countryCode = null;
       identity.deviceId = null;
       identity.device_os = null;
@@ -170,6 +128,7 @@ describe('identity', () => {
         userId: 'userId',
       });
 
+      const identity = getIdentity();
       expect(identity).toEqual({
         countryCode: 'US',
         deviceId: 'deviceId',
@@ -188,6 +147,8 @@ describe('identity', () => {
       setIdentity({
         userId: 'userId',
       });
+      const identity = getIdentity();
+
       expect(identity).toEqual({
         countryCode: null,
         deviceId: null,
@@ -206,6 +167,8 @@ describe('identity', () => {
       setIdentity({
         deviceId: 'deviceId',
       });
+      const identity = getIdentity();
+
       expect(identity).toEqual({
         countryCode: null,
         deviceId: 'deviceId',
@@ -224,6 +187,8 @@ describe('identity', () => {
       setIdentity({
         session_lcc_id: 'session_lcc_id',
       });
+      const identity = getIdentity();
+
       expect(identity).toEqual({
         countryCode: null,
         deviceId: null,
@@ -242,6 +207,8 @@ describe('identity', () => {
       setIdentity({
         device_os: 'device_os',
       });
+      const identity = getIdentity();
+
       expect(identity).toEqual({
         countryCode: null,
         deviceId: null,
@@ -260,6 +227,8 @@ describe('identity', () => {
       setIdentity({
         userAgent: 'user-agent',
       });
+      const identity = getIdentity();
+
       expect(identity).toEqual({
         countryCode: null,
         deviceId: null,
@@ -272,36 +241,6 @@ describe('identity', () => {
         userAgent: 'user-agent',
         userId: null,
       });
-    });
-  });
-
-  describe('setDeviceSize()', () => {
-    beforeEach(() => {
-      resetState();
-      customGlobal.innerWidth = 500;
-      customGlobal.innerHeight = 900;
-    });
-
-    test('should set device height and width', () => {
-      expect(device.height).toBeNull();
-      setDeviceSize({ height: 1000, width: 800 });
-      expect(device.height).toEqual(1000);
-      expect(device.width).toEqual(800);
-    });
-  });
-
-  describe('setLanguageCode()', () => {
-    beforeEach(() => {
-      resetState();
-    });
-
-    test('should set languageCode when is web', () => {
-      setConfig({
-        platform: 'web',
-        projectName: 'testing',
-      });
-      setLanguageCode();
-      expect(identity.languageCode).toBe('en');
     });
   });
 

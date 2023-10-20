@@ -32,7 +32,7 @@ export const init = (config: Config): void => {
     config.batchEventsThreshold,
     config.batchEventsPeriod
   );
-  storage.identity = identityInit();
+  storage.identity = identityInit(config);
   storage.device = deviceInit();
 };
 

@@ -3,7 +3,7 @@ import {
   Identity,
   SetIdentity,
 } from '../types/identity';
-import { PlatformName } from '../types/config';
+import { Config, PlatformName } from '../types/config';
 import { isMobileWeb } from '../utils/isPlatform';
 import { setDevice } from '../utils/enhancers';
 
@@ -20,13 +20,7 @@ export const DEFAULT_IDENTITY = {
   session_lcc_id: null,
   userAgent: null,
   userId: null,
-  isAuthed: () => { const config = getConfig(); return config.isAlwaysAuthed || !!getIdentity().userId; }
-};
-
-export const generateUUID = (input?: any) => {
-  return input
-    ? (input ^ ((Math.random() * 16) >> (input / 4))).toString(16)
-    : '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, generateUUID);
+  isAuthed: () => false,
 };
 
 export const getIsAuthed = (): boolean => {
@@ -77,9 +71,10 @@ export const optIn = () => {
   setIdentity({ isOptOut: false });
 };
 
-export const identityInit = () : Identity => {
+export const identityInit = (config: Config) : Identity => {
 
   return {
-    ...DEFAULT_IDENTITY
-  }
-}
+    ...DEFAULT_IDENTITY,
+    isAuthed: () => { return config.isAlwaysAuthed || !!getIdentity().userId; },
+  };
+};

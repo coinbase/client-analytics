@@ -9,19 +9,10 @@ import {
 import { init as setConfig } from './config';
 import { describe, test, expect, beforeEach, afterAll } from 'vitest';
 
-const customGlobal: any = global;
-
 const resetState = () => {
   const config = getConfig();
-  const device = getDevice();
   const identity = getIdentity();
   config.reset();
-  device.browserName = null;
-  device.browserMajor = null;
-  device.osName = null;
-  device.userAgent = null;
-  device.height = null;
-  device.width = null;
   identity.languageCode = null;
   identity.userAgent = null;
   identity.countryCode = null;

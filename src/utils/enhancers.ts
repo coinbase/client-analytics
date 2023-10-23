@@ -70,7 +70,8 @@ const validPropertiesEnhancer = <T extends Event>(entity: T) => {
 
   const identity = getIdentity();
   const config = getConfig();
-  if (!logData) {
+  if (Object.keys(logData).length === 0) {
+    console.log('@@hello')
     config.onError(new Error('missing logData'));
     const properties = {
       ...enhanceProperties('unknown', 'unknown', 'unknown'), // missing logData so action, component, and name are unknown

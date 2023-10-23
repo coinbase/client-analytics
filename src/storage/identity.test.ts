@@ -5,7 +5,6 @@ import {
   setIdentity,
   getPlatformValue,
 } from './identity';
-
 import { init as setConfig } from './config';
 import { describe, test, expect, beforeEach, afterAll } from 'vitest';
 
@@ -27,6 +26,7 @@ const resetState = () => {
   setConfig({
     platform: 'web',
     projectName: 'testing',
+    apiEndpoint: 'https://open.analytics',
   });
 };
 
@@ -60,7 +60,6 @@ describe('identity', () => {
       isOptOut: false,
       languageCode: null,
       locale: null,
-      jwt: null,
       session_lcc_id: null,
       userAgent: null,
       userId: null,
@@ -103,6 +102,7 @@ describe('identity', () => {
       setConfig({
         platform: 'web',
         projectName: 'testing',
+        apiEndpoint: 'https://open.analytics',
       });
     });
 
@@ -127,7 +127,6 @@ describe('identity', () => {
         isOptOut: true,
         languageCode: 'en-us',
         locale: 'it',
-        jwt: 'jwtValue',
         session_lcc_id: 'sessionLccID',
         userAgent: 'userAgent',
         userId: 'userId',
@@ -147,7 +146,6 @@ describe('identity', () => {
         isOptOut: false,
         languageCode: null,
         locale: null,
-        jwt: null,
         session_lcc_id: null,
         userAgent: null,
         userId: 'userId',
@@ -167,7 +165,6 @@ describe('identity', () => {
         isOptOut: false,
         languageCode: null,
         locale: null,
-        jwt: null,
         session_lcc_id: null,
         userAgent: null,
         userId: null,
@@ -187,7 +184,6 @@ describe('identity', () => {
         isOptOut: false,
         languageCode: null,
         locale: null,
-        jwt: null,
         session_lcc_id: 'session_lcc_id',
         userAgent: null,
         userId: null,
@@ -207,7 +203,6 @@ describe('identity', () => {
         isOptOut: false,
         languageCode: null,
         locale: null,
-        jwt: null,
         session_lcc_id: null,
         userAgent: null,
         userId: null,
@@ -227,7 +222,6 @@ describe('identity', () => {
         isOptOut: false,
         languageCode: null,
         locale: null,
-        jwt: null,
         session_lcc_id: null,
         userAgent: 'user-agent',
         userId: null,

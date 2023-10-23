@@ -40,6 +40,9 @@ describe('getDefaultConfig', () => {
       onError: expect.any(Function),
       apiEndpoint: 'https://open.analytics',
       disabled: false,
+      isAlwaysAuthed: false,
+      version: null,
+      apiEndpoint: 'https://cca-lite.coinbase.com',
     });
   });
 

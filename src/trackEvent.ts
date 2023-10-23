@@ -13,7 +13,7 @@ export const trackEvent = (
 ): Promise<Event | null> => {
   const { config, identity } = getStorage();
 
-  // Stop event if user opt out analytics
+  // TODO: combine validation in a set of validators
   if (identity.isOptOut) {
     return Promise.resolve(null);
   }

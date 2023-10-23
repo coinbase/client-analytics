@@ -14,6 +14,7 @@ export const DEFAULT_CONFIG = {
   isAlwaysAuthed: false,
   version: null,
   apiEndpoint: 'https://cca-lite.coinbase.com',
+  // TODO: find better solution to handle reset
   reset: () => Object.assign(getConfig(), DEFAULT_CONFIG)
 };
 

@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { getConfig, getDevice, getIdentity } from './storage';
+import { getConfig, getIdentity } from './storage';
 import {
   getIsAuthed,
   setIdentity,

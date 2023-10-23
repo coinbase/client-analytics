@@ -1,6 +1,5 @@
 import { SetLocation, Breadcrumb, UAAData, AnalyticsQueries, ReferrerData, Location } from '../types/location';
 import { persistentData } from './persistentData';
-import { getLocation } from './storage';
 
 export const DEFAULT_LOCATION = {
   breadcrumbs: [],

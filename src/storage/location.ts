@@ -1,17 +1,12 @@
-import { Location, SetLocation, Breadcrumb, UAAData, AnalyticsQueries, ReferrerData } from '../types/location';
+import { SetLocation, Breadcrumb, UAAData, AnalyticsQueries, ReferrerData, Location } from '../types/location';
 import { persistentData } from './persistentData';
+import { getLocation } from './storage';
 
-export const location: Location = {
+export const DEFAULT_LOCATION = {
   breadcrumbs: [],
   initialUAAData: {},
   pagePath: '',
   prevPagePath: '',
-  getPageviewProperties: () => {
-    return {
-      page_path: location.pagePath,
-      prev_page_path: location.prevPagePath,
-    };
-  },
 };
 
 const UAA_QUERIES: AnalyticsQueries[] = [
@@ -46,6 +41,13 @@ export const getUrlHostname = (): string => {
 export function getDocumentReferrer(): string {
   return document?.referrer ?? '';
 }
+
+export const getPageviewProperties = (location: Location): Record<string, string | null> => {
+  return {
+    page_path: location.pagePath,
+    prev_page_path: location.prevPagePath,
+  };
+};
 
 // Return persisted UAA data from memory
 export const persistentUAAData = () => {
@@ -89,5 +91,12 @@ export const getReferrerData = (): ReferrerData => {
   return {
     referrer: documentReferrer,
     referring_domain: referrerURL.hostname,
+  };
+};
+
+export const locationInit = () : Location => {
+
+  return {
+    ...DEFAULT_LOCATION,
   };
 };

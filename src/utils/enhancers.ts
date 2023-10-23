@@ -4,7 +4,7 @@ import { getLocation, getIdentity, getConfig, getDevice } from '../storage/stora
 import { PageviewConfig, ValidationType } from '../types/event.ts';
 import { Event } from '../types/event.ts';
 import { getNow, timeStone } from './time.ts';
-import { getReferrerData, persistentUAAData, uaaValuesFromUrl } from '../storage/location.ts';
+import { getPageviewProperties, getReferrerData, persistentUAAData, uaaValuesFromUrl } from '../storage/location.ts';
 import { SetDeviceSize } from '../types/device.ts';
 
 const setLanguageCode = () => {
@@ -130,7 +130,7 @@ const pageview: PageviewConfig = {
 const pageviewEnhancer = <T extends Event>(entity: T) => {
   const location = getLocation();
   if (pageview.isEnabled) {
-    Object.assign(entity, location.getPageviewProperties());
+    Object.assign(entity, getPageviewProperties(location));
   }
   
   return entity;

@@ -7,7 +7,7 @@ import { Metric } from '../types/metric';
 import { Event } from '../types/event';
 import { Location } from '../types/location';
 
-import { location } from './location';
+import { DEFAULT_LOCATION, locationInit } from './location';
 import { DEFAULT_IDENTITY, identityInit } from './identity';
 import { Identity } from '../types/identity';
 import { DEFAULT_DEVICE, deviceInit } from './device';
@@ -17,7 +17,7 @@ const storage: Storage = {
   config: DEFAULT_CONFIG as Config,
   metricScheduler: createScheduler<Metric>(),
   eventScheduler: createScheduler<Event>(),
-  location: location,
+  location: DEFAULT_LOCATION as Location,
   identity: DEFAULT_IDENTITY as Identity,
   device: DEFAULT_DEVICE as Device,
 };
@@ -34,6 +34,7 @@ export const init = (config: Config): void => {
   );
   storage.identity = identityInit(config);
   storage.device = deviceInit();
+  storage.location = locationInit();
 };
 
 export const getStorage = (): Storage => storage;

@@ -1,4 +1,6 @@
-// If you add to this enum, please also update the allowed_platform variable in: https://config.cbhq.net/development/data/analytics-service-development and https://config.cbhq.net/production/data/analytics-service-production
+/**
+ * The platform name
+ */
 export type PlatformName =
   | 'unknown'
   | 'web'
@@ -24,10 +26,17 @@ export type CustomConfig = {
   eventPath: string;
   metricPath: string;
   disabled: boolean;
-  serviceUrl: string;
   onError: (err: Error, metadata?: Record<string, unknown>) => void;
   isDebug: boolean;
   isProd: boolean;
+  batchEventsPeriod?: number;
+  batchEventsThreshold?: number;
+  batchMetricsPeriod?: number;
+  batchMetricsThreshold?: number;
+  isAlwaysAuthed?: boolean;
+  version?: string | number | null;
+  apiEndpoint: string;
+  reset: () => void;
 }
 
 /**

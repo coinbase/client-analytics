@@ -1,21 +1,32 @@
 import { Event, Importance } from './types/event';
 import { isValidPlatform } from './utils/validators';
-import { getEventScheduler } from './storage/storage';
+import { getEventScheduler, getStorage } from './storage/storage';
+import { eventEnhancers } from './utils/enhancers';
 
-export const trackEvent = (event: Event, importance: Importance = 'low'): Promise<Event | null> => {
-  // Stop event if user opt out analytics
-  // const identity = getIdentity();
-  // TODO: must implement identity
-  // if (identity.isOptOut) {
-  //   return;
-  // }
+/**
+ * log an event to analytics service
+ * @param event returns a promise that resolves when the event is added to the queue
+ */
+export const trackEvent = (
+  event: Event,
+  importance: Importance = 'low'
+): Promise<Event | null> => {
+  const { config, identity } = getStorage();
+
+  // TODO: combine validation in a set of validators
+  if (identity.isOptOut) {
+    return Promise.resolve(null);
+  }
+
+  if (config.disabled) {
+    return Promise.resolve(null);
+  }
 
   if (!isValidPlatform()) {
     return Promise.resolve(null);
   }
 
-  // TODO: add enhancers: same as trackMetric
-  const enhancedEvent = event;
+  const enhancedEvent = eventEnhancers(event);
 
   const eventScheduler = getEventScheduler();
   eventScheduler.add(enhancedEvent, importance);

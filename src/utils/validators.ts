@@ -9,5 +9,3 @@ export const isValidPlatform = (): boolean => {
 
   return true;
 }
-
-

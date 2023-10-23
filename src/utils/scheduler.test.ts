@@ -1,5 +1,6 @@
 import { test, expect, describe, beforeEach, vi } from 'vitest';
 import { createScheduler } from './scheduler';
+import { Scheduler } from '../types/scheduler';
 
 type TestEvent = {
   name: string;
@@ -7,7 +8,7 @@ type TestEvent = {
 };
 
 describe('Scheduler', () => {
-  let scheduler;
+  let scheduler: Scheduler<TestEvent>;
   beforeEach(() => {
     vi.resetAllMocks();
     scheduler = createScheduler<TestEvent>();

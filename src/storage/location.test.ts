@@ -1,20 +1,13 @@
-import { init as setConfig } from './config';
-import { getConfig } from './storage';
-import { getDocumentReferrer, getReferrerData, getUrlHostname, getUrlParams, uaaValuesFromUrl, location } from '../storage/location';
+import { getLocation } from './storage';
+import { getDocumentReferrer, getPageviewProperties, getReferrerData, getUrlHostname, getUrlParams, locationInit, setBreadcrumbs, setLocation, uaaValuesFromUrl } from '../storage/location';
 import { describe, test, expect, beforeEach } from 'vitest';
 
 const resetState = () => {
-  const config = getConfig();
+  const location = getLocation();
   location.breadcrumbs = [];
   location.initialUAAData = {};
   location.pagePath = '';
   location.prevPagePath = '';
-  config.isAlwaysAuthed = false;
-  setConfig({
-    platform: 'web',
-    projectName: 'testing',
-    serviceUrl: 'https://open.analytics',
-  });
 };
 
 describe('location', () => {
@@ -26,6 +19,62 @@ describe('location', () => {
     });
     Object.defineProperty(window, 'location', { value: { hostname: '' }, configurable: true });
   });
+
+  test('should init with right values', () => {
+    const location = locationInit();
+    expect(location).toEqual({
+      breadcrumbs: [],
+      initialUAAData: {},
+      pagePath: '',
+      prevPagePath: '',
+    });
+  });
+
+  test('should set location with custom values', () => {
+    const location = getLocation();
+    setLocation({
+      breadcrumbs: [{ label: 'test', href: 'test' }],
+      initialUAAData: { utm_term: 'test' },
+      pagePath: 'test',
+      prevPagePath: 'prevTest',
+    })
+    expect(location).toEqual({
+      breadcrumbs: [{ label: 'test', href: 'test' }],
+      initialUAAData: { utm_term: 'test' },
+      pagePath: 'test',
+      prevPagePath: 'prevTest',
+    });
+  });
+
+  test('should set breadcrumbs with custom values', () => {
+    const location = getLocation();
+    setBreadcrumbs([{
+      label: 'test', 
+      href: 'test' 
+    }])
+    expect(location).toEqual({
+      breadcrumbs: [{ label: 'test', href: 'test' }],
+      initialUAAData: {},
+      pagePath: '',
+      prevPagePath: '',
+    });
+  });
+
+  test('should get pageview properties', () => {
+    const location = getLocation();
+    setLocation({
+      breadcrumbs: [{ label: 'test', href: 'test' }],
+      initialUAAData: { utm_term: 'test' },
+      pagePath: 'test',
+      prevPagePath: 'prevTest',
+    })
+
+    expect(getPageviewProperties(location)).toEqual({
+      page_path: 'test',
+      prev_page_path: 'prevTest',
+    });
+
+  })
 
   describe('getDocumentReferrer()', () => {
 

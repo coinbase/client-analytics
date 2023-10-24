@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, test, expect, beforeEach, vi } from 'vitest';
 import { metricEnhancers, eventEnhancers, identityEnhancer, deviceEnhancer } from './enhancers';
 import { Metric, MetricType } from '../types/metric';
 import { getDevice, getIdentity, getLocation, getStorage} from '../storage/storage';
@@ -7,7 +7,6 @@ import { pageview } from './pageView';
 import * as time from './time';
 import { timeStone } from './time';
 import { init as setConfig } from '../storage/config';
-import { locationInit } from '../storage/location';
 
 Object.defineProperty(time, 'getNow', {configurable: true, value: vi.fn().mockImplementation(() => (1583872606122)) })
 
@@ -26,10 +25,6 @@ describe('enhance', () => {
             }
             const identity = getIdentity();
             identity.locale = null;
-        });
-
-        afterEach(() => {
-            Object.assign(getStorage().location, locationInit())
         });
 
         describe('when tagsEnhancer is empty', () => {
@@ -74,10 +69,13 @@ describe('enhance', () => {
 
         describe('when locationPagePath is empty', () => {
 
-            test('should enhance metric with existing tags when locale tags are empty', () => {
+            beforeEach(() => {
                 const location = getLocation();
-                const identity = getIdentity();
                 Object.assign(location, { pagePath: null });
+            })
+
+            test('should enhance metric with existing tags when locale tags are empty', () => {
+                const identity = getIdentity();
                 Object.assign(identity, { locale: '' });
                 Object.assign(metric, { tags: { testTag: 'testTagValue', testTag1: 'anotherTag' } });
                 metricEnhancers(metric);
@@ -94,9 +92,7 @@ describe('enhance', () => {
             });
 
             test('should enhance metric with locale tags when they exist and no existing tags', () => {
-                const location = getLocation();
                 const identity = getIdentity();
-                Object.assign(location, { pagePath: null });
                 Object.assign(identity, { locale: 'testLocaleTag' });
                 metricEnhancers(metric);
                 expect(metric).toEqual({
@@ -110,9 +106,7 @@ describe('enhance', () => {
             });
 
             test('should enhance metric with locale tags when they exist and with existing tags', () => {
-                const location = getLocation();
                 const identity = getIdentity();
-                Object.assign(location, { pagePath: null });
                 Object.assign(identity, { locale: 'test' });
                 Object.assign(metric, { tags: { testTag: 'testTagValue', testTag1: 'anotherTag' } });
                 metricEnhancers(metric);

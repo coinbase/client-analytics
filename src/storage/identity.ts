@@ -23,11 +23,6 @@ export const DEFAULT_IDENTITY = {
   isAuthed: () => false,
 };
 
-export const getIsAuthed = (): boolean => {
-  const config = getConfig();
-  return config.isAlwaysAuthed || !!getIdentity().userId;
-};
-
 export const getPlatformValue = (): PlatformName => {
   const platform = getConfig().platform;
   if (platform === ('web' as PlatformName)) {

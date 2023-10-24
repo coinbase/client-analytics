@@ -1,8 +1,3 @@
-import { getConfig } from '../storage/storage';
-import { PlatformName } from '../types/config';
-
-const Platforms: PlatformName[] = ['web', 'mobile_web'];
-
 export const deviceBreakpoints = {
   phone: 360,
   phoneLandscape: 560,
@@ -16,8 +11,4 @@ export function isMobileWeb(): boolean {
     `(max-width: ${deviceBreakpoints.phoneLandscape}px)`
   );
   return mediaQueryList.matches;
-}
-
-export function isWebPlatform() {
-  return Platforms.includes(getConfig().platform);
 }

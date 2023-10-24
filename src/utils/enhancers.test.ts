@@ -1,12 +1,13 @@
-import { describe, test, expect, beforeEach, vi } from 'vitest';
-import { metricEnhancers, eventEnhancers } from './enhancers';
+import { describe, test, expect, beforeEach, afterEach, vi } from 'vitest';
+import { metricEnhancers, eventEnhancers, identityEnhancer, deviceEnhancer } from './enhancers';
 import { Metric, MetricType } from '../types/metric';
-import { getIdentity, getLocation, getStorage} from '../storage/storage';
+import { getDevice, getIdentity, getLocation, getStorage} from '../storage/storage';
 import { Event } from '../types/event';
 import { pageview } from './pageView';
 import * as time from './time';
 import { timeStone } from './time';
 import { init as setConfig } from '../storage/config';
+import { locationInit } from '../storage/location';
 
 Object.defineProperty(time, 'getNow', {configurable: true, value: vi.fn().mockImplementation(() => (1583872606122)) })
 
@@ -17,7 +18,7 @@ describe('enhance', () => {
         
         beforeEach(() => {
             const location = getLocation();
-            Object.assign(location, { pagePath: null });
+            Object.assign(location, { pagePath: '' });
             metric = {
                 metricName: 'testMetric',
                 metricType: MetricType.count,
@@ -25,6 +26,10 @@ describe('enhance', () => {
             }
             const identity = getIdentity();
             identity.locale = null;
+        });
+
+        afterEach(() => {
+            Object.assign(getStorage().location, locationInit())
         });
 
         describe('when tagsEnhancer is empty', () => {
@@ -281,11 +286,12 @@ describe('enhance', () => {
         describe('validProperties enhancers', () => {
             test('should enhance event when logData is empty', () => {
                 let emptyData: Event;
+                // @ts-expect-error
                 emptyData = {};
                 const config = setConfig({
                     platform: 'web',
                     projectName: 'testing',
-                    serviceUrl: 'https://open.analytics',
+                    apiEndpoint: 'https://open.analytics',
                 });
                 Object.assign(getStorage().config, config);
 
@@ -310,7 +316,7 @@ describe('enhance', () => {
                 const config = setConfig({
                     platform: 'web',
                     projectName: 'testing',
-                    serviceUrl: 'https://open.analytics',
+                    apiEndpoint: 'https://open.analytics',
                 });
 
                 Object.assign(identity, { locale: 'test' });
@@ -333,4 +339,30 @@ describe('enhance', () => {
             });
         });
     }); 
+
+    describe('identity', () => {
+        test('identity enhancer sets the language code in identity', ()=> {
+            const identity = getIdentity();
+            Object.defineProperty(window.navigator, 'languages', {
+                value: ['en'],
+                configurable: true,
+              });
+            Object.assign(identity, { languageCode: 'test' });
+            identityEnhancer();
+            expect(identity.languageCode).toBe('en');
+        })
+    });
+
+    describe('device', () => {
+        test('device enhancer sets device properties', () => {
+            const device = getDevice();
+            Object.defineProperty(window, 'innerHeight', { value: 1000 });
+            Object.defineProperty(window, 'innerWidth', { value: 800 });
+            deviceEnhancer();
+            expect(device).toContain({
+                height: 1000,
+                width: 800,
+            });
+        })
+    });
 });

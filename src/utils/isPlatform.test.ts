@@ -1,29 +1,25 @@
 import { describe, test, expect, vi } from 'vitest';
 import { init as setConfig } from '../storage/config';
-import { getStorage } from '../storage/storage';
-import { isMobileWeb, isWebPlatform } from './isPlatform';
+import { getConfig, getStorage } from '../storage/storage';
+import { isMobileWeb } from './isPlatform';
+import { init } from '../storage/storage';
 
 describe('isPlatform()', () => {
-    describe('isWebPlatform()', () => {
-        test('should return true when platform is web', () => {
-            const config = setConfig({
-                platform: 'web',
-                projectName: 'testing',
-                serviceUrl: 'https://open.analytics',
-            });
-            Object.assign(getStorage().config, config);
-            expect(isWebPlatform()).toBe(true);
-        });
 
-        test('should return true when platform is mobile_web', () => {
-            const config = setConfig({
-                platform: 'mobile_web',
-                projectName: 'testing',
-                serviceUrl: 'https://open.analytics',
-            });
-            Object.assign(getStorage().config, config);
-            expect(isWebPlatform()).toBe(true);
-        });
+    init({
+        isProd: false,
+        platform: 'unknown',
+        projectName: '',
+        isDebug: false,
+        onError: () => undefined,
+        eventPath: '/events',
+        metricPath: '/metrics',
+        disabled: false,
+        isAlwaysAuthed: false,
+        version: null,
+        apiEndpoint: 'https://open.analytics',
+        // TODO: find better solution to handle reset
+        reset: expect.any(Function),
     });
 
     describe('isMobileWeb()', () => {
@@ -38,7 +34,7 @@ describe('isPlatform()', () => {
             const config = setConfig({
                 platform: 'mobile_web',
                 projectName: 'testing',
-                serviceUrl: 'https://open.analytics',
+                apiEndpoint: 'https://open.analytics',
             });
             Object.assign(getStorage().config, config);
             expect(isMobileWeb()).toBe(true);
@@ -56,7 +52,7 @@ describe('isPlatform()', () => {
             const config = setConfig({
                 platform: 'mobile_web',
                 projectName: 'testing',
-                serviceUrl: 'https://open.analytics',
+                apiEndpoint: 'https://open.analytics',
             });
             Object.assign(getStorage().config, config);
             expect(isMobileWeb()).toBe(false);

@@ -1,11 +1,12 @@
 import { Metric } from '../types/metric.ts';
 import { compose } from './compose.ts';
 import { getLocation, getIdentity, getConfig, getDevice } from '../storage/storage';
-import { PageviewConfig, ValidationType } from '../types/event.ts';
+import { ValidationType } from '../types/event.ts';
 import { Event } from '../types/event.ts';
 import { getNow, timeStone } from './time.ts';
 import { getPageviewProperties, getReferrerData, persistentUAAData, uaaValuesFromUrl } from '../storage/location.ts';
 import { SetDeviceSize } from '../types/device.ts';
+import { pageview } from './pageView.ts';
 
 const setLanguageCode = () => {
   const identity = getIdentity();
@@ -71,7 +72,6 @@ const validPropertiesEnhancer = <T extends Event>(entity: T) => {
   const identity = getIdentity();
   const config = getConfig();
   if (Object.keys(logData).length === 0) {
-    console.log('@@hello')
     config.onError(new Error('missing logData'));
     const properties = {
       ...enhanceProperties('unknown', 'unknown', 'unknown'), // missing logData so action, component, and name are unknown
@@ -123,14 +123,10 @@ const enhanceProperties = (
   return properties;
 };
 
-const pageview: PageviewConfig = {
-  blacklistRegex: [],
-  isEnabled: false,
-};
-
 const pageviewEnhancer = <T extends Event>(entity: T) => {
   const location = getLocation();
   if (pageview.isEnabled) {
+    console.log('@@pageview')
     Object.assign(entity, getPageviewProperties(location));
   }
   

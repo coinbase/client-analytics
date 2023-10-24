@@ -8,15 +8,7 @@ describe('persistentData', () => {
             sessionStart: 0,
             sessionUUID: null,
             userId: null,
-            ac: 0,
-            af: 0,
-            ah: 0,
-            al: 0,
-            am: 0,
-            ar: 0,
-            as: 0,
-            pv: 0,
-        })
+        });
     });
 
     test('should be defined with default values', () => {
@@ -25,14 +17,6 @@ describe('persistentData', () => {
             sessionStart: 0,
             sessionUUID: null,
             userId: null,
-            ac: 0,
-            af: 0,
-            ah: 0,
-            al: 0,
-            am: 0,
-            ar: 0,
-            as: 0,
-            pv: 0,
         });
     });
 
@@ -42,14 +26,6 @@ describe('persistentData', () => {
             sessionStart: 1,
             sessionUUID: 'sessionUUID',
             userId: 'userId',
-            ac: 1,
-            af: 1,
-            ah: 1,
-            al: 1,
-            am: 1,
-            ar: 1,
-            as: 1,
-            pv: 1,
         })
 
         expect(persistentData).toEqual({
@@ -57,14 +33,46 @@ describe('persistentData', () => {
             sessionStart: 1,
             sessionUUID: 'sessionUUID',
             userId: 'userId',
-            ac: 1,
-            af: 1,
-            ah: 1,
-            al: 1,
-            am: 1,
-            ar: 1,
-            as: 1,
-            pv: 1,
+        });
+    });
+
+    test('should be defined with setPersistentData to include UAA data and Referrer data', () => {
+        setPersistentData({
+            lastEventTime: 1,
+            sessionStart: 1,
+            sessionUUID: 'sessionUUID',
+            userId: 'userId',
+            fbclid: 'fbclid',
+            gclid: 'gclid',
+            msclkid: 'msclkid',
+            ptclid: 'ptclid',
+            ttclid: 'ttclid',
+            utm_campaign: 'utm_campaign',
+            utm_content: 'utm_content',
+            utm_medium: 'utm_medium',
+            utm_source: 'utm_source',
+            utm_term: 'utm_term',
+            referrer: 'referrer',
+            referring_domain: 'referring_domain',
+        })
+
+        expect(persistentData).toEqual({
+            lastEventTime: 1,
+            sessionStart: 1,
+            sessionUUID: 'sessionUUID',
+            userId: 'userId',
+            fbclid: 'fbclid',
+            gclid: 'gclid',
+            msclkid: 'msclkid',
+            ptclid: 'ptclid',
+            ttclid: 'ttclid',
+            utm_campaign: 'utm_campaign',
+            utm_content: 'utm_content',
+            utm_medium: 'utm_medium',
+            utm_source: 'utm_source',
+            utm_term: 'utm_term',
+            referrer: 'referrer',
+            referring_domain: 'referring_domain',
         });
     });
 });

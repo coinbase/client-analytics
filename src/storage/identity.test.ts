@@ -61,7 +61,6 @@ describe('identity', () => {
       session_lcc_id: null,
       userAgent: null,
       userId: null,
-      // isAuthed: () => false, results in the error 'Compared values have no visual difference.'
       isAuthed: expect.any(Function),
     });
   });

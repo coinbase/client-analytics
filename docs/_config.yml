@@ -1,0 +1,5 @@
+title: Coinbase Client Analytics
+description: Coinbase has invested a lot in client observability to enable developers to collect and analyze their application and user events.
+remote_theme: pages-themes/cayman@v0.2.0
+plugins:
+- jekyll-remote-them

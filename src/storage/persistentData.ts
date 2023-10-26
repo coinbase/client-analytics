@@ -1,4 +1,4 @@
-import { AnalyticsPersistentData, AnalyticsSetPersistentData } from '../types/persistentData';
+import { AnalyticsPersistentData, SetAnalyticsPersistentData } from '../types/persistentData';
 
 export const persistentData: AnalyticsPersistentData = {
   // Session definitions
@@ -8,6 +8,6 @@ export const persistentData: AnalyticsPersistentData = {
   userId: null,
 };
 
-export function setPersistentData(data: AnalyticsSetPersistentData) {
+export function setPersistentData(data: SetAnalyticsPersistentData) {
   Object.assign(persistentData, data);
 }

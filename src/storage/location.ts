@@ -1,5 +1,6 @@
 import { SetLocation, Breadcrumb, UAAData, AnalyticsQueries, ReferrerData, Location } from '../types/location';
 import { persistentData } from './persistentData';
+import { getLocation } from './storage';
 
 export const DEFAULT_LOCATION = {
   breadcrumbs: [],
@@ -22,10 +23,12 @@ const UAA_QUERIES: AnalyticsQueries[] = [
 ];
 
 export function setBreadcrumbs(breadcrumbs: Breadcrumb[]) {
+  const location = getLocation();
   Object.assign(location, { breadcrumbs });
 }
 
 export function setLocation(data: SetLocation) {
+  const location = getLocation();
   Object.assign(location, data);
 }
 

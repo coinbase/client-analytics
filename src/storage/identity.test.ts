@@ -1,13 +1,10 @@
-/* eslint-disable */
 import { getConfig, getIdentity } from './storage';
 import {
-  getIsAuthed,
   setIdentity,
   getPlatformValue,
 } from './identity';
-
 import { init as setConfig } from './config';
-import { describe, test, expect, beforeEach, afterAll } from 'vitest';
+import { describe, test, expect, beforeEach } from 'vitest';
 
 const resetState = () => {
   const config = getConfig();
@@ -24,10 +21,11 @@ const resetState = () => {
   identity.session_lcc_id = null;
   identity.userAgent = null;
   identity.userId = null;
-  setConfig({
+  Object.assign(getConfig(), setConfig({
     platform: 'web',
     projectName: 'testing',
-  });
+    apiEndpoint: 'https://open.analytics',
+  }));
 };
 
 describe('identity', () => {
@@ -60,27 +58,10 @@ describe('identity', () => {
       isOptOut: false,
       languageCode: null,
       locale: null,
-      jwt: null,
       session_lcc_id: null,
       userAgent: null,
       userId: null,
-    });
-  });
-
-  describe('getIsAuthed()', () => {
-    beforeEach(() => {
-      resetState();
-    });
-
-    test('should return true when isAlwaysAuthed is set to true', () => {
-      getConfig().isAlwaysAuthed = true;
-      expect(getIsAuthed()).toBe(true);
-    });
-
-    test('should check if userId is set when isAlwaysAuthed is false', () => {
-      const identity = getIdentity();
-      identity.userId = 'userId';
-      expect(getIsAuthed()).toBe(true);
+      isAuthed: expect.any(Function),
     });
   });
 
@@ -89,25 +70,8 @@ describe('identity', () => {
       resetState();
     });
 
-    afterAll(() => {
-      const identity = getIdentity();
-      identity.countryCode = null;
-      identity.deviceId = null;
-      identity.device_os = null;
-      identity.isOptOut = false;
-      identity.languageCode = null;
-      identity.locale = null;
-      identity.session_lcc_id = null;
-      identity.userAgent = null;
-      identity.userId = null;
-      setConfig({
-        platform: 'web',
-        projectName: 'testing',
-      });
-    });
-
     test('should set identity', () => {
-      setIdentity({
+      const identity = setIdentity({
         countryCode: 'US',
         deviceId: 'deviceId',
         device_os: 'device_os',
@@ -119,7 +83,6 @@ describe('identity', () => {
         userId: 'userId',
       });
 
-      const identity = getIdentity();
       expect(identity).toEqual({
         countryCode: 'US',
         deviceId: 'deviceId',
@@ -127,10 +90,10 @@ describe('identity', () => {
         isOptOut: true,
         languageCode: 'en-us',
         locale: 'it',
-        jwt: 'jwtValue',
         session_lcc_id: 'sessionLccID',
         userAgent: 'userAgent',
         userId: 'userId',
+        isAuthed: expect.any(Function),
       });
     });
 
@@ -147,10 +110,10 @@ describe('identity', () => {
         isOptOut: false,
         languageCode: null,
         locale: null,
-        jwt: null,
         session_lcc_id: null,
         userAgent: null,
         userId: 'userId',
+        isAuthed: expect.any(Function),
       });
     });
 
@@ -167,10 +130,10 @@ describe('identity', () => {
         isOptOut: false,
         languageCode: null,
         locale: null,
-        jwt: null,
         session_lcc_id: null,
         userAgent: null,
         userId: null,
+        isAuthed: expect.any(Function),
       });
     });
 
@@ -187,10 +150,10 @@ describe('identity', () => {
         isOptOut: false,
         languageCode: null,
         locale: null,
-        jwt: null,
         session_lcc_id: 'session_lcc_id',
         userAgent: null,
         userId: null,
+        isAuthed: expect.any(Function),
       });
     });
 
@@ -207,10 +170,10 @@ describe('identity', () => {
         isOptOut: false,
         languageCode: null,
         locale: null,
-        jwt: null,
         session_lcc_id: null,
         userAgent: null,
         userId: null,
+        isAuthed: expect.any(Function),
       });
     });
 
@@ -227,10 +190,10 @@ describe('identity', () => {
         isOptOut: false,
         languageCode: null,
         locale: null,
-        jwt: null,
         session_lcc_id: null,
         userAgent: 'user-agent',
         userId: null,
+        isAuthed: expect.any(Function),
       });
     });
   });
@@ -240,18 +203,27 @@ describe('identity', () => {
       resetState();
     });
 
+    test('should return web as platform', () => {
+      expect(getPlatformValue()).toBe('web');
+    });
+
     test('should set platform to mobile_web when isMobileWeb is true', () => {
+      // @ts-expect-error
+      (global as unknown).matchMedia = () => {
+        return {
+          matches: true,
+        };
+      };
       expect(getPlatformValue()).toBe('mobile_web');
     });
 
     test('should set platform to mobile_web', () => {
-      setConfig({
+      Object.assign(getConfig(), setConfig({
         platform: 'mobile_web',
         projectName: 'testing',
-      });
+        apiEndpoint: 'https://open.analytics',
+      }));
       expect(getPlatformValue()).toBe('mobile_web');
     });
   });
 });
-
-/* eslint-enable */

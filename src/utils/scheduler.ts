@@ -12,10 +12,11 @@ export const DEFAULT_SCHEDULER = {
   length: 0,
 };
 
-export const createScheduler = <T>(
-  batchThreshold = DEFAULT_BATCH_THRESHOLD,
-  timeThreshold = DEFAULT_TIME_THRESHOLD
-): Scheduler<T> => {
+export const createScheduler = <T>(callback: (items: T[]) => void, batchThreshold = DEFAULT_BATCH_THRESHOLD, timeThreshold = DEFAULT_TIME_THRESHOLD): Scheduler<T> => {
+  // option 1: we can create a network layer here
+  // const networkLayer = getNetworkLayer();
+  // networkLayer.sendEvents
+  // networkLayer.sendMetrics
   const queue = createQueue<T>();
   const add = (item: T, importance = 'low'): void => {
     queue.add(item);
@@ -30,14 +31,22 @@ export const createScheduler = <T>(
     if (queue.length === 0) {
       return;
     }
+    // otherwise we pass all items to the network layer
+    callback(queue.items);
+    //  maybe we can return in the flush method
+    // callback(queue.flush());
     queue.flush();
   };
 
-  const schedule = () =>
-    setTimeout(() => {
-      consume();
-      schedule();
-    }, timeThreshold);
+  /**
+   * Schedule the consume function to run every timeThreshold
+   */
+  const schedule = () => setTimeout(() => {
+    // consume all the items in the queue
+    consume();
+    // reschedule the consume function
+    schedule();
+  }, timeThreshold);
 
   schedule();
 

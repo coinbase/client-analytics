@@ -34,6 +34,7 @@ export const init = (config: InputConfig): Config => {
     throw APIENDPOINT_URL_ERROR;
   }
 
+  // enhancer
   return {
     ...DEFAULT_CONFIG,
     ...config,

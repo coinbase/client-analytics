@@ -9,9 +9,11 @@ type TestEvent = {
 
 describe('Scheduler', () => {
   let scheduler: Scheduler<TestEvent>;
+  // let callbackSpy: vi.spy;
   beforeEach(() => {
     vi.resetAllMocks();
-    scheduler = createScheduler<TestEvent>();
+    // callbackSpy = vi.spy();
+    scheduler = createScheduler<TestEvent>(callbackSpy);
   });
 
   test('should add an event', () => {
@@ -28,6 +30,7 @@ describe('Scheduler', () => {
     scheduler.add(event2);
     expect(scheduler.length).toBe(2);
     expect(scheduler.items).toEqual([event1, event2]);
+    // expect(callbackSpy).not.toHaveNotBeenCalled();
   });
 
   test('should consume events when threshold is reached', () => {
@@ -40,6 +43,7 @@ describe('Scheduler', () => {
     scheduler.add(event3);
     expect(scheduler.length).toBe(0);
     expect(scheduler.items).toEqual([]);
+    // expect(callbackSpy).toHaveBeenCalledWith([event1, event2, event3]);
   });
 
   test('should consume events when time threshold is reached', () => {
@@ -54,5 +58,6 @@ describe('Scheduler', () => {
     vi.advanceTimersToNextTimer();
     expect(scheduler.length).toBe(0);
     expect(scheduler.items).toEqual([]);
+    // expect(callbackSpy).toHaveBeenCalledWith([event1, event2, event3]);
   });
 });

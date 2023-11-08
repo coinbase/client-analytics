@@ -12,7 +12,8 @@ import { DEFAULT_IDENTITY, identityInit } from './identity';
 import { Identity } from '../types/identity';
 import { DEFAULT_DEVICE, deviceInit } from './device';
 import { Device } from '../types/device';
-import { networkLayerInit, NetworkLayer } from '../utils/networkLayer';
+import { networkLayerInit } from '../utils/networkLayer';
+import { NetworkLayer } from '../types/networkLayer';
 
 const NO_OP = () => {};
 
@@ -54,3 +55,4 @@ export const getEventScheduler = (): Scheduler<Event> =>
 export const getLocation = (): Location => getStorage().location;
 export const getIdentity = (): Identity => getStorage().identity;
 export const getDevice = (): Device => getStorage().device;
+export const getNetworkLayer = (): NetworkLayer => getStorage().networkLayer;

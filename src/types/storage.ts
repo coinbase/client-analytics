@@ -5,7 +5,7 @@ import { Event } from './event';
 import { Location } from './location';
 import { Identity } from './identity.ts';
 import { Device } from './device.ts';
-import { NetworkLayer } from '../utils/networkLayer';
+import { NetworkLayer } from './networkLayer';
 
 export type Storage = {
   config: Config;

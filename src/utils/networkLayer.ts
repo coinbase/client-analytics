@@ -9,6 +9,7 @@
 import {Event} from '../types/event';
 import {Metric} from '../types/metric';
 import { getConfig } from '../storage/storage.ts';
+import { NetworkLayer } from '../types/networkLayer.ts';
 
 export const sendEvents = (events: Event[]) => {
   const {apiEndpoint, eventPath} = getConfig();
@@ -20,12 +21,8 @@ export const sendMetrics = (metrics: Metric[]) => {
   console.log('sendMetrics', metrics);
 };
 
-export type NetworkLayer = {
-  sendEvents: (events: Event[]) => void;
-  sendMetrics: (metrics: Metric[]) => void;
-}
-
 export const networkLayerInit = (): NetworkLayer => {
+  
   return {
     sendMetrics,
     sendEvents

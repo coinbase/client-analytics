@@ -35,6 +35,7 @@ export type CustomConfig = {
   batchMetricsThreshold?: number;
   isAlwaysAuthed?: boolean;
   version?: string | number | null;
+  apiKey: string;
   apiEndpoint: string;
   reset: () => void;
 };

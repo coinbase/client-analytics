@@ -36,6 +36,7 @@ export type CustomConfig = {
   ricTimeoutScheduleEvent?: number;
   isAlwaysAuthed?: boolean;
   version?: string | number | null;
+  apiKey: string;
   apiEndpoint: string;
   reset: () => void;
 };

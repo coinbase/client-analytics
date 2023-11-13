@@ -15,6 +15,11 @@ import { getChecksum } from './dataIntegrity.ts';
 import { apiFetch } from './apiFetch.ts';
 import { scheduleEvent } from './scheduler.ts';
 
+export const DEFAULT_NETWORK_LAYER = {
+  sendMetrics: () => null,
+  sendEvents: () => null,
+};
+
 export const sendEvents = (events: Event[]) => {
   const identity = getIdentity();
   if(identity.isOptOut || events.length === 0) {
@@ -56,8 +61,7 @@ export const sendEvents = (events: Event[]) => {
   }
 
   const eventEndPoint = `${apiEndpoint}${eventPath}`;
-  // console.log('sendEvents', eventEndPoint);
-  // request to {eventEndPoint}
+
   apiFetch({
     url: eventEndPoint,
     data: analyticsServiceData,
@@ -76,7 +80,6 @@ export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
       data: {
         metricData: metrics,
       },
-      isJSON: true,
       onError: onError,
     })
   } else {
@@ -86,13 +89,10 @@ export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
         data: {
           metricData: metrics,
         },
-        isJSON: true,
         onError: onError,
       })
     });
   }
-
-  console.log('sendMetrics', metrics);
 };
 
 export const networkLayerInit = (): NetworkLayer => {

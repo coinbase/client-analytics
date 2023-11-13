@@ -15,6 +15,7 @@ export const DEFAULT_CONFIG = {
   version: null,
   apiKey: '',
   apiEndpoint: 'https://cca-lite.coinbase.com',
+  ricTimeoutScheduleEvent: 1000,
   // TODO: find better solution to handle reset
   reset: () => Object.assign(getConfig(), DEFAULT_CONFIG),
 };

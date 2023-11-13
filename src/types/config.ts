@@ -33,6 +33,7 @@ export type CustomConfig = {
   batchEventsThreshold?: number;
   batchMetricsPeriod?: number;
   batchMetricsThreshold?: number;
+  ricTimeoutScheduleEvent?: number,
   isAlwaysAuthed?: boolean;
   version?: string | number | null;
   apiKey: string;

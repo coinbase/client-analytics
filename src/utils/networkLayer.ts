@@ -13,6 +13,7 @@ import { NetworkLayer } from '../types/networkLayer.ts';
 import { getNow } from './time.ts';
 import { getChecksum } from './dataIntegrity.ts';
 import { apiFetch } from './apiFetch.ts';
+import { scheduleEvent } from './scheduler.ts';
 
 export const sendEvents = (events: Event[]) => {
   const identity = getIdentity();
@@ -55,7 +56,7 @@ export const sendEvents = (events: Event[]) => {
   }
 
   const eventEndPoint = `${apiEndpoint}${eventPath}`;
-  console.log('sendEvents', eventEndPoint);
+  // console.log('sendEvents', eventEndPoint);
   // request to {eventEndPoint}
   apiFetch({
     url: eventEndPoint,
@@ -64,7 +65,33 @@ export const sendEvents = (events: Event[]) => {
   })
 
 };
-export const sendMetrics = (metrics: Metric[]) => {
+export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
+
+  const {apiEndpoint, metricPath, onError} = getConfig();
+  const metricEndpoint = `${apiEndpoint}${metricPath}`;
+
+  if(skipScheduler) {
+    apiFetch({
+      url: metricEndpoint,
+      data: {
+        metricData: metrics,
+      },
+      isJSON: true,
+      onError: onError,
+    })
+  } else {
+    scheduleEvent(() => {
+      apiFetch({
+        url: metricEndpoint,
+        data: {
+          metricData: metrics,
+        },
+        isJSON: true,
+        onError: onError,
+      })
+    });
+  }
+
   console.log('sendMetrics', metrics);
 };
 

@@ -60,13 +60,13 @@ export const sendEvents = (events: Event[]) => {
   };
 
   const eventEndPoint = `${apiEndpoint}${eventPath}`;
-
   apiFetch({
     url: eventEndPoint,
     data: analyticsServiceData,
     onError: onError,
   });
 };
+
 export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
   const { apiEndpoint, metricPath, onError } = getConfig();
   const metricEndpoint = `${apiEndpoint}${metricPath}`;

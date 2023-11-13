@@ -15,9 +15,9 @@ describe('networkLayer', () => {
             { action: 'hover', component: 'unknown', name: 'defaultEvent2' },
         ];
 
-        let apiFetchSpy: SpyInstance<[options: AnalyticsAPIFetch], void>;
-        let configOnErrorSpy: SpyInstance<[err: Error, metadata?: Record<string, unknown> | undefined], void>;
-        let checksumSpy: SpyInstance<[apiKey: string, data: string, uploadTime: string], string>;
+        let apiFetchSpy: SpyInstance;
+        let configOnErrorSpy: SpyInstance;
+        let checksumSpy: SpyInstance;
         const config = getConfig();
         beforeEach(() => { 
             vi.resetAllMocks();
@@ -64,8 +64,8 @@ describe('networkLayer', () => {
             { metricName: 'testMetric1', metricType: MetricType.distribution, value: 2 },
         ];
 
-        let apiFetchSpy: SpyInstance<[options: AnalyticsAPIFetch], void>;
-        let configOnErrorSpy: SpyInstance<[err: Error, metadata?: Record<string, unknown> | undefined], void>;
+        let apiFetchSpy: SpyInstance;
+        let configOnErrorSpy: SpyInstance;
         const config = getConfig();
         beforeEach(() => { 
             vi.resetAllMocks();

@@ -1,3 +1,5 @@
+import { IStepsConfig } from 'perfume.js/dist/types/types';
+
 /**
  * The platform name
  */
@@ -7,6 +9,7 @@ export type PlatformName =
   | 'android'
   | 'ios'
   | 'mobile_web'
+  | 'tablet_web'
   | 'server'
   | 'windows'
   | 'macos';
@@ -38,6 +41,8 @@ export type CustomConfig = {
   version?: string | number | null;
   apiEndpoint: string;
   reset: () => void;
+  steps: IStepsConfig;
+  onMarkStep?: (mark: string, steps: string[]) => void;
 };
 
 /**

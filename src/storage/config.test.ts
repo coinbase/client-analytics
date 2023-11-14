@@ -46,6 +46,7 @@ describe('Config', () => {
       version: null,
       ricTimeoutScheduleEvent: 1000,
       reset: expect.any(Function),
+      steps: {},
     });
   });
 
@@ -70,6 +71,7 @@ describe('Config', () => {
       disabled: false,
       reset: () => Object.assign(getConfig(), DEFAULT_CONFIG),
       onError: () => undefined,
+      steps: {},
     });
 
     getStorage().config.reset();

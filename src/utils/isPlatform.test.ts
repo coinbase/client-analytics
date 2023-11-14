@@ -1,61 +1,59 @@
 import { describe, test, expect, vi } from 'vitest';
 import { init as setConfig } from '../storage/config';
-import { getConfig, getStorage } from '../storage/storage';
+import { getStorage } from '../storage/storage';
 import { isMobileWeb } from './isPlatform';
 import { init } from '../storage/storage';
 
 describe('isPlatform()', () => {
+  init({
+    isProd: false,
+    platform: 'unknown',
+    projectName: '',
+    isDebug: false,
+    onError: () => undefined,
+    eventPath: '/events',
+    metricPath: '/metrics',
+    disabled: false,
+    isAlwaysAuthed: false,
+    version: null,
+    apiEndpoint: 'https://open.analytics',
+    // TODO: find better solution to handle reset
+    reset: expect.any(Function),
+  });
 
-    init({
-        isProd: false,
-        platform: 'unknown',
-        projectName: '',
-        isDebug: false,
-        onError: () => undefined,
-        eventPath: '/events',
-        metricPath: '/metrics',
-        disabled: false,
-        isAlwaysAuthed: false,
-        version: null,
+  describe('isMobileWeb()', () => {
+    test('should return true when matchMedia is true', () => {
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: vi.fn().mockImplementation(() => ({
+          matches: true,
+        })),
+      });
+
+      const config = setConfig({
+        platform: 'mobile_web',
+        projectName: 'testing',
         apiEndpoint: 'https://open.analytics',
-        // TODO: find better solution to handle reset
-        reset: expect.any(Function),
+      });
+      Object.assign(getStorage().config, config);
+      expect(isMobileWeb()).toBe(true);
     });
 
-    describe('isMobileWeb()', () => {
-        test('should return true when matchMedia is true', () => {
-            Object.defineProperty(window, 'matchMedia', {
-                writable: true,
-                value: vi.fn().mockImplementation(() => ({
-                  matches: true,
-                })),
-              })
-    
-            const config = setConfig({
-                platform: 'mobile_web',
-                projectName: 'testing',
-                apiEndpoint: 'https://open.analytics',
-            });
-            Object.assign(getStorage().config, config);
-            expect(isMobileWeb()).toBe(true);
-        });
-    
-    
-        test('should return false when matchMedia is false', () => {
-            Object.defineProperty(window, 'matchMedia', {
-                writable: true,
-                value: vi.fn().mockImplementation(() => ({
-                  matches: false,
-                })),
-              })
-    
-            const config = setConfig({
-                platform: 'mobile_web',
-                projectName: 'testing',
-                apiEndpoint: 'https://open.analytics',
-            });
-            Object.assign(getStorage().config, config);
-            expect(isMobileWeb()).toBe(false);
-        });
+    test('should return false when matchMedia is false', () => {
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        value: vi.fn().mockImplementation(() => ({
+          matches: false,
+        })),
+      });
+
+      const config = setConfig({
+        platform: 'mobile_web',
+        projectName: 'testing',
+        apiEndpoint: 'https://open.analytics',
+      });
+      Object.assign(getStorage().config, config);
+      expect(isMobileWeb()).toBe(false);
     });
+  });
 });

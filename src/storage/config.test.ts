@@ -3,7 +3,6 @@ import { describe, test, expect } from 'vitest';
 import { getConfig, getStorage, init as storageInit } from './storage';
 
 describe('Config', () => {
-
   test('should return default config', () => {
     const config = DEFAULT_CONFIG;
     expect(config).toEqual({
@@ -28,7 +27,7 @@ describe('Config', () => {
       isDebug: true,
       eventPath: '/custom-events',
       metricPath: '/custom-metrics',
-      onError:expect.any(Function),
+      onError: expect.any(Function),
       apiEndpoint: 'https://open.analytics',
       disabled: false,
     });
@@ -53,7 +52,7 @@ describe('Config', () => {
     expect(() => {
       // @ts-ignore
       init({
-        apiEndpoint: 'not-valid-url'
+        apiEndpoint: 'not-valid-url',
       });
     }).toThrow();
   });
@@ -89,5 +88,4 @@ describe('Config', () => {
       version: null,
     });
   });
-
 });

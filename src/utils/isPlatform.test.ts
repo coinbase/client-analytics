@@ -1,6 +1,6 @@
 import { describe, test, expect, vi } from 'vitest';
 import { init as setConfig } from '../storage/config';
-import { getConfig, getStorage } from '../storage/storage';
+import { getStorage } from '../storage/storage';
 import { isMobileWeb } from './isPlatform';
 import { init } from '../storage/storage';
 

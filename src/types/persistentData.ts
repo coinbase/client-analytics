@@ -1,4 +1,4 @@
-import { UAAData } from "./location";
+import { UAAData } from './location';
 
 export type AnalyticsPersistentData = {
   // Session definitions

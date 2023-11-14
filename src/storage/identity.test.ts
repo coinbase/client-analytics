@@ -1,8 +1,5 @@
 import { getConfig, getIdentity } from './storage';
-import {
-  setIdentity,
-  getPlatformValue,
-} from './identity';
+import { setIdentity, getPlatformValue } from './identity';
 import { init as setConfig } from './config';
 import { describe, test, expect, beforeEach } from 'vitest';
 
@@ -21,11 +18,14 @@ const resetState = () => {
   identity.session_lcc_id = null;
   identity.userAgent = null;
   identity.userId = null;
-  Object.assign(getConfig(), setConfig({
-    platform: 'web',
-    projectName: 'testing',
-    apiEndpoint: 'https://open.analytics',
-  }));
+  Object.assign(
+    getConfig(),
+    setConfig({
+      platform: 'web',
+      projectName: 'testing',
+      apiEndpoint: 'https://open.analytics',
+    })
+  );
 };
 
 describe('identity', () => {
@@ -218,11 +218,14 @@ describe('identity', () => {
     });
 
     test('should set platform to mobile_web', () => {
-      Object.assign(getConfig(), setConfig({
-        platform: 'mobile_web',
-        projectName: 'testing',
-        apiEndpoint: 'https://open.analytics',
-      }));
+      Object.assign(
+        getConfig(),
+        setConfig({
+          platform: 'mobile_web',
+          projectName: 'testing',
+          apiEndpoint: 'https://open.analytics',
+        })
+      );
       expect(getPlatformValue()).toBe('mobile_web');
     });
   });

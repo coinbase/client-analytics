@@ -1,6 +1,6 @@
-import { PageviewConfig } from "../types/event";
+import { PageviewConfig } from '../types/event';
 
 export const pageview: PageviewConfig = {
-    blacklistRegex: [],
-    isEnabled: false,
-  };
+  blacklistRegex: [],
+  isEnabled: false,
+};

@@ -1,4 +1,7 @@
-import { AnalyticsPersistentData, SetAnalyticsPersistentData } from '../types/persistentData';
+import {
+  AnalyticsPersistentData,
+  SetAnalyticsPersistentData,
+} from '../types/persistentData';
 
 export const persistentData: AnalyticsPersistentData = {
   // Session definitions

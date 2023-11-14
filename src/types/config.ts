@@ -37,7 +37,7 @@ export type CustomConfig = {
   version?: string | number | null;
   apiEndpoint: string;
   reset: () => void;
-}
+};
 
 /**
  * The config for the analytics client.

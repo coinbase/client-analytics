@@ -2,7 +2,7 @@
 
 # Open Analytics
 
-With this Open Source Analytics Library, we want to provide all developers with the ability to move to an auto-instrumented event world where we can count on data being produced with standardized fields. 
+With this Open Source Analytics Library, we want to provide all developers with the ability to move to an auto-instrumented event world where we can count on data being produced with standardized fields.
 
 For a deeper look into the Library, please visit our [documentation](./documentation.html).
 

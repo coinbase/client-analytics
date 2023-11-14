@@ -1,10 +1,20 @@
 import { Metric } from '../types/metric.ts';
 import { compose } from './compose.ts';
-import { getLocation, getIdentity, getConfig, getDevice } from '../storage/storage';
+import {
+  getLocation,
+  getIdentity,
+  getConfig,
+  getDevice,
+} from '../storage/storage';
 import { ValidationType } from '../types/event.ts';
 import { Event } from '../types/event.ts';
 import { getNow, timeStone } from './time.ts';
-import { getPageviewProperties, getReferrerData, persistentUAAData, uaaValuesFromUrl } from '../storage/location.ts';
+import {
+  getPageviewProperties,
+  getReferrerData,
+  persistentUAAData,
+  uaaValuesFromUrl,
+} from '../storage/location.ts';
 import { SetDeviceSize } from '../types/device.ts';
 import { pageview } from './pageView.ts';
 
@@ -33,11 +43,11 @@ export const setDevice = () => {
 
 export const identityEnhancer = () => {
   setLanguageCode();
-}
+};
 
 export const deviceEnhancer = () => {
   setDevice();
-}
+};
 
 /**
  * Enhance the metric with the pagePath.
@@ -67,7 +77,7 @@ const validPropertiesEnhancer = <T extends Event>(entity: T) => {
   const timestamp = getNow();
   const logData = {
     ...entity,
-  }
+  };
 
   const identity = getIdentity();
   const config = getConfig();
@@ -92,7 +102,7 @@ const validPropertiesEnhancer = <T extends Event>(entity: T) => {
     timestamp,
     time_start: timeStone.timeStart,
   };
-  Object.assign(entity, validatedEvent)
+  Object.assign(entity, validatedEvent);
 
   // When passed componentType or loggingId it's important
   // to removed them from the original reference,
@@ -102,12 +112,12 @@ const validPropertiesEnhancer = <T extends Event>(entity: T) => {
   // TODO: CHECK IF NEEDED
 
   return entity;
-}
+};
 
 const enhanceProperties = (
   action: string,
   component: string,
-  name: string,
+  name: string
 ): ValidationType => {
   const config = getConfig();
   const identity = getIdentity();
@@ -128,9 +138,9 @@ const pageviewEnhancer = <T extends Event>(entity: T) => {
   if (pageview.isEnabled) {
     Object.assign(entity, getPageviewProperties(location));
   }
-  
+
   return entity;
-}
+};
 
 const userAttributionEnhancer = <T extends Event>(entity: T) => {
   // User Attribution enhancement
@@ -144,18 +154,25 @@ const userAttributionEnhancer = <T extends Event>(entity: T) => {
   }
 
   // Set prev value to avoid extra calls;
-  location.initialUAAData = { ...persistentUAAData(), ...uaaValuesFromUrl(), ...getReferrerData() };
+  location.initialUAAData = {
+    ...persistentUAAData(),
+    ...uaaValuesFromUrl(),
+    ...getReferrerData(),
+  };
 
   Object.assign(entity, location.initialUAAData);
 
   return entity;
 };
 
-
 export const metricEnhancers = (metric: Metric) => {
   return compose(locationPagePathEnhancer, tagsEnhancer)(metric);
 };
 
 export const eventEnhancers = (event: Event) => {
-  return compose(pageviewEnhancer, userAttributionEnhancer, validPropertiesEnhancer)(event);
+  return compose(
+    pageviewEnhancer,
+    userAttributionEnhancer,
+    validPropertiesEnhancer
+  )(event);
 };

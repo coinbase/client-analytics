@@ -30,7 +30,6 @@ describe('Scheduler', () => {
     expect(scheduler.items).toEqual([event1, event2]);
   });
 
-
   test('should consume events when threshold is reached', () => {
     scheduler = createScheduler<TestEvent>(3);
     const event1 = { name: 'test', id: '1' };

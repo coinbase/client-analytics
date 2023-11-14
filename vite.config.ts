@@ -16,6 +16,6 @@ export default defineConfig({
   },
   plugins: [dts()],
   test: {
-    environment: 'jsdom'
+    environment: 'jsdom',
   },
 });

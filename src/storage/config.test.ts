@@ -68,7 +68,6 @@ describe('Config', () => {
       metricPath: '/custom-metrics',
       apiEndpoint: 'https://open.analytics',
       disabled: false,
-      apiKey: '',
       reset: () => Object.assign(getConfig(), DEFAULT_CONFIG),
       onError: () => undefined,
     });
@@ -84,7 +83,6 @@ describe('Config', () => {
       metricPath: '/metrics',
       onError: expect.any(Function),
       disabled: false,
-      apiKey: '',
       apiEndpoint: 'https://cca-lite.coinbase.com',
       isAlwaysAuthed: false,
       reset: expect.any(Function),

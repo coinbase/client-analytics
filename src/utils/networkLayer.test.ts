@@ -1,5 +1,5 @@
 import { sendEvents, sendMetrics, networkLayerInit } from './networkLayer';
-import { AnalyticsAPIFetch, Event } from '../types/event';
+import { Event } from '../types/event';
 import { Metric, MetricType } from '../types/metric';
 import * as apiFetch from '../utils/apiFetch';
 import * as getChecksum from '../utils/dataIntegrity';
@@ -28,7 +28,7 @@ describe('networkLayer', () => {
         });
 
         it('should call apiFetch once', () => {
-            setConfig({ apiKey: 'testAPIKey', platform: 'unknown', projectName: 'testProjectName', apiEndpoint: 'https://cca-lite.coinbase.com'})
+            setConfig({ platform: 'unknown', projectName: 'testProjectName', apiEndpoint: 'https://cca-lite.coinbase.com'})
             sendEvents(events);
             expect(apiFetchSpy).toHaveBeenCalledTimes(1);
             expect(apiFetchSpy).toHaveBeenCalledWith({
@@ -44,7 +44,7 @@ describe('networkLayer', () => {
 
         it('should not call apiFetch when there are no events', () => {
             const emptyEventsList: Event[] = [];
-            setConfig({ apiKey: 'testAPIKey', platform: 'unknown', projectName: 'testProjectName', apiEndpoint: 'https://cca-lite.coinbase.com'})
+            setConfig({ platform: 'unknown', projectName: 'testProjectName', apiEndpoint: 'https://cca-lite.coinbase.com'})
             sendEvents(emptyEventsList);
             expect(apiFetchSpy).toHaveBeenCalledTimes(0);
         });
@@ -52,7 +52,7 @@ describe('networkLayer', () => {
         it('should not call apiFetch when identity.isOptOut is true', () => {
             const identity = getIdentity();
             identity.isOptOut = true;
-            setConfig({ apiKey: 'testAPIKey', platform: 'unknown', projectName: 'testProjectName', apiEndpoint: 'https://cca-lite.coinbase.com'})
+            setConfig({ platform: 'unknown', projectName: 'testProjectName', apiEndpoint: 'https://cca-lite.coinbase.com'})
             sendEvents(events);
             expect(apiFetchSpy).toHaveBeenCalledTimes(0);
         });
@@ -76,7 +76,7 @@ describe('networkLayer', () => {
 
 
         it('should call apiFetch when skipScheduler is set to true', async () => {
-            setConfig({ apiKey: 'testAPIKey', platform: 'unknown', projectName: 'testProjectName', apiEndpoint: 'https://cca-lite.coinbase.com'})
+            setConfig({ platform: 'unknown', projectName: 'testProjectName', apiEndpoint: 'https://cca-lite.coinbase.com'})
             sendMetrics(metrics, true);
             expect(apiFetchSpy).toHaveBeenCalledTimes(1);
             expect(apiFetchSpy).toHaveBeenCalledWith({
@@ -87,7 +87,7 @@ describe('networkLayer', () => {
         });
 
         it('should call apiFetch when skipScheduler is false', async () => {
-            setConfig({ apiKey: 'testAPIKey', platform: 'unknown', projectName: 'testProjectName', apiEndpoint: 'https://cca-lite.coinbase.com'})
+            setConfig({ platform: 'unknown', projectName: 'testProjectName', apiEndpoint: 'https://cca-lite.coinbase.com'})
             sendMetrics(metrics);
             expect(apiFetchSpy).toHaveBeenCalledTimes(1);
             expect(apiFetchSpy).toHaveBeenCalledWith({

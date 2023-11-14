@@ -51,13 +51,12 @@ export const sendEvents = (events: Event[]) => {
     });  
   }
 
-  const {apiEndpoint, eventPath, apiKey, onError} = getConfig();
+  const {apiEndpoint, eventPath, onError} = getConfig();
   const uploadTime = getNow().toString();
 
   const analyticsServiceData = {
     e: stringifiedEventData,
-    client: apiKey,
-    checksum: getChecksum(apiKey, stringifiedEventData, uploadTime),
+    checksum: getChecksum(stringifiedEventData, uploadTime),
   }
 
   const eventEndPoint = `${apiEndpoint}${eventPath}`;

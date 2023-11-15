@@ -1,7 +1,7 @@
 import { Config } from '../types/config';
 import { DEFAULT_CONFIG } from './config';
 import { Storage } from '../types/storage';
-import { createScheduler } from '../utils/scheduler';
+import { DEFAULT_SCHEDULER, createScheduler } from '../utils/scheduler';
 import { Scheduler } from '../types/scheduler';
 import { Metric } from '../types/metric';
 import { Event } from '../types/event';
@@ -18,8 +18,8 @@ import { NetworkLayer } from '../types/networkLayer';
 const storage: Storage = {
   config: DEFAULT_CONFIG as Config,
   networkLayer: DEFAULT_NETWORK_LAYER as NetworkLayer,
-  metricScheduler: createScheduler<Metric>(),
-  eventScheduler: createScheduler<Event>(),
+  metricScheduler: DEFAULT_SCHEDULER as Scheduler<Metric>,
+  eventScheduler: DEFAULT_SCHEDULER as Scheduler<Event>,
   location: DEFAULT_LOCATION as Location,
   identity: DEFAULT_IDENTITY as Identity,
   device: DEFAULT_DEVICE as Device,

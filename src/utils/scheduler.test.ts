@@ -11,7 +11,7 @@ describe('Scheduler', () => {
   let scheduler: Scheduler<TestEvent>;
   beforeEach(() => {
     vi.resetAllMocks();
-    scheduler = createScheduler<TestEvent>(0);
+    scheduler = createScheduler<TestEvent>();
   });
 
   test('should add an event', () => {

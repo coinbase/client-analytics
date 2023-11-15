@@ -5,6 +5,13 @@ import { getConfig } from '../storage/storage';
 const DEFAULT_BATCH_THRESHOLD = 30;
 const DEFAULT_TIME_THRESHOLD = 5000;
 
+export const DEFAULT_SCHEDULER = {
+  queue: createQueue(),
+  add: () => undefined,
+  items: [],
+  length: 0,
+};
+
 export const createScheduler = <T>(
   batchThreshold = DEFAULT_BATCH_THRESHOLD,
   timeThreshold = DEFAULT_TIME_THRESHOLD

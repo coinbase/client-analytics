@@ -35,7 +35,6 @@ export type AuthStatus = 'notLoggedIn' | 'loggedIn';
 
 export type AnalyticsAPIFetch = {
   data: Record<string, unknown>;
-  isJSON?: boolean;
   onError: (err: Error, metadata?: Record<string, unknown>) => void;
   url: string;
 };

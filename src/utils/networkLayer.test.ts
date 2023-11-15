@@ -35,7 +35,6 @@ describe('networkLayer', () => {
                 url: 'https://cca-lite.coinbase.com/events',
                 data: {
                     e: JSON.stringify(events),
-                    client: '',
                     checksum: 'c4ca4238a0b923820dcc509a6f75849b',
                 },
                 onError: config.onError,

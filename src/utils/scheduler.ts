@@ -44,7 +44,7 @@ export const createScheduler = <T>(
       return queue.length;
     },
   };
-}
+};
 
 /*
 * Schedule an event

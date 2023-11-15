@@ -1,4 +1,10 @@
-import { PerformanceEvents } from '../types';
+type PerformanceEvents = Record<
+  string,
+  {
+    eventName: string;
+  }
+>;
+
 export const PERF_EVENTS: PerformanceEvents = {
   navigationTiming: {
     eventName: 'perf_navigation_timing',

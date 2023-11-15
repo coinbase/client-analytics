@@ -17,7 +17,6 @@ export const DEFAULT_CONFIG = {
   ricTimeoutScheduleEvent: 1000,
   // TODO: find better solution to handle reset
   reset: () => Object.assign(getConfig(), DEFAULT_CONFIG),
-  steps: {},
 };
 
 const validateUrl = (url?: string): boolean => {
@@ -30,9 +29,6 @@ const validateUrl = (url?: string): boolean => {
   }
 };
 
-// TODO: check if this is a bug
-// it doesn't actuall update the config storage
-// and it's used all over tests as setConfig
 export const init = (config: InputConfig): Config => {
   // validated config
   if (!validateUrl(config.apiEndpoint)) {

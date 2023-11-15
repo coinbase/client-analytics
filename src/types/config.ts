@@ -1,5 +1,3 @@
-import { IStepsConfig } from 'perfume.js/dist/types/types';
-
 /**
  * The platform name
  */
@@ -40,7 +38,6 @@ export type CustomConfig = {
   version?: string | number | null;
   apiEndpoint: string;
   reset: () => void;
-  steps: IStepsConfig;
 };
 
 /**

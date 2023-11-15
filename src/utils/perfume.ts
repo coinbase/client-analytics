@@ -7,41 +7,6 @@ import { trackMetric } from '../trackMetric';
 
 type IVitalsScore = 'good' | 'needsImprovement' | 'poor' | null;
 
-export interface IOutlierThreshold {
-  maxOutlierThreshold: number;
-}
-export interface IVitalsThresholds {
-  vitalsThresholds: [number, number];
-}
-
-export enum IThresholdTier {
-  instant = 'instant',
-  quick = 'quick',
-  moderate = 'moderate',
-  slow = 'slow',
-  unavoidable = 'unavoidable',
-}
-
-export type IStepsThresholdConfig = IVitalsThresholds & IOutlierThreshold;
-
-export type IStepsThresholds = {
-  [key in IThresholdTier]: IStepsThresholdConfig;
-};
-
-export type ISteps<Steps extends string> = {
-  steps: Steps[];
-} & Partial<IOutlierThreshold>;
-
-export interface IStepMarks<Marks extends string> {
-  marks: [Marks | 'launch', Marks];
-}
-
-export type IStepConfig<Marks extends string> = {
-  threshold: IThresholdTier;
-} & IStepMarks<Marks>;
-
-export type IStepsConfig = Record<string, IStepConfig<string>>;
-
 interface IPerfumeNavigationTiming {
   fetchTime?: number;
   workerTime?: number;
@@ -334,7 +299,6 @@ export const getPerfumeOptions = () => {
       }
     },
     maxMeasureTime: MAX_MEASURE_TIME,
-    steps: config.steps,
   };
 };
 

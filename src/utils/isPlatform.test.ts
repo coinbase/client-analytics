@@ -19,7 +19,6 @@ describe('isPlatform()', () => {
     apiEndpoint: 'https://open.analytics',
     // TODO: find better solution to handle reset
     reset: expect.any(Function),
-    steps: {},
   });
 
   describe('isMobileWeb()', () => {

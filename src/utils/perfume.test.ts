@@ -46,7 +46,6 @@ const DEFAULT_TEST_STORAGE_CONFIG = {
   disabled: false,
   reset: () => Object.assign(getConfig(), DEFAULT_CONFIG),
   onError: () => undefined,
-  steps: {},
 };
 
 describe('perfume', () => {
@@ -72,7 +71,6 @@ describe('perfume', () => {
         disabled: false,
         reset: () => Object.assign(getConfig(), DEFAULT_CONFIG),
         onError: () => undefined,
-        steps: {},
       });
 
       Object.assign(timeStone, { timeStart: 123 });

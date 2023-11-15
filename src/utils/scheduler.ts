@@ -1,8 +1,16 @@
 import { createQueue } from './queue';
 import { Scheduler } from '../types/scheduler';
+import { getConfig } from '../storage/storage';
 
 const DEFAULT_BATCH_THRESHOLD = 30;
 const DEFAULT_TIME_THRESHOLD = 5000;
+
+export const DEFAULT_SCHEDULER = {
+  queue: createQueue(),
+  add: () => undefined,
+  items: [],
+  length: 0,
+};
 
 export const createScheduler = <T>(
   batchThreshold = DEFAULT_BATCH_THRESHOLD,
@@ -43,4 +51,20 @@ export const createScheduler = <T>(
       return queue.length;
     },
   };
+};
+
+/*
+ * Schedule an event
+ * - on web we create a background task with the requestIdleCallback API
+ * - on iOS and android we use the InteractionManager to schedule
+ *   a task after interactions or animations have completed,
+ *   this helps especially animations to run smoothly.
+ */
+export const scheduleEvent = (cb: () => void) => {
+  const config = getConfig();
+  if (window?.requestIdleCallback) {
+    window.requestIdleCallback(cb, { timeout: config.ricTimeoutScheduleEvent });
+  } else {
+    cb();
+  }
 };

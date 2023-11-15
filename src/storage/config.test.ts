@@ -44,6 +44,7 @@ describe('Config', () => {
       disabled: false,
       isAlwaysAuthed: false,
       version: null,
+      ricTimeoutScheduleEvent: 1000,
       reset: expect.any(Function),
     });
   });
@@ -86,6 +87,7 @@ describe('Config', () => {
       isAlwaysAuthed: false,
       reset: expect.any(Function),
       version: null,
+      ricTimeoutScheduleEvent: 1000,
     });
   });
 });

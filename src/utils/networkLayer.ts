@@ -92,6 +92,7 @@ export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
   }
 };
 
+// TODO: network layer should be generic as the scheduler
 export const networkLayerInit = (): NetworkLayer => {
   return {
     sendMetrics,

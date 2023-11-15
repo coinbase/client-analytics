@@ -6,8 +6,8 @@
 // PR2
 // and then you move to the integration
 
-import {Event} from '../types/event';
-import {Metric} from '../types/metric';
+import { Event } from '../types/event';
+import { Metric } from '../types/metric';
 import { getConfig, getIdentity } from '../storage/storage.ts';
 import { NetworkLayer } from '../types/networkLayer.ts';
 import { getNow } from './time.ts';
@@ -22,16 +22,16 @@ export const DEFAULT_NETWORK_LAYER = {
 
 export const sendEvents = (events: Event[]) => {
   const identity = getIdentity();
-  if(identity.isOptOut || events.length === 0) {
+  if (identity.isOptOut || events.length === 0) {
     return;
   }
 
   let stringifiedEventData;
-  try{
+  try {
     stringifiedEventData = JSON.stringify(events);
-  } catch(e) {
+  } catch (e) {
     let err;
-    if(e instanceof Error) {
+    if (e instanceof Error) {
       err = e;
     } else {
       err = new Error('unknown');
@@ -47,17 +47,17 @@ export const sendEvents = (events: Event[]) => {
     const config = getConfig();
     config.onError(err, {
       listEventName,
-      stringifiedEventData
-    });  
+      stringifiedEventData,
+    });
   }
 
-  const {apiEndpoint, eventPath, onError} = getConfig();
+  const { apiEndpoint, eventPath, onError } = getConfig();
   const uploadTime = getNow().toString();
 
   const analyticsServiceData = {
     e: stringifiedEventData,
     checksum: getChecksum(stringifiedEventData, uploadTime),
-  }
+  };
 
   const eventEndPoint = `${apiEndpoint}${eventPath}`;
 
@@ -65,22 +65,20 @@ export const sendEvents = (events: Event[]) => {
     url: eventEndPoint,
     data: analyticsServiceData,
     onError: onError,
-  })
-
+  });
 };
 export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
-
-  const {apiEndpoint, metricPath, onError} = getConfig();
+  const { apiEndpoint, metricPath, onError } = getConfig();
   const metricEndpoint = `${apiEndpoint}${metricPath}`;
 
-  if(skipScheduler) {
+  if (skipScheduler) {
     apiFetch({
       url: metricEndpoint,
       data: {
         metricData: metrics,
       },
       onError: onError,
-    })
+    });
   } else {
     scheduleEvent(() => {
       apiFetch({
@@ -89,15 +87,14 @@ export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
           metricData: metrics,
         },
         onError: onError,
-      })
+      });
     });
   }
 };
 
 export const networkLayerInit = (): NetworkLayer => {
-  
   return {
     sendMetrics,
-    sendEvents
-  }
+    sendEvents,
+  };
 };

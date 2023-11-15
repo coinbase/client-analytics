@@ -54,17 +54,17 @@ export const createScheduler = <T>(
 };
 
 /*
-* Schedule an event
-* - on web we create a background task with the requestIdleCallback API
-* - on iOS and android we use the InteractionManager to schedule
-*   a task after interactions or animations have completed,
-*   this helps especially animations to run smoothly.
-*/
+ * Schedule an event
+ * - on web we create a background task with the requestIdleCallback API
+ * - on iOS and android we use the InteractionManager to schedule
+ *   a task after interactions or animations have completed,
+ *   this helps especially animations to run smoothly.
+ */
 export const scheduleEvent = (cb: () => void) => {
   const config = getConfig();
- if (window?.requestIdleCallback) {
-   window.requestIdleCallback(cb, { timeout: config.ricTimeoutScheduleEvent });
- } else {
-   cb();
- }
+  if (window?.requestIdleCallback) {
+    window.requestIdleCallback(cb, { timeout: config.ricTimeoutScheduleEvent });
+  } else {
+    cb();
+  }
 };

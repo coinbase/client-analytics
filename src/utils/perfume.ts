@@ -1,10 +1,9 @@
 import { PERF_EVENTS } from './constants';
-import { getLocation, getConfig } from '../storage/storage';
+import { getConfig } from '../storage/storage';
 import { ActionType, ComponentType } from '../types/perfume';
 import { MetricType } from '../types/metric';
 import { trackEvent } from '../trackEvent';
 import { trackMetric } from '../trackMetric';
-import { isWebPlatform } from './isPlatform';
 
 type IVitalsScore = 'good' | 'needsImprovement' | 'poor' | null;
 
@@ -100,7 +99,6 @@ let networkInformationCached = {};
  * Helper method to define Perfume.js configs and the analyticsTracker
  */
 export const getPerfumeOptions = () => {
-  const location = getLocation();
   const config = getConfig();
 
   return {
@@ -134,7 +132,6 @@ export const getPerfumeOptions = () => {
       const defaultMetricData = {
         is_low_end_device: isLowEndDevice,
         is_low_end_experience: isLowEndExperience,
-        page_key: location.pageKey || '',
         save_data: (data as IPerfumeNetworkInformation)?.saveData || false,
         service_worker: serviceWorkerStatus,
         is_perf_metric: true,
@@ -338,16 +335,7 @@ export const getPerfumeOptions = () => {
     },
     maxMeasureTime: MAX_MEASURE_TIME,
     steps: config.steps,
-    onMarkStep: onMarkStepOptions,
   };
-};
-
-export const onMarkStepOptions = (mark: string, steps: string[]) => {
-  const config = getConfig();
-
-  if (config?.onMarkStep) {
-    config.onMarkStep(mark, steps);
-  }
 };
 
 // @ts-expect-error missing perfume.js type
@@ -366,7 +354,7 @@ export const perfume = {
  */
 export const markNTBT = () => {
   // This method will be defined only if we are in web
-  if (isWebPlatform() && perfumeInstance && perfumeInstance.markNTBT) {
+  if (perfumeInstance && perfumeInstance.markNTBT) {
     perfumeInstance.markNTBT();
   }
 };
@@ -375,7 +363,7 @@ export const markNTBT = () => {
  *  markStep is used to mark a point in the application where a user journey step can begin or end
  */
 export const markStep = (step: string) => {
-  if (isWebPlatform() && perfumeInstance && perfume.markStep) {
+  if (perfumeInstance && perfume.markStep) {
     perfume.markStep(step);
   }
 };
@@ -385,7 +373,7 @@ export const markStep = (step: string) => {
  * where a user journey step can begin or end only
  * */
 export const markStepOnce = (step: string) => {
-  if (isWebPlatform() && perfumeInstance && perfume.markStepOnce) {
+  if (perfumeInstance && perfume.markStepOnce) {
     perfume.markStepOnce(step);
   }
 };
@@ -395,7 +383,7 @@ export const markStepOnce = (step: string) => {
  * this helps ensure there are only active user journey steps
  * */
 export const incrementUjNavigation = () => {
-  if (isWebPlatform() && perfumeInstance && perfume.incrementUjNavigation) {
+  if (perfumeInstance && perfume.incrementUjNavigation) {
     perfume.incrementUjNavigation();
   }
 };
@@ -407,17 +395,15 @@ export const incrementUjNavigation = () => {
 export const initPerfMonitoring = () => {
   const config = getConfig();
 
-  if (isWebPlatform()) {
-    try {
-      const perfumeLib = require('perfume.js');
-      perfume.markStep = perfumeLib.markStep;
-      perfume.markStepOnce = perfumeLib.markStepOnce;
-      perfume.incrementUjNavigation = perfumeLib.incrementUjNavigation;
-      perfumeInstance = new perfumeLib.Perfume(getPerfumeOptions());
-    } catch (e) {
-      if (e instanceof Error) {
-        config.onError(e);
-      }
+  try {
+    const perfumeLib = require('perfume.js');
+    perfume.markStep = perfumeLib.markStep;
+    perfume.markStepOnce = perfumeLib.markStepOnce;
+    perfume.incrementUjNavigation = perfumeLib.incrementUjNavigation;
+    perfumeInstance = new perfumeLib.Perfume(getPerfumeOptions());
+  } catch (e) {
+    if (e instanceof Error) {
+      config.onError(e);
     }
   }
 };

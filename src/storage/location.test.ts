@@ -40,8 +40,6 @@ describe('location', () => {
       initialUAAData: {},
       pagePath: '',
       prevPagePath: '',
-      pageKey: '',
-      prevPageKey: '',
     });
   });
 
@@ -52,16 +50,12 @@ describe('location', () => {
       initialUAAData: { utm_term: 'test' },
       pagePath: 'test',
       prevPagePath: 'prevTest',
-      pageKey: '',
-      prevPageKey: '',
     });
     expect(location).toEqual({
       breadcrumbs: [{ label: 'test', href: 'test' }],
       initialUAAData: { utm_term: 'test' },
       pagePath: 'test',
       prevPagePath: 'prevTest',
-      pageKey: '',
-      prevPageKey: '',
     });
   });
 
@@ -78,8 +72,6 @@ describe('location', () => {
       initialUAAData: {},
       pagePath: '',
       prevPagePath: '',
-      pageKey: '',
-      prevPageKey: '',
     });
   });
 

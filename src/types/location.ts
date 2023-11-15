@@ -38,8 +38,6 @@ export type Location = {
   initialUAAData: UAAData;
   pagePath: string;
   prevPagePath: string;
-  pageKey: string;
-  prevPageKey: string;
 };
 
 export type SetLocation = Partial<Location>;

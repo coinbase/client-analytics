@@ -14,8 +14,6 @@ export const DEFAULT_LOCATION = {
   initialUAAData: {},
   pagePath: '',
   prevPagePath: '',
-  pageKey: '',
-  prevPageKey: '',
 };
 
 const UAA_QUERIES: AnalyticsQueries[] = [

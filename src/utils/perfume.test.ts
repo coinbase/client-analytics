@@ -1,7 +1,6 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest';
 
 import { DEFAULT_CONFIG } from '../storage/config';
-import { setLocation } from '../storage/location';
 import { init as storageInit } from '../storage/storage';
 
 import * as trackEvent from '../trackEvent';
@@ -62,7 +61,6 @@ describe('perfume', () => {
       vi.resetAllMocks();
       trackEventSpy = vi.spyOn(trackEvent, 'trackEvent');
       trackMetricSpy = vi.spyOn(trackMetric, 'trackMetric');
-      setLocation({ pageKey: 'asset' });
       storageInit({
         isProd: true,
         platform: 'web',
@@ -113,7 +111,6 @@ describe('perfume', () => {
           is_low_end_device: false,
           is_low_end_experience: false,
           is_perf_metric: true,
-          page_key: 'asset',
           save_data: false,
           service_worker: 'unsupported',
         },
@@ -176,7 +173,6 @@ describe('perfume', () => {
           is_low_end_device: false,
           is_low_end_experience: false,
           is_perf_metric: true,
-          page_key: 'asset',
           save_data: false,
           service_worker: 'unsupported',
         },
@@ -261,7 +257,6 @@ describe('perfume', () => {
           is_low_end_device: false,
           is_low_end_experience: false,
           is_perf_metric: true,
-          page_key: 'asset',
           save_data: false,
           service_worker: 'unsupported',
         },
@@ -274,7 +269,6 @@ describe('perfume', () => {
           is_low_end_device: false,
           is_low_end_experience: false,
           is_perf_metric: true,
-          page_key: 'asset',
           save_data: false,
           service_worker: 'unsupported',
         },
@@ -348,7 +342,6 @@ describe('perfume', () => {
           is_low_end_device: false,
           is_low_end_experience: false,
           is_perf_metric: true,
-          page_key: 'asset',
           save_data: false,
           service_worker: 'unsupported',
         },
@@ -493,7 +486,6 @@ describe('perfume', () => {
           is_low_end_device: false,
           is_low_end_experience: false,
           is_perf_metric: true,
-          page_key: 'asset',
           save_data: false,
           service_worker: 'unsupported',
         },
@@ -518,7 +510,6 @@ describe('perfume', () => {
           is_low_end_device: false,
           is_low_end_experience: false,
           is_perf_metric: true,
-          page_key: 'asset',
           save_data: false,
           service_worker: 'unsupported',
         },
@@ -543,7 +534,6 @@ describe('perfume', () => {
           is_low_end_device: false,
           is_low_end_experience: false,
           is_perf_metric: true,
-          page_key: 'asset',
           save_data: false,
           service_worker: 'unsupported',
         },
@@ -623,7 +613,6 @@ describe('perfume', () => {
           is_low_end_device: false,
           is_low_end_experience: false,
           is_perf_metric: true,
-          page_key: 'asset',
           save_data: false,
           service_worker: 'unsupported',
         },
@@ -636,7 +625,6 @@ describe('perfume', () => {
           is_low_end_device: false,
           is_low_end_experience: false,
           is_perf_metric: true,
-          page_key: 'asset',
           save_data: false,
           service_worker: 'unsupported',
         },
@@ -652,16 +640,6 @@ describe('perfume', () => {
 
     beforeEach(() => {
       storageInit({ ...DEFAULT_TEST_STORAGE_CONFIG, platform: 'web' });
-    });
-
-    test('should not call markNTBT() when platform is not web', () => {
-      storageInit({ ...DEFAULT_TEST_STORAGE_CONFIG, platform: 'ios' });
-      initPerfMonitoring();
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      perfumeInstance ? (perfumeInstance.markNTBT = mockMarkNTBT) : null;
-      markNTBT();
-
-      expect(mockMarkNTBT).not.toHaveBeenCalled();
     });
 
     test('should call markNTBT() when platform is web', () => {

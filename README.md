@@ -1,9 +1,12 @@
 # Open Analytics
 
-Open Analytics is an NPM package that offers a comprehensive set of tools to streamline the collection of user events and performance metrics, with a focus on web vitals. This package is designed to provide developers with an easy and efficient way to gather valuable insights about their web applications' user interactions and performance characteristics.
+With this Open Source Analytics Library, we want to provide all developers with the ability to move to an auto-instrumented event world where we can count on data being produced with standardized fields.
 
-Installation
-You can install the Open Analytics package using npm:
+For a deeper look into the Library, please visit our documentation.
+
+## Installation
+
+You can install the Open Analytics package using yarn (or npm):
 
 ```bash
 yarn add open-analytics
@@ -30,7 +33,3 @@ We welcome contributions from the community! If you encounter any issues or have
 ## License
 
 This project is licensed under the MIT License.
-
-## Contact
-
-For any inquiries, please email us at support@example.com or visit our website https://www.open-analytics.com.

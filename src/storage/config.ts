@@ -14,6 +14,7 @@ export const DEFAULT_CONFIG = {
   isAlwaysAuthed: false,
   version: null,
   apiEndpoint: 'https://cca-lite.coinbase.com',
+  ricTimeoutScheduleEvent: 1000,
   // TODO: find better solution to handle reset
   reset: () => Object.assign(getConfig(), DEFAULT_CONFIG),
 };
@@ -34,6 +35,7 @@ export const init = (config: InputConfig): Config => {
     throw APIENDPOINT_URL_ERROR;
   }
 
+  // enhancer
   return {
     ...DEFAULT_CONFIG,
     ...config,

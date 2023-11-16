@@ -33,11 +33,12 @@ export type CustomConfig = {
   batchEventsThreshold?: number;
   batchMetricsPeriod?: number;
   batchMetricsThreshold?: number;
+  ricTimeoutScheduleEvent?: number;
   isAlwaysAuthed?: boolean;
   version?: string | number | null;
   apiEndpoint: string;
   reset: () => void;
-}
+};
 
 /**
  * The config for the analytics client.

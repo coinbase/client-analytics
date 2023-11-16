@@ -29,6 +29,6 @@ export const createQueue = <T>(): Queue<T> => {
     get length() {
       return items.length;
     },
-    items
+    items,
   };
 };

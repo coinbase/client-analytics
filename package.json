@@ -16,10 +16,13 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "format": "prettier . --check",
+    "format:fix": "prettier . --write"
   },
   "devDependencies": {
     "@types/node": "^20.4.6",
+    "@types/md5": "^2.3.2",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.9.0",
@@ -50,5 +53,8 @@
       "git add"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "md5": "^2.3.0",
+    "perfume.js": "9.0.0-rc.3"
+  }
 }

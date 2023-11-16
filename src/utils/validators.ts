@@ -1,4 +1,4 @@
-import { getConfig } from '../storage/storage.ts';
+import { getConfig } from '../storage/storage';
 
 export const isValidPlatform = (): boolean => {
   const config = getConfig();
@@ -8,4 +8,4 @@ export const isValidPlatform = (): boolean => {
   }
 
   return true;
-}
+};

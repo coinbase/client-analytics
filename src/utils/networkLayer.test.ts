@@ -40,6 +40,8 @@ describe('networkLayer', () => {
       });
       sendEvents(events);
       expect(apiFetchSpy).toHaveBeenCalledTimes(1);
+      expect(configOnErrorSpy).toHaveBeenCalledTimes(0);
+      expect(checksumSpy).toHaveBeenCalledTimes(1);
       expect(apiFetchSpy).toHaveBeenCalledWith({
         url: 'https://cca-lite.coinbase.com/events',
         data: {
@@ -59,6 +61,8 @@ describe('networkLayer', () => {
       });
       sendEvents(emptyEventsList);
       expect(apiFetchSpy).toHaveBeenCalledTimes(0);
+      expect(configOnErrorSpy).toHaveBeenCalledTimes(0);
+      expect(checksumSpy).toHaveBeenCalledTimes(0);
     });
 
     it('should not call apiFetch when identity.isOptOut is true', () => {
@@ -71,6 +75,8 @@ describe('networkLayer', () => {
       });
       sendEvents(events);
       expect(apiFetchSpy).toHaveBeenCalledTimes(0);
+      expect(configOnErrorSpy).toHaveBeenCalledTimes(0);
+      expect(checksumSpy).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -106,6 +112,7 @@ describe('networkLayer', () => {
       });
       sendMetrics(metrics, true);
       expect(apiFetchSpy).toHaveBeenCalledTimes(1);
+      expect(configOnErrorSpy).toHaveBeenCalledTimes(0);
       expect(apiFetchSpy).toHaveBeenCalledWith({
         url: 'https://cca-lite.coinbase.com/metrics',
         data: { metricData: metrics },
@@ -121,6 +128,7 @@ describe('networkLayer', () => {
       });
       sendMetrics(metrics);
       expect(apiFetchSpy).toHaveBeenCalledTimes(1);
+      expect(configOnErrorSpy).toHaveBeenCalledTimes(0);
       expect(apiFetchSpy).toHaveBeenCalledWith({
         url: 'https://cca-lite.coinbase.com/metrics',
         data: { metricData: metrics },

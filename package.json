@@ -18,7 +18,10 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "format": "prettier . --check",
-    "format:fix": "prettier . --write"
+    "format:fix": "prettier . --write",
+    "release:check": "changeset status --verbose --since=origin/master",
+    "release:publish": "yarn install && yarn build && changeset publish",
+    "release:version": "changeset version && yarn install --lockfile-only"
   },
   "devDependencies": {
     "@types/node": "^20.4.6",

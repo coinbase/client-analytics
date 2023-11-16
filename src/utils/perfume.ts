@@ -298,11 +298,6 @@ export const getPerfumeOptions = () => {
 export let perfumeInstance;
 export const perfume = {
   Perfume: () => {},
-  // @ts-expect-error
-  markStep: (step: string) => {},
-  // @ts-expect-error
-  markStepOnce: (step: string) => {},
-  incrementUjNavigation: () => {},
 };
 
 /**
@@ -316,35 +311,6 @@ export const markNTBT = () => {
 };
 
 /**
- *  markStep is used to mark a point in the application where a user journey step can begin or end
- */
-export const markStep = (step: string) => {
-  if (perfumeInstance && perfume.markStep) {
-    perfume.markStep(step);
-  }
-};
-
-/**
- * markStepOnce is used to mark a point in the application once per session
- * where a user journey step can begin or end only
- * */
-export const markStepOnce = (step: string) => {
-  if (perfumeInstance && perfume.markStepOnce) {
-    perfume.markStepOnce(step);
-  }
-};
-
-/**
- * incrementUjNavigation is used to track navigational changes in an application,
- * this helps ensure there are only active user journey steps
- * */
-export const incrementUjNavigation = () => {
-  if (perfumeInstance && perfume.incrementUjNavigation) {
-    perfume.incrementUjNavigation();
-  }
-};
-
-/**
  * Initiate field data for performance metrics
  * Docs: https://github.com/Zizzamia/perfume.js
  */
@@ -353,9 +319,6 @@ export const initPerfMonitoring = () => {
 
   try {
     const perfumeLib = require('perfume.js');
-    perfume.markStep = perfumeLib.markStep;
-    perfume.markStepOnce = perfumeLib.markStepOnce;
-    perfume.incrementUjNavigation = perfumeLib.incrementUjNavigation;
     perfumeInstance = new perfumeLib.Perfume(getPerfumeOptions());
   } catch (e) {
     if (e instanceof Error) {

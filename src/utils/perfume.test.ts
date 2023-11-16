@@ -13,9 +13,6 @@ import {
   IAnalyticsTrackerOptions,
   initPerfMonitoring,
   markNTBT,
-  markStep,
-  markStepOnce,
-  perfume,
   perfumeInstance,
 } from './perfume';
 
@@ -608,8 +605,6 @@ describe('perfume', () => {
 
   describe('perfumeInstance', () => {
     const mockMarkNTBT = vi.fn();
-    const mockMarkStep = vi.fn();
-    const mockMarkStepOnce = vi.fn();
 
     beforeEach(() => {
       storageInit({ ...DEFAULT_TEST_STORAGE_CONFIG, platform: 'web' });
@@ -621,18 +616,6 @@ describe('perfume', () => {
       perfumeInstance ? (perfumeInstance.markNTBT = mockMarkNTBT) : null;
       markNTBT();
       expect(mockMarkNTBT).toHaveBeenCalled();
-    });
-    test('should call markStep() when platform is web and theres valid steps', () => {
-      initPerfMonitoring();
-      perfume.markStep = mockMarkStep;
-      markStep('first_step');
-      expect(mockMarkStep).toHaveBeenCalled();
-    });
-    test('should call markStepOnce() when platform is web and theres valid steps', () => {
-      initPerfMonitoring();
-      perfume.markStepOnce = mockMarkStepOnce;
-      markStepOnce('first_step');
-      expect(mockMarkStepOnce).toHaveBeenCalled();
     });
   });
 });

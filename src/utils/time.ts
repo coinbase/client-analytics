@@ -8,7 +8,7 @@ export function getNow(): number {
 /**
  * The TimeStone will hold the power to understand the past, present and future
  * of the user experience. In a few words we are getting a little smarter
- * on understanding how much time a user is spending for each pagePath, pageKey and session.
+ * on understanding how much time a user is spending for each pagePath and session.
  *
  * Also for not colliding with any default naming system,
  * I decided to call this timeStone in honor of Doctor Strange.

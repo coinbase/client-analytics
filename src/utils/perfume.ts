@@ -123,15 +123,17 @@ export const getPerfumeOptions = () => {
           vitalsScore: rating || null,
           ...defaultEventData,
         });
-        trackMetric({
-          metricName: PERF_EVENTS.TTFB.eventName,
-          metricType: MetricType.histogram,
-          tags: {
-            ...defaultMetricData,
-          },
-          // @ts-expect-error TODO
-          value: data,
-        });
+
+        if (typeof data === 'number') {
+          trackMetric({
+            metricName: PERF_EVENTS.TTFB.eventName,
+            metricType: MetricType.histogram,
+            tags: {
+              ...defaultMetricData,
+            },
+            value: data,
+          });
+        }
 
         // Sent to Datadog for real-time metric monitoring
         if (rating) {
@@ -162,29 +164,17 @@ export const getPerfumeOptions = () => {
           });
         }
       } else if (metricName === 'storageEstimate') {
-        trackEvent({
-          name: metric.eventName,
-          action: ActionType.measurement,
-          component: ComponentType.page,
-          // @ts-expect-error TODO
-          ...data,
-          ...defaultEventData,
-        });
-        // Sent to Datadog for real-time metric monitoring
-        trackMetric({
-          metricName: 'perf_storage_estimate_caches',
-          metricType: MetricType.histogram,
-          tags: defaultMetricData,
-          // @ts-expect-error TODO
-          value: data.caches,
-        });
-        trackMetric({
-          metricName: 'perf_storage_estimate_indexed_db',
-          metricType: MetricType.histogram,
-          tags: defaultMetricData,
-          // @ts-expect-error TODO
-          value: data.indexedDB,
-        });
+        if (typeof data === 'object' && data !== null) {
+          trackEvent({
+            name: metric.eventName,
+            action: ActionType.measurement,
+            component: ComponentType.page,
+            ...(data as
+              | IPerfumeNavigationTiming
+              | Omit<IPerfumeNetworkInformation, 'onchange'>),
+            ...defaultEventData,
+          });
+        }
         // Metrics based on score value
       } else if (metricName === 'CLS') {
         trackEvent({
@@ -248,15 +238,17 @@ export const getPerfumeOptions = () => {
           tags: defaultMetricData,
           value: 1,
         });
-        trackMetric({
-          metricName: `user_journey_step.${config.projectName}.${
-            config.platform
-          }.${attribution?.stepName || ''}`,
-          metricType: MetricType.distribution,
-          tags: defaultMetricData,
-          // @ts-expect-error TODO
-          value: data || null,
-        });
+
+        if (typeof data === 'number') {
+          trackMetric({
+            metricName: `user_journey_step.${config.projectName}.${
+              config.platform
+            }.${attribution?.stepName || ''}`,
+            metricType: MetricType.distribution,
+            tags: defaultMetricData,
+            value: data,
+          });
+        }
         // Metrics based on duration value
       } else if (PERF_EVENTS[metricName]) {
         /* 

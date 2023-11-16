@@ -1,4 +1,4 @@
-import { describe, test, expect, vi, beforeEach } from 'vitest';
+import { describe, test, expect, vi, beforeEach, SpyInstance } from 'vitest';
 
 import { DEFAULT_CONFIG } from '../storage/config';
 import { init as storageInit } from '../storage/storage';
@@ -49,9 +49,8 @@ const DEFAULT_TEST_STORAGE_CONFIG = {
 };
 
 describe('perfume', () => {
-  // TODO: type me
-  let trackEventSpy: any;
-  let trackMetricSpy: any;
+  let trackEventSpy: SpyInstance;
+  let trackMetricSpy: SpyInstance;
 
   describe('.getPerfumeOptions()', () => {
     let perfumeOptions;
@@ -127,7 +126,6 @@ describe('perfume', () => {
       expect(trackMetricSpy).not.toHaveBeenCalled();
     });
 
-    //only
     test('should call trackEvent when ttfb is defined', () => {
       storageInit({
         ...DEFAULT_TEST_STORAGE_CONFIG,
@@ -214,7 +212,7 @@ describe('perfume', () => {
           },
         })
       );
-      expect(trackEventSpy).toHaveBeenCalled();
+      expect(trackEventSpy).toHaveBeenCalledTimes(1);
       expect(trackEventSpy).toHaveBeenCalledWith({
         name: 'perf_storage_estimate',
         action: 'measurement',
@@ -247,31 +245,8 @@ describe('perfume', () => {
           },
         })
       );
-      expect(trackMetricSpy).toHaveBeenCalledTimes(2);
-      expect(trackMetricSpy).toHaveBeenCalledWith({
-        metricName: 'perf_storage_estimate_caches',
-        metricType: 'histogram',
-        tags: {
-          is_low_end_device: false,
-          is_low_end_experience: false,
-          is_perf_metric: true,
-          save_data: false,
-          service_worker: 'unsupported',
-        },
-        value: 0.95,
-      });
-      expect(trackMetricSpy).toHaveBeenCalledWith({
-        metricName: 'perf_storage_estimate_indexed_db',
-        metricType: 'histogram',
-        tags: {
-          is_low_end_device: false,
-          is_low_end_experience: false,
-          is_perf_metric: true,
-          save_data: false,
-          service_worker: 'unsupported',
-        },
-        value: 0.02,
-      });
+
+      expect(trackEventSpy).toHaveBeenCalledTimes(1);
     });
 
     test('should call trackEvent when cls is defined', () => {

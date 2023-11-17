@@ -1,11 +1,3 @@
-// PR1
-// work on this first
-// implement sendEvent and sendMetrics
-// migrate all tests
-
-// PR2
-// and then you move to the integration
-
 import { Event } from '../types/event';
 import { Metric } from '../types/metric';
 import { getConfig, getIdentity } from '../storage/storage.ts';

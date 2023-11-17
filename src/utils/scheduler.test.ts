@@ -5,11 +5,6 @@ import { createScheduler } from './scheduler';
 import { Scheduler } from '../types/scheduler';
 import { getNetworkLayer } from '../storage/storage';
 
-// type TestEvent = {
-//   name: string;
-//   id: string;
-// };
-
 describe('Scheduler', () => {
   describe('Events Scheduler', () => {
     let scheduler: Scheduler<Event>;

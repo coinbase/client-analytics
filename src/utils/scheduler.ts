@@ -12,15 +12,16 @@ export const DEFAULT_SCHEDULER = {
   length: 0,
 };
 
-export const createScheduler = <T>(callback: (items: T[]) => void, batchThreshold = DEFAULT_BATCH_THRESHOLD, timeThreshold = DEFAULT_TIME_THRESHOLD): Scheduler<T> => {
+export const createScheduler = <T>(sendData: (items: T[]) => void, batchThreshold = DEFAULT_BATCH_THRESHOLD, timeThreshold = DEFAULT_TIME_THRESHOLD): Scheduler<T> => {
   // option 1: we can create a network layer here
   // const networkLayer = getNetworkLayer();
+  // need to add a check if metric or event?
   // networkLayer.sendEvents
   // networkLayer.sendMetrics
+
   const queue = createQueue<T>();
   const add = (item: T, importance = 'low'): void => {
     queue.add(item);
-
     // todo: if we already consumed the queue we should reset the timeout
     if (queue.length >= batchThreshold || importance === 'high') {
       consume();
@@ -32,7 +33,7 @@ export const createScheduler = <T>(callback: (items: T[]) => void, batchThreshol
       return;
     }
     // otherwise we pass all items to the network layer
-    callback(queue.items);
+    sendData(queue.items);
     //  maybe we can return in the flush method
     // callback(queue.flush());
     queue.flush();

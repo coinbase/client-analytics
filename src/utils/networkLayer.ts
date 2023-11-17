@@ -16,8 +16,8 @@ import { apiFetch } from './apiFetch.ts';
 import { scheduleEvent } from './scheduler.ts';
 
 export const DEFAULT_NETWORK_LAYER = {
-  sendMetrics: () => null,
-  sendEvents: () => null,
+  sendMetrics: () => {},
+  sendEvents: () => {},
 };
 
 export const sendEvents = (events: Event[]) => {

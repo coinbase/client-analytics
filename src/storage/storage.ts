@@ -12,16 +12,14 @@ import { DEFAULT_IDENTITY, identityInit } from './identity';
 import { Identity } from '../types/identity';
 import { DEFAULT_DEVICE, deviceInit } from './device';
 import { Device } from '../types/device';
-import { networkLayerInit } from '../utils/networkLayer';
+import { DEFAULT_NETWORK_LAYER, networkLayerInit } from '../utils/networkLayer';
 import { NetworkLayer } from '../types/networkLayer';
-
-const NO_OP = () => {};
 
 const storage: Storage = {
   config: DEFAULT_CONFIG as Config,
-  networkLayer: networkLayerInit(),
-  metricScheduler: createScheduler<Metric>(NO_OP),
-  eventScheduler: createScheduler<Event>(NO_OP),
+  networkLayer: DEFAULT_NETWORK_LAYER as NetworkLayer,
+  metricScheduler: DEFAULT_SCHEDULER as Scheduler<Metric>,
+  eventScheduler: DEFAULT_SCHEDULER as Scheduler<Event>,
   location: DEFAULT_LOCATION as Location,
   identity: DEFAULT_IDENTITY as Identity,
   device: DEFAULT_DEVICE as Device,

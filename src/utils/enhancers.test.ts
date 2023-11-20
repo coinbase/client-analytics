@@ -13,7 +13,6 @@ import {
   getStorage,
 } from '../storage/storage';
 import { Event } from '../types/event';
-import { pageview } from './pageView';
 import * as time from './time';
 import { timeStone } from './time';
 import { init as setConfig } from '../storage/config';
@@ -162,17 +161,19 @@ describe('enhance', () => {
 
   describe('events', () => {
     let event: Event;
-    const pageView = pageview;
 
     beforeEach(() => {
       const location = getLocation();
-      Object.assign(location, { pagePath: null, initialUAAData: {} });
+      Object.assign(location, {
+        pagePath: null,
+        initialUAAData: {},
+        pageviewConfig: { isEnabled: false },
+      });
       event = {
         action: 'testAction',
         component: 'testComponent',
         name: 'testName',
       };
-      Object.assign(pageView, { isEnabled: false });
       Object.assign(timeStone, { timeStart: 1583872606122 });
       const identity = getIdentity();
       Object.assign(identity, { locale: null });
@@ -189,7 +190,7 @@ describe('enhance', () => {
           pagePath: 'testPagePath',
           prevPagePath: 'testPrevPagePath',
         });
-        Object.assign(pageView, { isEnabled: true });
+        Object.assign(location.pageviewConfig, { isEnabled: true });
         eventEnhancers(event);
         expect(event).toEqual({
           action: 'testAction',

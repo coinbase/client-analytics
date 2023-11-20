@@ -16,7 +16,6 @@ import {
   uaaValuesFromUrl,
 } from '../storage/location.ts';
 import { SetDeviceSize } from '../types/device.ts';
-import { pageview } from './pageView.ts';
 
 const setLanguageCode = () => {
   const identity = getIdentity();
@@ -135,7 +134,7 @@ const enhanceProperties = (
 
 const pageviewEnhancer = <T extends Event>(entity: T) => {
   const location = getLocation();
-  if (pageview.isEnabled) {
+  if (location.pageviewConfig.isEnabled) {
     Object.assign(entity, getPageviewProperties(location));
   }
 

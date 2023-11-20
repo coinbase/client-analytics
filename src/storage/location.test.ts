@@ -8,9 +8,11 @@ import {
   locationInit,
   setBreadcrumbs,
   setLocation,
+  setPageviewConfig,
   uaaValuesFromUrl,
 } from '../storage/location';
 import { describe, test, expect, beforeEach } from 'vitest';
+import { DEFAULT_LOCATION } from '../storage/location';
 
 const resetState = () => {
   const location = getLocation();
@@ -40,6 +42,10 @@ describe('location', () => {
       initialUAAData: {},
       pagePath: '',
       prevPagePath: '',
+      pageviewConfig: {
+        isEnabled: false,
+        blacklistRegex: [],
+      },
     });
   });
 
@@ -56,6 +62,10 @@ describe('location', () => {
       initialUAAData: { utm_term: 'test' },
       pagePath: 'test',
       prevPagePath: 'prevTest',
+      pageviewConfig: {
+        isEnabled: false,
+        blacklistRegex: [],
+      },
     });
   });
 
@@ -72,6 +82,10 @@ describe('location', () => {
       initialUAAData: {},
       pagePath: '',
       prevPagePath: '',
+      pageviewConfig: {
+        isEnabled: false,
+        blacklistRegex: [],
+      },
     });
   });
 
@@ -164,6 +178,77 @@ describe('location', () => {
         value: { search: '?&utm_term=some-new-value' },
       });
       expect(uaaValuesFromUrl()).toEqual({ utm_term: 'some-new-value' });
+    });
+  });
+
+  describe('pageviewConfig', () => {
+    beforeEach(() => {
+      resetState();
+      setLocation(DEFAULT_LOCATION);
+    });
+
+    test('should set only blacklistRegex', () => {
+      const { pageviewConfig } = getLocation();
+      setLocation({
+        pageviewConfig: {
+          isEnabled: pageviewConfig.isEnabled,
+          blacklistRegex: [/accounts\/.+/, /signout\/?/],
+        },
+      });
+
+      expect(getLocation().pageviewConfig).toEqual({
+        blacklistRegex: [/accounts\/.+/, /signout\/?/],
+        isEnabled: false,
+      });
+    });
+
+    test('should set only isEnabled', () => {
+      setPageviewConfig({
+        isEnabled: true,
+        blacklistRegex: [],
+      });
+
+      expect(getLocation().pageviewConfig).toEqual({
+        isEnabled: true,
+        blacklistRegex: [],
+      });
+    });
+
+    test.only('modifying pageViewConfig should not touch location properties', () => {
+      setLocation({
+        breadcrumbs: [{ label: 'test', href: 'test' }],
+        initialUAAData: { utm_term: 'test' },
+        pagePath: 'test',
+        prevPagePath: 'prevTest',
+      });
+
+      expect(getLocation()).toEqual({
+        pagePath: 'test',
+        prevPagePath: 'prevTest',
+        breadcrumbs: [{ label: 'test', href: 'test' }],
+        initialUAAData: { utm_term: 'test' },
+        pageviewConfig: {
+          isEnabled: false,
+          blacklistRegex: [],
+        },
+      });
+
+      // set pageviewConfig
+      setPageviewConfig({
+        isEnabled: true,
+        blacklistRegex: [/accounts\/.+/, /signout\/?/],
+      });
+
+      expect(getLocation()).toEqual({
+        pagePath: 'test',
+        prevPagePath: 'prevTest',
+        breadcrumbs: [{ label: 'test', href: 'test' }],
+        initialUAAData: { utm_term: 'test' },
+        pageviewConfig: {
+          isEnabled: true,
+          blacklistRegex: [/accounts\/.+/, /signout\/?/],
+        },
+      });
     });
   });
 });

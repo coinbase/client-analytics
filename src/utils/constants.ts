@@ -1,3 +1,5 @@
+export const PAGEVIEW_EVENT_TYPE = 'pageview';
+
 type PerformanceEvents = Record<
   string,
   {

@@ -8,6 +8,11 @@ export type ReferrerData = {
   referring_domain?: string;
 };
 
+export type PageviewConfig = {
+  blacklistRegex: RegExp[];
+  isEnabled: boolean;
+};
+
 export type UAAData = {
   fbclid?: string;
   gclid?: string;
@@ -38,6 +43,7 @@ export type Location = {
   initialUAAData: UAAData;
   pagePath: string;
   prevPagePath: string;
+  pageviewConfig: PageviewConfig;
 };
 
 export type SetLocation = Partial<Location>;

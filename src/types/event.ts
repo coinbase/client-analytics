@@ -12,11 +12,6 @@ export type Event = RequiredData & OptionalData;
 
 export type Importance = 'low' | 'high';
 
-export type PageviewConfig = {
-  blacklistRegex: RegExp[];
-  isEnabled: boolean;
-};
-
 type ValidationData = {
   action: string;
   component: string;

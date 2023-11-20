@@ -5,6 +5,7 @@ import {
   AnalyticsQueries,
   ReferrerData,
   Location,
+  PageviewConfig,
 } from '../types/location';
 import { persistentData } from './persistentData';
 import { getLocation } from './storage';
@@ -14,6 +15,10 @@ export const DEFAULT_LOCATION = {
   initialUAAData: {},
   pagePath: '',
   prevPagePath: '',
+  pageviewConfig: {
+    isEnabled: false,
+    blacklistRegex: [],
+  },
 };
 
 const UAA_QUERIES: AnalyticsQueries[] = [
@@ -32,6 +37,11 @@ const UAA_QUERIES: AnalyticsQueries[] = [
 export function setBreadcrumbs(breadcrumbs: Breadcrumb[]) {
   const location = getLocation();
   Object.assign(location, { breadcrumbs });
+}
+
+export function setPageviewConfig(pageviewConfig: PageviewConfig) {
+  const location = getLocation();
+  Object.assign(location, { pageviewConfig });
 }
 
 export function setLocation(data: SetLocation) {

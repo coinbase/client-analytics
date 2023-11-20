@@ -24,8 +24,8 @@
     "release:version": "changeset version && yarn install --lockfile-only"
   },
   "devDependencies": {
-    "@types/node": "^20.4.6",
     "@types/md5": "^2.3.2",
+    "@types/node": "^20.4.6",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.9.0",
@@ -57,6 +57,7 @@
     ]
   },
   "dependencies": {
+    "@types/react-router": "^5.1.20",
     "md5": "^2.3.0",
     "perfume.js": "9.0.0-rc.3"
   }

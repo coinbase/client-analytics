@@ -1,1 +1,2 @@
-export { init } from './init.ts';
+export { init } from './init';
+export { initTrackPageview } from './trackPageView';

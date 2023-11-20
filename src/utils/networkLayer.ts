@@ -1,11 +1,3 @@
-// PR1
-// work on this first
-// implement sendEvent and sendMetrics
-// migrate all tests
-
-// PR2
-// and then you move to the integration
-
 import { Event } from '../types/event';
 import { Metric } from '../types/metric';
 import { getConfig, getIdentity } from '../storage/storage.ts';
@@ -15,9 +7,11 @@ import { getChecksum } from './dataIntegrity.ts';
 import { apiFetch } from './apiFetch.ts';
 import { scheduleEvent } from './scheduler.ts';
 
+const NO_OP = () => {};
+
 export const DEFAULT_NETWORK_LAYER = {
-  sendMetrics: () => null,
-  sendEvents: () => null,
+  sendMetrics: NO_OP,
+  sendEvents: NO_OP,
 };
 
 export const sendEvents = (events: Event[]) => {
@@ -60,13 +54,13 @@ export const sendEvents = (events: Event[]) => {
   };
 
   const eventEndPoint = `${apiEndpoint}${eventPath}`;
-
   apiFetch({
     url: eventEndPoint,
     data: analyticsServiceData,
     onError: onError,
   });
 };
+
 export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
   const { apiEndpoint, metricPath, onError } = getConfig();
   const metricEndpoint = `${apiEndpoint}${metricPath}`;

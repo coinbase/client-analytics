@@ -12,7 +12,7 @@ import { DEFAULT_IDENTITY, identityInit } from './identity';
 import { Identity } from '../types/identity';
 import { DEFAULT_DEVICE, deviceInit } from './device';
 import { Device } from '../types/device';
-import { networkLayerInit, DEFAULT_NETWORK_LAYER } from '../utils/networkLayer';
+import { DEFAULT_NETWORK_LAYER, networkLayerInit } from '../utils/networkLayer';
 import { NetworkLayer } from '../types/networkLayer';
 
 const storage: Storage = {
@@ -29,10 +29,12 @@ export const init = (config: Config): void => {
   storage.config = config;
   storage.networkLayer = networkLayerInit();
   storage.metricScheduler = createScheduler<Metric>(
+    storage.networkLayer.sendMetrics,
     config.batchMetricsThreshold,
     config.batchMetricsPeriod
   );
   storage.eventScheduler = createScheduler<Event>(
+    storage.networkLayer.sendEvents,
     config.batchEventsThreshold,
     config.batchEventsPeriod
   );

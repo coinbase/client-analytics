@@ -7,9 +7,11 @@ import { getChecksum } from './dataIntegrity.ts';
 import { apiFetch } from './apiFetch.ts';
 import { scheduleEvent } from './scheduler.ts';
 
+const NO_OP = () => {};
+
 export const DEFAULT_NETWORK_LAYER = {
-  sendMetrics: () => {},
-  sendEvents: () => {},
+  sendMetrics: NO_OP,
+  sendEvents: NO_OP,
 };
 
 export const sendEvents = (events: Event[]) => {

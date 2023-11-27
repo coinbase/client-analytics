@@ -1,10 +1,9 @@
 import { Config, InputConfig } from '../types/config';
 import { APIENDPOINT_URL_ERROR } from '../utils/errors';
-import { PlatformName } from '../types/config';
 
 export const DEFAULT_CONFIG = {
   isProd: false,
-  platform: 'unknown' as PlatformName,
+  platform: 'unknown',
   projectName: '',
   isDebug: false,
   onError: () => undefined,
@@ -31,7 +30,7 @@ const validateUrl = (url?: string): boolean => {
 
 export const init = (config: InputConfig): Config => {
   // validated config
-  if (!validateUrl('https://cca-lite.coinbase.com')) {
+  if (!validateUrl(config.apiEndpoint)) {
     throw APIENDPOINT_URL_ERROR;
   }
 

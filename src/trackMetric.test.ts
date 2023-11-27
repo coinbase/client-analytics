@@ -9,7 +9,7 @@ describe('trackMetric', () => {
     const config = setConfig({
       platform: 'web',
       projectName: 'testing',
-      apiEndpoint: 'https://open.analytics',
+      apiEndpoint: 'https://client.analytics',
     });
     Object.assign(getStorage().config, config);
   });
@@ -45,7 +45,7 @@ describe('trackMetric', () => {
     const config = setConfig({
       platform: 'unknown',
       projectName: 'testing',
-      apiEndpoint: 'https://open.analytics',
+      apiEndpoint: 'https://client.analytics',
     });
     Object.assign(getStorage().config, config);
     const metric = await trackMetric({

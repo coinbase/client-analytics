@@ -16,7 +16,7 @@ describe('isPlatform()', () => {
     disabled: false,
     isAlwaysAuthed: false,
     version: null,
-    apiEndpoint: 'https://open.analytics',
+    apiEndpoint: 'https://client.analytics',
     // TODO: find better solution to handle reset
     reset: expect.any(Function),
   });
@@ -33,7 +33,7 @@ describe('isPlatform()', () => {
       const config = setConfig({
         platform: 'mobile_web',
         projectName: 'testing',
-        apiEndpoint: 'https://open.analytics',
+        apiEndpoint: 'https://client.analytics',
       });
       Object.assign(getStorage().config, config);
       expect(isMobileWeb()).toBe(true);
@@ -50,7 +50,7 @@ describe('isPlatform()', () => {
       const config = setConfig({
         platform: 'mobile_web',
         projectName: 'testing',
-        apiEndpoint: 'https://open.analytics',
+        apiEndpoint: 'https://client.analytics',
       });
       Object.assign(getStorage().config, config);
       expect(isMobileWeb()).toBe(false);

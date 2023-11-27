@@ -1,5 +1,5 @@
 /**
- *  This entire file will eventually be moved to the React open-analytics package
+ *  This entire file will eventually be moved to the React client-analytics package
  */
 
 import { RouteComponentProps } from 'react-router';

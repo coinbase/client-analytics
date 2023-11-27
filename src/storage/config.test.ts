@@ -28,7 +28,7 @@ describe('Config', () => {
       eventPath: '/custom-events',
       metricPath: '/custom-metrics',
       onError: expect.any(Function),
-      apiEndpoint: 'https://open.analytics',
+      apiEndpoint: 'https://client.analytics',
       disabled: false,
     });
 
@@ -40,7 +40,7 @@ describe('Config', () => {
       eventPath: '/custom-events',
       metricPath: '/custom-metrics',
       onError: expect.any(Function),
-      apiEndpoint: 'https://open.analytics',
+      apiEndpoint: 'https://client.analytics',
       disabled: false,
       isAlwaysAuthed: false,
       version: null,
@@ -66,7 +66,7 @@ describe('Config', () => {
       isDebug: true,
       eventPath: '/custom-events',
       metricPath: '/custom-metrics',
-      apiEndpoint: 'https://open.analytics',
+      apiEndpoint: 'https://client.analytics',
       disabled: false,
       reset: () => Object.assign(getConfig(), DEFAULT_CONFIG),
       onError: () => undefined,

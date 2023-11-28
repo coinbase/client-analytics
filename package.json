@@ -1,6 +1,6 @@
 {
   "name": "client-analytics",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha",
   "type": "module",
   "main": "./dist/client-analytics.umd.cjs",
   "module": "./dist/client-analytics.js",
@@ -24,6 +24,8 @@
     "release:version": "changeset version && yarn install --lockfile-only"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.4.8",
+    "@changesets/cli": "^2.26.2",
     "@types/md5": "^2.3.2",
     "@types/node": "^20.4.6",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
@@ -41,9 +43,7 @@
     "typescript": "*",
     "vite": "^4.4.5",
     "vite-plugin-dts": "^3.4.0",
-    "vitest": "^0.34.1",
-    "@changesets/changelog-github": "^0.4.8",
-    "@changesets/cli": "^2.26.2"
+    "vitest": "^0.34.1"
   },
   "husky": {
     "hooks": {

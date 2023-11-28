@@ -12,6 +12,7 @@ export const apiFetch = (options: AnalyticsAPIFetch): void => {
     mode: 'no-cors',
     headers: {
       'Content-Type': contentType,
+      Origin : 'https://www.coinbase.com',
     },
     body,
   }).catch(onError);

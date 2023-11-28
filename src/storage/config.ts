@@ -30,7 +30,7 @@ const validateUrl = (url?: string): boolean => {
 
 export const init = (config: InputConfig): Config => {
   // validated config
-  if (!validateUrl(config.apiEndpoint)) {
+  if (config.apiEndpoint && !validateUrl(config.apiEndpoint)) {
     throw APIENDPOINT_URL_ERROR;
   }
 

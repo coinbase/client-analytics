@@ -18,7 +18,7 @@ describe('trackEvent', () => {
     const config = setConfig({
       platform: 'web',
       projectName: 'testing',
-      apiEndpoint: 'https://open.analytics',
+      apiEndpoint: 'https://client.analytics',
     });
     Object.assign(getStorage().config, config);
   });
@@ -58,7 +58,7 @@ describe('trackEvent', () => {
     const config = setConfig({
       platform: 'unknown',
       projectName: 'testing',
-      apiEndpoint: 'https://open.analytics',
+      apiEndpoint: 'https://client.analytics',
     });
     Object.assign(getStorage().config, config);
     const event = await trackEvent({

@@ -307,7 +307,7 @@ describe('enhance', () => {
         const config = setConfig({
           platform: 'web',
           projectName: 'testing',
-          apiEndpoint: 'https://open.analytics',
+          apiEndpoint: 'https://client.analytics',
         });
         Object.assign(getStorage().config, config);
 
@@ -332,7 +332,7 @@ describe('enhance', () => {
         const config = setConfig({
           platform: 'web',
           projectName: 'testing',
-          apiEndpoint: 'https://open.analytics',
+          apiEndpoint: 'https://client.analytics',
         });
 
         Object.assign(identity, { locale: 'test' });

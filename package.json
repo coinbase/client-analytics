@@ -1,14 +1,14 @@
 {
-  "name": "open-analytics",
-  "version": "0.0.0",
+  "name": "client-analytics",
+  "version": "0.0.1",
   "type": "module",
-  "main": "./dist/open-analytics.umd.cjs",
-  "module": "./dist/open-analytics.js",
+  "main": "./dist/client-analytics.umd.cjs",
+  "module": "./dist/client-analytics.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/open-analytics.js",
-      "require": "./dist/open-analytics.umd.cjs"
+      "import": "./dist/client-analytics.js",
+      "require": "./dist/client-analytics.umd.cjs"
     }
   },
   "scripts": {

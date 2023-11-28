@@ -10,8 +10,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'open-analytics',
-      fileName: 'open-analytics',
+      name: 'client-analytics',
+      fileName: 'client-analytics',
     },
   },
   plugins: [dts()],

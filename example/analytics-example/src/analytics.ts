@@ -1,6 +1,7 @@
-import { init } from 'open-analytics';
+import { init, initTrackPageview } from 'open-analytics';
 
-// import { createBrowserHistory } from 'history';
+import { createBrowserHistory } from 'history';
+
 
 export function initAnalytics() {
   init({
@@ -12,8 +13,12 @@ export function initAnalytics() {
 }
 
 // Initialize auto-instrumented pageview events
-// export function initPageViewAnalytics(){
-//   initTrackPageview({
-//     browserHistory: createBrowserHistory(),
-//   })
-// }
+export function initPageViewAnalytics(){
+
+    const history = createBrowserHistory();
+
+  initTrackPageview({
+    browserHistory: history,
+  })
+}
+

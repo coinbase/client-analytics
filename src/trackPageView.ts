@@ -2,7 +2,6 @@
  *  This entire file will eventually be moved to the React open-analytics package
  */
 
-import { RouteComponentProps } from 'react-router';
 import { markNTBT } from './utils/perfume';
 import { PAGEVIEW_EVENT_TYPE } from './utils/constants';
 import { trackEvent } from './trackEvent';
@@ -18,11 +17,14 @@ type LogPageViewOptions = {
   callMarkNTBT?: boolean;
 };
 
-type RouterHistory = RouteComponentProps['history'];
+type History = {
+  listen: (callback: () => void) => void;
+}
+
 
 type TrackPageviewOptions = {
   blacklistRegex?: RegExp[];
-  browserHistory: RouterHistory;
+  browserHistory: History;
 };
 
 export const getUrlPathname = (): string => {

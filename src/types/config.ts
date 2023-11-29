@@ -28,7 +28,6 @@ export type CustomConfig = {
   disabled: boolean;
   onError: (err: Error, metadata?: Record<string, unknown>) => void;
   isDebug: boolean;
-  isProd: boolean;
   batchEventsPeriod?: number;
   batchEventsThreshold?: number;
   batchMetricsPeriod?: number;

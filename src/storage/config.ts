@@ -2,7 +2,6 @@ import { Config, InputConfig } from '../types/config';
 import { APIENDPOINT_URL_ERROR } from '../utils/errors';
 
 export const DEFAULT_CONFIG = {
-  isProd: false,
   platform: 'unknown',
   projectName: '',
   isDebug: false,

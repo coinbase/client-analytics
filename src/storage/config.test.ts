@@ -7,7 +7,6 @@ describe('Config', () => {
     const config = DEFAULT_CONFIG;
     expect(config).toEqual({
       ...config,
-      isProd: false,
       platform: 'unknown',
       projectName: '',
       isDebug: false,
@@ -21,7 +20,6 @@ describe('Config', () => {
 
   test('should return config with custom props', () => {
     const config = init({
-      isProd: true,
       platform: 'web',
       projectName: 'my-project',
       isDebug: true,
@@ -33,7 +31,6 @@ describe('Config', () => {
     });
 
     expect(config).toEqual({
-      isProd: true,
       platform: 'web',
       projectName: 'my-project',
       isDebug: true,
@@ -60,7 +57,6 @@ describe('Config', () => {
 
   test('should reset to DEFAULT_CONFIG when reset() is called', () => {
     storageInit({
-      isProd: true,
       platform: 'web',
       projectName: 'my-project',
       isDebug: true,
@@ -75,7 +71,6 @@ describe('Config', () => {
     getStorage().config.reset();
 
     expect(getConfig()).toEqual({
-      isProd: false,
       platform: 'unknown',
       projectName: '',
       isDebug: false,

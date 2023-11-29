@@ -6,8 +6,6 @@ export function initAnalytics() {
   init({
     platform: 'web',
     projectName: 'analytics-example',
-    isProd: false,
-    apiEndpoint: 'https://analytics-service-dev.cbhq.net', // only use for dev
   });
 }
 

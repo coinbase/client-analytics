@@ -33,7 +33,6 @@ Object.defineProperty(time, 'getNow', {
 });
 
 const DEFAULT_TEST_STORAGE_CONFIG = {
-  isProd: true,
   platform: 'web' as PlatformName,
   projectName: 'my-project',
   isDebug: true,
@@ -57,7 +56,6 @@ describe('perfume', () => {
       trackEventSpy = vi.spyOn(trackEvent, 'trackEvent');
       trackMetricSpy = vi.spyOn(trackMetric, 'trackMetric');
       storageInit({
-        isProd: true,
         platform: 'web',
         projectName: 'my-project',
         isDebug: true,

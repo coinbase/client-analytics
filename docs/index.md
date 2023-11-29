@@ -1,6 +1,6 @@
 ![coinbase-logo-image](./img/CB-logo.png)
 
-# Open Analytics
+# Client Analytics
 
 With this Open Source Analytics Library, we want to provide all developers with the ability to move to an auto-instrumented event world where we can count on data being produced with standardized fields.
 
@@ -8,10 +8,10 @@ For a deeper look into the Library, please visit our [documentation](./documenta
 
 # Installation
 
-You can install the Open Analytics package using npm:
+You can install the Client Analytics package using npm:
 
 ```bash
-yarn add open-analytics
+yarn add client-analytics
 ```
 
 ## Features
@@ -22,11 +22,11 @@ yarn add open-analytics
 
 - **Web Vitals Monitoring**: Specifically designed to help you track and analyze Core Web Vitals, including Largest Contentful Paint (LCP), First Input Delay (FID), and Cumulative Layout Shift (CLS).
 
-- **Customizable Configuration**: Configure the Open Analytics package to suit your application's specific tracking and reporting needs. Customize event types, tracked metrics, and reporting destinations.
+- **Customizable Configuration**: Configure the Client Analytics package to suit your application's specific tracking and reporting needs. Customize event types, tracked metrics, and reporting destinations.
 
 - **Data Privacy**: The library does not track any user information by default. you can choose to enable session tracking to associate events with a specific user session.
 
-- **Intuitive API**: Open Analytics offers a user-friendly API that integrates seamlessly into your application codebase. No complex setup required.
+- **Intuitive API**: Client Analytics offers a user-friendly API that integrates seamlessly into your application codebase. No complex setup required.
 
 ## Examples
 

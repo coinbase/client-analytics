@@ -1,5 +1,5 @@
 ---
-'open-analytics': patch
+'client-analytics': patch
 ---
 
-release open-analytics
+release client-analytics

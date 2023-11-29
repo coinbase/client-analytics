@@ -23,7 +23,7 @@ const resetState = () => {
     setConfig({
       platform: 'web',
       projectName: 'testing',
-      apiEndpoint: 'https://open.analytics',
+      apiEndpoint: 'https://client.analytics',
     })
   );
 };
@@ -223,7 +223,7 @@ describe('identity', () => {
         setConfig({
           platform: 'mobile_web',
           projectName: 'testing',
-          apiEndpoint: 'https://open.analytics',
+          apiEndpoint: 'https://client.analytics',
         })
       );
       expect(getPlatformValue()).toBe('mobile_web');

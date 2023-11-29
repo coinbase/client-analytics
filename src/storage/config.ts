@@ -12,7 +12,7 @@ export const DEFAULT_CONFIG = {
   disabled: false,
   isAlwaysAuthed: false,
   version: null,
-  apiEndpoint: 'https://cca-lite.coinbase.com',
+  apiEndpoint: 'https://cca-lite.coinbase.com', // works for production only
   ricTimeoutScheduleEvent: 1000,
   // TODO: find better solution to handle reset
   reset: () => {},

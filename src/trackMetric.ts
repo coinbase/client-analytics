@@ -20,5 +20,5 @@ export const trackMetric = (metric: Metric): Promise<Metric | null> => {
   const enhancedMetric = metricEnhancers(metric);
   getMetricScheduler().add(enhancedMetric);
 
-  return Promise.resolve(enhancedMetric);
+  return Promise.resolve(metric);
 };

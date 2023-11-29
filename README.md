@@ -26,6 +26,56 @@ yarn add open-analytics
 
 - **Intuitive API**: Open Analytics offers a user-friendly API that integrates seamlessly into your application codebase. No complex setup required.
 
+## Examples
+
+Init Example
+
+```typescript
+init({
+  platform: 'web',
+  projectName: 'analytics-example',
+});
+```
+
+InitTrackPageView Example
+
+```typescript
+const history = createBrowserHistory();
+
+initTrackPageview({
+  browserHistory: history,
+});
+```
+
+trackEvent Example
+
+```typescript
+trackEvent({
+  //required parameters
+  action: 'click',
+  component: 'button',
+  name: 'increment',
+  // optional metadata
+  count: count + 1,
+});
+```
+
+trackMetric Example
+
+```typescript
+trackMetric({
+  //required parameters
+  metricName: 'button_click',
+  metricType: MetricType.count,
+  value: count + 1,
+  // optional metadata
+  tags: {
+    extra: 'metadata',
+  },
+});
+```
+
+
 ## Contributing
 
 We welcome contributions from the community! If you encounter any issues or have suggestions for improvements, please open an issue on our GitHub repository.

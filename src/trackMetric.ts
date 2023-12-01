@@ -2,7 +2,6 @@ import { Metric } from './types/metric';
 import { isValidPlatform } from './utils/validators';
 import { metricEnhancers } from './utils/enhancers';
 import { getConfig, getMetricScheduler } from './storage/storage';
-import { setPagePath } from './storage/location';
 
 /**
  * log a metric to analytics service
@@ -18,8 +17,7 @@ export const trackMetric = (metric: Metric): Promise<Metric | null> => {
     return Promise.resolve(null);
   }
 
-  setPagePath();
-
+  // anything that adds/modify an event should go into the enhancer
   const enhancedMetric = metricEnhancers(metric);
   getMetricScheduler().add(enhancedMetric);
 

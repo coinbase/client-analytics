@@ -2,11 +2,11 @@ import { Event, Importance } from './types/event';
 import { isValidPlatform } from './utils/validators';
 import { getEventScheduler, getStorage } from './storage/storage';
 import { eventEnhancers } from './utils/enhancers';
-import { setPagePath } from './storage/location';
 
 /**
  * log an event to analytics service
  * @param event returns a promise that resolves when the event is added to the queue
+ * @param importance defines importance for this event
  */
 export const trackEvent = (
   event: Event,
@@ -27,8 +27,7 @@ export const trackEvent = (
     return Promise.resolve(null)
   }
 
-  setPagePath();
-
+  // anything that adds/modify an event should go into the enhancer
   const enhancedEvent = eventEnhancers(event);
 
   const eventScheduler = getEventScheduler();

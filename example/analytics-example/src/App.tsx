@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react';
+import {FC, useState, useCallback, useContext, useLayoutEffect, useEffect, useRef} from 'react';
 import './App.css';
-import { trackEvent, trackMetric, MetricType } from 'client-analytics';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { trackEvent, trackMetric, MetricType, initTrackPageview } from 'client-analytics';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 
 function HomePage() {
   const [count, setCount] = useState(0);
@@ -97,9 +97,35 @@ const routes = (
   </Route>
 );
 
+const useHistory = () => {
+  const location = useLocation();
+  const listeners = useRef<(() => void)[]>([]);
+
+  const listen = useCallback((callback: () => void) => {
+    listeners.current.push(callback);
+  }, [listeners]);
+
+  useEffect(() => {
+    listeners.current.forEach(listen => listen());
+  }, [location]);
+
+  return {listen};
+}
+
+function HistoryProvider() {
+  const history = useHistory();
+  useEffect(() => {
+    initTrackPageview({
+      browserHistory: history,
+    });
+  }, []);
+  return <></>;
+}
+
 function App() {
   return (
     <BrowserRouter>
+      <HistoryProvider />
       <Routes>{routes}</Routes>
     </BrowserRouter>
   );

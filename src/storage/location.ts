@@ -6,11 +6,17 @@ import {
   ReferrerData,
   Location,
   PageviewConfig,
+  History,
+  LogPageViewOptions, LocationHistoryTracking,
 } from '../types/location';
 import { persistentData } from './persistentData';
-import { getLocation } from './storage';
+import {getConfig, getLocation} from './storage';
+import {trackEvent} from "../trackEvent.ts";
+import {PAGEVIEW_EVENT_TYPE} from "../utils/constants.ts";
+import {ActionType, ComponentType} from "../types/perfume.ts";
+import {markNTBT} from "../utils/perfume.ts";
 
-export const DEFAULT_LOCATION = {
+export const DEFAULT_LOCATION: Location = {
   breadcrumbs: [],
   initialUAAData: {},
   pagePath: '',
@@ -19,6 +25,7 @@ export const DEFAULT_LOCATION = {
     isEnabled: false,
     blacklistRegex: [],
   },
+  history: undefined,
 };
 
 const UAA_QUERIES: AnalyticsQueries[] = [
@@ -162,6 +169,50 @@ export const getReferrerData = (): ReferrerData => {
   };
 };
 
+export function trackPageView(
+    options: LogPageViewOptions = { callMarkNTBT: true }
+) {
+  const config = getConfig();
+  const {
+    pageviewConfig: { blacklistRegex },
+  } = getLocation();
+
+  // Stop log if platform is not initialized
+  if (config.platform === 'unknown') {
+    return;
+  }
+
+  // Avoid pageview for blacklist pathnames
+  if (blacklistRegex.some((r: RegExp) => r.test(getUrlPathname()))) {
+    return;
+  }
+  trackEvent({
+    name: PAGEVIEW_EVENT_TYPE,
+    action: ActionType.render,
+    component: ComponentType.page,
+  });
+  if (options.callMarkNTBT) {
+    markNTBT();
+  }
+}
+
+export const setLocationHistory = (history: History) => {
+  const location = getLocation();
+  location.history = history;
+  location.history.listen(() => {
+    setPagePath();
+    trackPageView();
+  })
+}
+
+export const setLocationTracking = (options: LocationHistoryTracking) => {
+  const {blacklistRegex, isEnabled, history} = options;
+  setPageviewConfig({blacklistRegex, isEnabled});
+  setLocationHistory(history);
+  trackPageView({ callMarkNTBT: false });
+}
+
+// TODO: we could pass the history object as an input
 export const locationInit = (): Location => {
   return {
     ...DEFAULT_LOCATION,

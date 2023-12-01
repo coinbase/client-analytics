@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "history": "^5.3.0",
-    "client-analytics": "*",
+    "client-analytics": "0.0.1-alpha",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0"

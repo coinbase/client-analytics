@@ -2,6 +2,7 @@ import { Metric } from './types/metric';
 import { isValidPlatform } from './utils/validators';
 import { metricEnhancers } from './utils/enhancers';
 import { getConfig, getMetricScheduler } from './storage/storage';
+import { setPagePath } from './storage/location';
 
 /**
  * log a metric to analytics service
@@ -16,6 +17,8 @@ export const trackMetric = (metric: Metric): Promise<Metric | null> => {
   if (!isValidPlatform()) {
     return Promise.resolve(null);
   }
+
+  setPagePath();
 
   const enhancedMetric = metricEnhancers(metric);
   getMetricScheduler().add(enhancedMetric);

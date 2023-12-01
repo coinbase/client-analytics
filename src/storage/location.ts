@@ -53,6 +53,10 @@ export const getUrlParams = (): string => {
   return window?.location?.search || '';
 };
 
+export const getUrlPathname = (): string => {
+  return window?.location?.pathname || '';
+};
+
 export const getUrlHostname = (): string => {
   return window?.location?.hostname || '';
 };
@@ -60,6 +64,49 @@ export const getUrlHostname = (): string => {
 export function getDocumentReferrer(): string {
   return document?.referrer ?? '';
 }
+
+export const getPagePath = (): string => {
+  return getUrlPathname() + getUrlParams();
+};
+
+/**
+ * Sets a new pagePath when the location.pathname or location.search changes.
+ * Have unique pagePath based on query params is critical to allow web experiences
+ * doing what they do best, have statless content based on the complete web URL.
+ */
+export const setPagePath = (): void => {
+
+  const location = getLocation();
+
+  const pagePath = getPagePath();
+
+  if (!pagePath || pagePath === location.pagePath) {
+    return;
+  }
+  if (pagePath !== location.pagePath) {
+    setPrevPagePath();
+  }
+  location.pagePath = pagePath;
+
+};
+
+/**
+ * Defines which page was previously visited,
+ * and if the users come from the Monorail, we can detect it by its referrer value.
+ */
+export const setPrevPagePath = (): void => {
+  const location = getLocation();
+  const documentReferrer = getDocumentReferrer();
+  if (!location.prevPagePath && documentReferrer) {
+    const referrerURL = new URL(documentReferrer);
+    if (referrerURL.hostname === getUrlHostname()) {
+      location.prevPagePath = referrerURL.pathname;
+      return;
+    }
+  }
+
+  location.prevPagePath = location.pagePath;
+};
 
 export const getPageviewProperties = (
   location: Location

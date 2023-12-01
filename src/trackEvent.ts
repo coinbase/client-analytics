@@ -2,6 +2,7 @@ import { Event, Importance } from './types/event';
 import { isValidPlatform } from './utils/validators';
 import { getEventScheduler, getStorage } from './storage/storage';
 import { eventEnhancers } from './utils/enhancers';
+import { setPagePath } from './storage/location';
 
 /**
  * log an event to analytics service
@@ -23,8 +24,10 @@ export const trackEvent = (
   }
 
   if (!isValidPlatform()) {
-    return Promise.resolve(null);
+    return Promise.resolve(null)
   }
+
+  setPagePath();
 
   const enhancedEvent = eventEnhancers(event);
 

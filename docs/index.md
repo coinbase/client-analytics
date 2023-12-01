@@ -30,7 +30,7 @@ yarn add client-analytics
 
 ## Examples
 
-Init Example
+### Init Example
 
 ```typescript
 init({
@@ -39,7 +39,7 @@ init({
 });
 ```
 
-InitTrackPageView Example
+### InitTrackPageView Example
 
 ```typescript
 const history = createBrowserHistory();
@@ -49,7 +49,7 @@ initTrackPageview({
 });
 ```
 
-trackEvent Example
+### trackEvent Example
 
 ```typescript
 trackEvent({
@@ -62,7 +62,7 @@ trackEvent({
 });
 ```
 
-trackMetric Example
+### trackMetric Example
 
 ```typescript
 trackMetric({

@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 
-import { initAnalytics, initPageViewAnalytics } from './analytics';
+import { initAnalytics, initPageViewAnalytics, history } from './analytics';
 
 initAnalytics();
 
-initPageViewAnalytics();
+initPageViewAnalytics(history);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

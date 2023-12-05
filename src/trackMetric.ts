@@ -17,8 +17,9 @@ export const trackMetric = (metric: Metric): Promise<Metric | null> => {
     return Promise.resolve(null);
   }
 
+  // anything that adds/modify an event should go into the enhancer
   const enhancedMetric = metricEnhancers(metric);
   getMetricScheduler().add(enhancedMetric);
 
-  return Promise.resolve(enhancedMetric);
+  return Promise.resolve(metric);
 };

@@ -65,21 +65,21 @@ export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
   const { apiEndpoint, metricPath, onError } = getConfig();
   const metricEndpoint = `${apiEndpoint}${metricPath}`;
 
+  const data = {
+    metricData: JSON.stringify(metrics),
+  }
+
   if (skipScheduler) {
     apiFetch({
       url: metricEndpoint,
-      data: {
-        metricData: metrics,
-      },
+      data,
       onError: onError,
     });
   } else {
     scheduleEvent(() => {
       apiFetch({
         url: metricEndpoint,
-        data: {
-          metricData: metrics,
-        },
+        data,
         onError: onError,
       });
     });

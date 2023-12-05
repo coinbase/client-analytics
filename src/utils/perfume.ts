@@ -4,6 +4,8 @@ import { ActionType, ComponentType } from '../types/perfume';
 import { MetricType } from '../types/metric';
 import { trackEvent } from '../trackEvent';
 import { trackMetric } from '../trackMetric';
+import { initPerfume, markNTBT as perfumeMarkNTBT } from 'perfume.js';
+
 
 type IVitalsScore = 'good' | 'needsImprovement' | 'poor' | null;
 
@@ -294,20 +296,13 @@ export const getPerfumeOptions = () => {
   };
 };
 
-// @ts-expect-error missing perfume.js type
-export let perfumeInstance;
-export const perfume = {
-  Perfume: () => {},
-};
 
 /**
  * markNTBT is used to initiate Navigation Total Blocking Time from perfume.js
  */
 export const markNTBT = () => {
   // This method will be defined only if we are in web
-  if (perfumeInstance && perfumeInstance.markNTBT) {
-    perfumeInstance.markNTBT();
-  }
+  perfumeMarkNTBT();
 };
 
 /**
@@ -318,8 +313,7 @@ export const initPerfMonitoring = () => {
   const config = getConfig();
 
   try {
-    const perfumeLib = require('perfume.js');
-    perfumeInstance = new perfumeLib.Perfume(getPerfumeOptions());
+    initPerfume(getPerfumeOptions());
   } catch (e) {
     if (e instanceof Error) {
       config.onError(e);

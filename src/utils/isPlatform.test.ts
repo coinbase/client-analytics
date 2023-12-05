@@ -6,7 +6,6 @@ import { init } from '../storage/storage';
 
 describe('isPlatform()', () => {
   init({
-    isProd: false,
     platform: 'unknown',
     projectName: '',
     isDebug: false,

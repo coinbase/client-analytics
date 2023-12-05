@@ -6,6 +6,7 @@ import { eventEnhancers } from './utils/enhancers';
 /**
  * log an event to analytics service
  * @param event returns a promise that resolves when the event is added to the queue
+ * @param importance defines importance for this event
  */
 export const trackEvent = (
   event: Event,
@@ -23,9 +24,10 @@ export const trackEvent = (
   }
 
   if (!isValidPlatform()) {
-    return Promise.resolve(null);
+    return Promise.resolve(null)
   }
 
+  // anything that adds/modify an event should go into the enhancer
   const enhancedEvent = eventEnhancers(event);
 
   const eventScheduler = getEventScheduler();

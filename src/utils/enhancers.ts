@@ -134,6 +134,7 @@ const enhanceProperties = (
 
 const pageviewEnhancer = <T extends Event>(entity: T) => {
   const location = getLocation();
+
   if (location.pageviewConfig.isEnabled) {
     Object.assign(entity, getPageviewProperties(location));
   }

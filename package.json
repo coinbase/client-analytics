@@ -1,12 +1,13 @@
 {
   "name": "client-analytics",
-  "version": "0.0.1-alpha",
+  "version": "0.0.1",
   "type": "module",
   "main": "./dist/client-analytics.umd.cjs",
   "module": "./dist/client-analytics.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/client-analytics.js",
       "require": "./dist/client-analytics.umd.cjs"
     }
@@ -24,6 +25,8 @@
     "release:version": "changeset version && yarn install --lockfile-only"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.4.8",
+    "@changesets/cli": "^2.26.2",
     "@types/md5": "^2.3.2",
     "@types/node": "^20.4.6",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
@@ -41,9 +44,7 @@
     "typescript": "*",
     "vite": "^4.4.5",
     "vite-plugin-dts": "^3.4.0",
-    "vitest": "^0.34.1",
-    "@changesets/changelog-github": "^0.4.8",
-    "@changesets/cli": "^2.26.2"
+    "vitest": "^0.34.1"
   },
   "husky": {
     "hooks": {
@@ -59,6 +60,6 @@
   "dependencies": {
     "@types/react-router": "^5.1.20",
     "md5": "^2.3.0",
-    "perfume.js": "9.0.0-rc.3"
+    "perfume.js": "^9.2.0"
   }
 }

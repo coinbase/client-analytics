@@ -1,22 +1,20 @@
 import { Config, InputConfig } from '../types/config';
 import { APIENDPOINT_URL_ERROR } from '../utils/errors';
-import { getConfig } from './storage';
 
 export const DEFAULT_CONFIG = {
-  isProd: false,
   platform: 'unknown',
   projectName: '',
   isDebug: false,
   onError: () => undefined,
-  eventPath: '/events',
+  eventPath: '/amp',
   metricPath: '/metrics',
   disabled: false,
   isAlwaysAuthed: false,
   version: null,
-  apiEndpoint: 'https://cca-lite.coinbase.com',
+  apiEndpoint: 'https://cca-lite.coinbase.com', // works for production only
   ricTimeoutScheduleEvent: 1000,
   // TODO: find better solution to handle reset
-  reset: () => Object.assign(getConfig(), DEFAULT_CONFIG),
+  reset: () => {},
 };
 
 const validateUrl = (url?: string): boolean => {
@@ -31,7 +29,7 @@ const validateUrl = (url?: string): boolean => {
 
 export const init = (config: InputConfig): Config => {
   // validated config
-  if (!validateUrl(config.apiEndpoint)) {
+  if (config.apiEndpoint && !validateUrl(config.apiEndpoint)) {
     throw APIENDPOINT_URL_ERROR;
   }
 

@@ -13,6 +13,10 @@ export type PageviewConfig = {
   isEnabled: boolean;
 };
 
+export type LocationHistoryTracking = PageviewConfig & {
+  history: History
+};
+
 export type UAAData = {
   fbclid?: string;
   gclid?: string;
@@ -38,12 +42,21 @@ export type AnalyticsQueries =
   | 'utm_term'
   | 'utm_content';
 
+export type History = {
+  listen: (callback: () => void) => void;
+};
+
+export type LogPageViewOptions = {
+  callMarkNTBT?: boolean;
+};
+
 export type Location = {
   breadcrumbs: Breadcrumb[];
   initialUAAData: UAAData;
   pagePath: string;
   prevPagePath: string;
   pageviewConfig: PageviewConfig;
+  history: History | undefined;
 };
 
 export type SetLocation = Partial<Location>;

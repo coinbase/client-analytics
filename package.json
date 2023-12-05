@@ -60,6 +60,6 @@
   "dependencies": {
     "@types/react-router": "^5.1.20",
     "md5": "^2.3.0",
-    "perfume.js": "^9.1.0"
+    "perfume.js": "^9.2.0"
   }
 }

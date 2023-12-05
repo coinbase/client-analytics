@@ -3379,10 +3379,10 @@ pathval@^1.1.1:
   resolved "https://registry.yarnpkg.com/pathval/-/pathval-1.1.1.tgz#8534e77a77ce7ac5a2512ea21e0fdb8fcf6c3d8d"
   integrity sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==
 
-perfume.js@^9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/perfume.js/-/perfume.js-9.1.0.tgz#533dfdedb4ca077ce1c728f406ecb6af0b88b9ff"
-  integrity sha512-GM4rGk9Iw1BuM7r47ImLnfJ9WG+YH68CpglU2yEbJePKwyoVD2S1LJtdgUxK4jTbu+WIycjX4hZDjdkqTzLNCA==
+perfume.js@^9.2.0:
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/perfume.js/-/perfume.js-9.2.0.tgz#4021c3d8f476a939979ed2a6b728866216415952"
+  integrity sha512-nQfWzedTZgeWyy2d8up0DN1TziydR9C1VfQcpF9UaHPYILQtvTrArvnQoAVsa34sT/nD7D94bzy5vJHIGcTM4A==
   dependencies:
     web-vitals "^3.5.0"
 

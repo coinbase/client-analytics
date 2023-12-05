@@ -13,7 +13,6 @@ import {
   IAnalyticsTrackerOptions,
   initPerfMonitoring,
   markNTBT,
-  perfumeInstance,
 } from './perfume';
 
 import { getConfig } from '../storage/storage';
@@ -611,7 +610,7 @@ describe('perfume', () => {
     test('should call markNTBT() when platform is web', () => {
       initPerfMonitoring();
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      perfumeInstance ? (perfumeInstance.markNTBT = mockMarkNTBT) : null;
+      // perfumeInstance ? (perfumeInstance.markNTBT = mockMarkNTBT) : null;
       markNTBT();
       expect(mockMarkNTBT).toHaveBeenCalled();
     });

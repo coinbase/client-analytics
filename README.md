@@ -49,6 +49,9 @@ The Client analytics library provides multiple features. You can use all of them
 ### InitTrackPageView Example
 
 ```typescript
+import { initTrackPageview } from 'client-analytics';
+// you can pass any object that implement the listen method
+// in this case we use createBrowserHistory
 const history = createBrowserHistory();
 
 initTrackPageview({
@@ -59,6 +62,8 @@ initTrackPageview({
 ### trackEvent Example
 
 ```typescript
+import { trackEvent } from 'client-analytics';
+
 trackEvent({
   //required parameters
   action: 'click',
@@ -72,6 +77,8 @@ trackEvent({
 ### trackMetric Example
 
 ```typescript
+import { trackMetric } from 'client-analytics';
+
 trackMetric({
   //required parameters
   metricName: 'button_click',
@@ -104,8 +111,7 @@ In order to customize the library, you need to create a custom storage object an
 An example of cusotmization can be found in our [tests](./src/storage/storage.test.ts).
 
 ```typescript
-import { init } from 'client-analytics';
-import { injectComponents } from './init';
+import { init, injectComponents } from 'client-analytics';
 
 // this will override the network layer
 const overrides = {

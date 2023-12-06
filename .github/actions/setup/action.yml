@@ -21,12 +21,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: 'yarn'
       - name: Install dependencies
-        run: npm install
-      # - name: Lint Check
-      #   # When fails, please run "npm run lint" to your code
-      #   run: npm run lint
+        run: yarn install
       - name: Format Check
         # When fails, please run "yarn format:fix" to your code
-        run: npm run format
+        run: yarn format
+      - name: Test
+        # When fails, please fix tests
+        run: yarn test
+      - name: Build
+        # When fails, please validate build steps
+        run: yarn build

@@ -793,14 +793,14 @@ charenc@0.0.2:
   resolved "https://registry.yarnpkg.com/charenc/-/charenc-0.0.2.tgz#c0a1d2f3a7092e03774bfa83f14c0fc5790a8667"
   integrity sha512-yrLQ/yVUFXkzg7EDQsPieE/53+0RlaWTs+wBrvW36cyilJ2SaDWfl4Yj7MtLTXleV9uEKefbAGUPv2/iWSooRA==
 
-client-analytics@0.0.1-alpha:
-  version "0.0.1-alpha"
-  resolved "https://registry.yarnpkg.com/client-analytics/-/client-analytics-0.0.1-alpha.tgz#9c0171409d70c2a0ab125dc0697be75bb3b677f0"
-  integrity sha512-jeq7lFi9x1mm+FrOrb/S8jtEavy0u69BLOV/o/Fju5RX6cUPENhc/10BdH1PiFzjWYm6VQI85JXgerRiRxmf9A==
+client-analytics@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/client-analytics/-/client-analytics-0.0.1.tgz#e81d25bfb3e6b7bed8676c4d34561ec560dcf89b"
+  integrity sha512-hBceyRnBPYssZJYNSkBUyb26JLHrxceuqZ+WVf1lKFiYuS5CkwHVh6NkCURyARYnKizCeVZaA3sccuMMdfga3w==
   dependencies:
     "@types/react-router" "^5.1.20"
     md5 "^2.3.0"
-    perfume.js "9.0.0-rc.3"
+    perfume.js "^9.2.0"
 
 color-convert@^1.9.0:
   version "1.9.3"
@@ -1442,12 +1442,12 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
-perfume.js@9.0.0-rc.3:
-  version "9.0.0-rc.3"
-  resolved "https://registry.yarnpkg.com/perfume.js/-/perfume.js-9.0.0-rc.3.tgz#ab1004a54499cbb6ab3adf3028d716295fecbdaf"
-  integrity sha512-USn15cJ3jmOj8wpVHItR8wvbm9Wdir3JJFME6GcLGmc+MUMDz6MrdRi0VFv9U/HeaUhS7sb2Y0kf+ORQ3rtkQg==
+perfume.js@^9.2.0:
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/perfume.js/-/perfume.js-9.2.0.tgz#4021c3d8f476a939979ed2a6b728866216415952"
+  integrity sha512-nQfWzedTZgeWyy2d8up0DN1TziydR9C1VfQcpF9UaHPYILQtvTrArvnQoAVsa34sT/nD7D94bzy5vJHIGcTM4A==
   dependencies:
-    web-vitals "^3.1.0"
+    web-vitals "^3.5.0"
 
 picocolors@^1.0.0:
   version "1.0.0"
@@ -1687,10 +1687,10 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-vite@^5.0.5:
-  version "5.0.5"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-5.0.5.tgz#3eebe3698e3b32cea36350f58879258fec858a3c"
-  integrity sha512-OekeWqR9Ls56f3zd4CaxzbbS11gqYkEiBtnWFFgYR2WV8oPJRRKq0mpskYy/XaoCL3L7VINDhqqOMNDiYdGvGg==
+vite@^5.0.6:
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-5.0.6.tgz#f9e13503a4c5ccd67312c67803dec921f3bdea7c"
+  integrity sha512-MD3joyAEBtV7QZPl2JVVUai6zHms3YOmLR+BpMzLlX2Yzjfcc4gTgNi09d/Rua3F4EtC8zdwPU8eQYyib4vVMQ==
   dependencies:
     esbuild "^0.19.3"
     postcss "^8.4.32"
@@ -1698,7 +1698,7 @@ vite@^5.0.5:
   optionalDependencies:
     fsevents "~2.3.3"
 
-web-vitals@^3.1.0:
+web-vitals@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/web-vitals/-/web-vitals-3.5.0.tgz#3a5571f00743ecd059394b61e0adceec7fac2634"
   integrity sha512-f5YnCHVG9Y6uLCePD4tY8bO/Ge15NPEQWtvm3tPzDKygloiqtb4SVqRHBcrIAqo2ztqX5XueqDn97zHF0LdT6w==

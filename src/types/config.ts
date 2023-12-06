@@ -25,7 +25,7 @@ export type RequiredConfig = {
 export type CustomConfig = {
   eventPath: string;
   metricPath: string;
-  disabled: boolean;
+  disabled?: boolean;
   onError: (err: Error, metadata?: Record<string, unknown>) => void;
   isDebug: boolean;
   batchEventsPeriod?: number;

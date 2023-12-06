@@ -169,6 +169,7 @@ export const getReferrerData = (): ReferrerData => {
   };
 };
 
+
 export function trackPageView(
     options: LogPageViewOptions = { callMarkNTBT: true }
 ) {
@@ -213,7 +214,7 @@ export const setLocationTracking = (options: LocationHistoryTracking) => {
 }
 
 // TODO: we could pass the history object as an input
-export const locationInit = (): Location => {
+export const createLocation = (): Location => {
   return {
     ...DEFAULT_LOCATION,
   };

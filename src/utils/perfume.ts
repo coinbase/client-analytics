@@ -6,7 +6,6 @@ import { trackEvent } from '../trackEvent';
 import { trackMetric } from '../trackMetric';
 import { initPerfume, markNTBT as perfumeMarkNTBT } from 'perfume.js';
 
-
 type IVitalsScore = 'good' | 'needsImprovement' | 'poor' | null;
 
 interface IPerfumeNavigationTiming {

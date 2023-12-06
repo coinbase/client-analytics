@@ -17,11 +17,13 @@ import {
 } from '../storage/location.ts';
 import { SetDeviceSize } from '../types/device.ts';
 
+// TODO: move to identity object
 const setLanguageCode = () => {
   const identity = getIdentity();
   identity.languageCode = navigator?.languages[0] || navigator?.language || '';
 };
 
+// TODO: move to device object
 const setDeviceSize = (properties: SetDeviceSize) => {
   const device = getDevice();
   device.height = properties.height;
@@ -31,6 +33,7 @@ const setDeviceSize = (properties: SetDeviceSize) => {
 /**
  * Set device information based on the platform used
  */
+// TODO: move to device
 export const setDevice = () => {
   const device = getDevice();
   device.userAgent = window?.navigator?.userAgent || null;
@@ -40,10 +43,12 @@ export const setDevice = () => {
   });
 };
 
+// TODO: move to identity
 export const identityEnhancer = () => {
   setLanguageCode();
 };
 
+// TODO: move to device
 export const deviceEnhancer = () => {
   setDevice();
 };

@@ -1,18 +1,19 @@
-import { Config } from '../types/config';
+
 import { DEFAULT_CONFIG } from './config';
-import { Storage } from '../types/storage';
-import { DEFAULT_SCHEDULER, createScheduler } from '../utils/scheduler';
+import { DEFAULT_NETWORK_LAYER, createNetworkLayer } from './networkLayer';
+import { DEFAULT_SCHEDULER, createScheduler } from './scheduler';
+import { DEFAULT_LOCATION, createLocation } from './location';
+import { DEFAULT_IDENTITY, createIdentity } from './identity';
+import { DEFAULT_DEVICE, createDevice } from './device';
+
+import { Config } from '../types/config';
+import { Storage, OverrideComponents } from '../types/storage';
 import { Scheduler } from '../types/scheduler';
 import { Metric } from '../types/metric';
 import { Event } from '../types/event';
 import { Location } from '../types/location';
-
-import { DEFAULT_LOCATION, locationInit } from './location';
-import { DEFAULT_IDENTITY, identityInit } from './identity';
 import { Identity } from '../types/identity';
-import { DEFAULT_DEVICE, deviceInit } from './device';
 import { Device } from '../types/device';
-import { DEFAULT_NETWORK_LAYER, networkLayerInit } from '../utils/networkLayer';
 import { NetworkLayer } from '../types/networkLayer';
 
 const storage: Storage = {
@@ -25,22 +26,36 @@ const storage: Storage = {
   device: DEFAULT_DEVICE as Device,
 };
 
-export const init = (config: Config): void => {
+export const DEFAULT_COMPONENTS: OverrideComponents = {
+  createNetworkLayer,
+  createScheduler,
+  createIdentity,
+  createDevice,
+  createLocation,
+};
+export const init = (config: Config, overrides?: OverrideComponents): void => {
+  const components = {
+    ...DEFAULT_COMPONENTS,
+    ...overrides,
+  };
+  // CONFIG must be the first to be set
   storage.config = config;
-  storage.networkLayer = networkLayerInit();
-  storage.metricScheduler = createScheduler<Metric>(
+  storage.networkLayer = components.createNetworkLayer();
+
+  //  the rest of components depend on the config
+  storage.metricScheduler = components.createScheduler<Metric>(
     storage.networkLayer.sendMetrics,
     config.batchMetricsThreshold,
     config.batchMetricsPeriod
   );
-  storage.eventScheduler = createScheduler<Event>(
+  storage.eventScheduler = components.createScheduler<Event>(
     storage.networkLayer.sendEvents,
     config.batchEventsThreshold,
     config.batchEventsPeriod
   );
-  storage.identity = identityInit(config);
-  storage.device = deviceInit();
-  storage.location = locationInit();
+  storage.identity = components.createIdentity();
+  storage.device = components.createDevice();
+  storage.location = components.createLocation();
 };
 
 export const getStorage = (): Storage => storage;

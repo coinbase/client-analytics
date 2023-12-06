@@ -1,9 +1,9 @@
 import { test, expect, describe, beforeEach, vi } from 'vitest';
-import { Event } from '../types/event';
-import { Metric, MetricType } from '../types/metric';
-import { createScheduler } from './scheduler';
-import { Scheduler } from '../types/scheduler';
-import { getNetworkLayer } from '../storage/storage';
+import { Event } from '../types/event.ts';
+import { Metric, MetricType } from '../types/metric.ts';
+import { createScheduler } from './scheduler.ts';
+import { Scheduler } from '../types/scheduler.ts';
+import { getNetworkLayer } from './storage.ts';
 
 describe('Scheduler', () => {
   describe('Events Scheduler', () => {

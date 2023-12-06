@@ -1,9 +1,9 @@
 import { describe, test, expect } from 'vitest';
-import { deviceInit } from './device';
+import { createDevice } from './device';
 
 describe('device', () => {
   test('should return default device with init', () => {
-    const device = deviceInit();
+    const device = createDevice();
 
     expect(device).toEqual({
       browserName: null,

@@ -5,7 +5,7 @@ import {
   getReferrerData,
   getUrlHostname,
   getUrlParams,
-  locationInit,
+  createLocation,
   setBreadcrumbs,
   setLocation,
   setPageviewConfig,
@@ -36,7 +36,7 @@ describe('location', () => {
   });
 
   test('should init with right values', () => {
-    const location = locationInit();
+    const location = createLocation();
     expect(location).toEqual({
       breadcrumbs: [],
       initialUAAData: {},

@@ -1,11 +1,11 @@
 import { Event } from '../types/event';
 import { Metric } from '../types/metric';
-import { getConfig, getIdentity } from '../storage/storage.ts';
-import { NetworkLayer } from '../types/networkLayer.ts';
-import { getNow } from './time.ts';
-import { getChecksum } from './dataIntegrity.ts';
-import { apiFetch } from './apiFetch.ts';
-import { scheduleEvent } from './scheduler.ts';
+import { getConfig, getIdentity } from './storage';
+import { NetworkLayer } from '../types/networkLayer';
+import { getNow } from '../utils/time';
+import { getChecksum } from '../utils/dataIntegrity';
+import { apiFetch } from '../utils/apiFetch';
+import { scheduleEvent } from './scheduler';
 
 const NO_OP = () => {};
 
@@ -87,7 +87,7 @@ export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
 };
 
 // TODO: network layer should be generic as the scheduler
-export const networkLayerInit = (): NetworkLayer => {
+export const createNetworkLayer = (): NetworkLayer => {
   return {
     sendMetrics,
     sendEvents,

@@ -1,3 +1,5 @@
+import { Factory } from './common.ts';
+
 export type Breadcrumb = {
   label: string;
   href: string;
@@ -60,3 +62,5 @@ export type Location = {
 };
 
 export type SetLocation = Partial<Location>;
+
+export type CreateLocation = Factory<Location>;

@@ -13,7 +13,7 @@ export const DEFAULT_DEVICE = {
   height: null,
 };
 
-export const deviceInit = (): Device => {
+export const createDevice = (): Device => {
   return {
     ...DEFAULT_DEVICE,
   };

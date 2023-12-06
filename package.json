@@ -42,7 +42,7 @@
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
     "typescript": "*",
-    "vite": "^4.4.5",
+    "vite": "^4.4.12",
     "vite-plugin-dts": "^3.4.0",
     "vitest": "^0.34.1"
   },

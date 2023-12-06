@@ -42,9 +42,9 @@
     "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
     "typescript": "*",
-    "vite": "^4.4.5",
-    "vite-plugin-dts": "^3.4.0",
-    "vitest": "^0.34.1"
+    "vite": "^5.0.6",
+    "vite-plugin-dts": "^3.6.4",
+    "vitest": "^1.0.1"
   },
   "husky": {
     "hooks": {

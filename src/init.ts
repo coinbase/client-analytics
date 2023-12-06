@@ -2,7 +2,7 @@ import { init as configInit } from './storage/config';
 import { init as storageInit } from './storage/storage';
 import { InputConfig } from './types/config';
 import { deviceEnhancer, identityEnhancer } from './utils/enhancers';
-import {OverrideComponents} from './types/storage';
+import { OverrideComponents } from './types/storage';
 import { initPerfMonitoring } from './utils/perfume';
 
 export const init = (config: InputConfig, overrides?: OverrideComponents) => {
@@ -18,4 +18,4 @@ export const init = (config: InputConfig, overrides?: OverrideComponents) => {
 
 export const injectComponents = (overrides: OverrideComponents) => {
   return (config: InputConfig) => init(config, overrides);
-}
+};

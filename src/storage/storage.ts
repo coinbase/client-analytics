@@ -1,4 +1,3 @@
-
 import { DEFAULT_CONFIG } from './config';
 import { DEFAULT_NETWORK_LAYER, createNetworkLayer } from './networkLayer';
 import { DEFAULT_SCHEDULER, createScheduler } from './scheduler';

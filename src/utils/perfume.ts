@@ -295,7 +295,6 @@ export const getPerfumeOptions = () => {
   };
 };
 
-
 /**
  * markNTBT is used to initiate Navigation Total Blocking Time from perfume.js
  */

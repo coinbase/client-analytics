@@ -16,7 +16,7 @@ export type PageviewConfig = {
 };
 
 export type LocationHistoryTracking = PageviewConfig & {
-  history: History
+  history: History;
 };
 
 export type UAAData = {

@@ -1,5 +1,5 @@
 import { getConfig, getIdentity, getStorage } from './storage';
-import {CreateIdentity, SetIdentity} from '../types/identity';
+import { CreateIdentity, SetIdentity } from '../types/identity';
 import { PlatformName } from '../types/config';
 import { isMobileWeb } from '../utils/isPlatform';
 import { setDevice } from '../utils/enhancers';

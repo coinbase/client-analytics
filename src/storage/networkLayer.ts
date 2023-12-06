@@ -67,7 +67,7 @@ export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
 
   const data = {
     metricData: JSON.stringify(metrics),
-  }
+  };
 
   if (skipScheduler) {
     apiFetch({

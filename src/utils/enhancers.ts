@@ -17,6 +17,10 @@ import {
 } from '../storage/location.ts';
 import { SetDeviceSize } from '../types/device.ts';
 
+// TODO: i have been thinking about enhancers a little further.
+// i think each component should have its own enhancer and we should
+// compose them together when we init the app.
+
 // TODO: move to identity object
 const setLanguageCode = () => {
   const identity = getIdentity();

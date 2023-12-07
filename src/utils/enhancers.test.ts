@@ -393,7 +393,6 @@ describe('enhance', () => {
     test('device enhancer sets device properties', () => {
       const device = getDevice();
       deviceEnhancer();
-      console.log('device', device)
       expect(device).toMatchObject({
         height: 1000,
         width: 800,

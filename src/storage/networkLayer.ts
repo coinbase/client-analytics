@@ -79,8 +79,6 @@ export const sendEvents = (events: Event[]) => {
 };
 
 export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
-  console.log('sendMetrics');
-  console.log('skipScheduler', skipScheduler);
   const { apiEndpoint, metricPath, onError } = getConfig();
   const metricEndpoint = `${apiEndpoint}${metricPath}`;
 

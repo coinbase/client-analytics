@@ -29,11 +29,9 @@ const setLanguageCode = () => {
 
 // TODO: move to device object
 const setDeviceSize = (properties: SetDeviceSize) => {
-  console.log('properties', properties);
   const device = getDevice();
   device.height = properties.height;
   device.width = properties.width;
-  // console.log('device', device);
 };
 
 // TODO: create a test for userAgent
@@ -47,8 +45,6 @@ export const setUserAgent = () => {
  */
 // TODO: move to device
 export const setDevice = () => {
-  console.log('window.innerHeight', window?.innerHeight);
-  console.log('window.innerWidth', window?.innerWidth);
   setUserAgent();
   setDeviceSize({
     height: window?.innerHeight ?? null,

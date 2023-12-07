@@ -31,6 +31,8 @@ yarn add client-analytics
 ### Init Example
 
 ```typescript
+import { init } from 'client-analytics';
+
 init({
   platform: 'web',
   projectName: 'analytics-example',
@@ -148,6 +150,14 @@ cusotmInit({
 
 // both options are equivalent
 ```
+
+### Default behavior
+
+![client-analytics-default-behavior](https://github.com/coinbase/client-analytics/assets/138020133/d5ecab57-4988-4a8f-b872-82cb099f37c9)
+
+### Custom behavior
+
+![client-analytis-custom-behavior](https://github.com/coinbase/client-analytics/assets/138020133/8af12013-c198-4cef-a204-b23cf268f0d1)
 
 ## Contributing
 

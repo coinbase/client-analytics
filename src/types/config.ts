@@ -27,7 +27,7 @@ export type CustomConfig = {
   metricPath: string;
   disabled?: boolean;
   onError: (err: Error, metadata?: Record<string, unknown>) => void;
-  isDebug: boolean;
+  isDebug?: boolean;
   batchEventsPeriod?: number;
   batchEventsThreshold?: number;
   batchMetricsPeriod?: number;

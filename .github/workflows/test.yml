@@ -24,6 +24,9 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: yarn install
+      - name: Type Check
+        # When fails, please run "yarn typecheck" to your code
+        run: yarn typecheck
       - name: Format Check
         # When fails, please run "yarn format:fix" to your code
         run: yarn format

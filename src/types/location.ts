@@ -1,4 +1,4 @@
-import { Factory } from './common.ts';
+import { Factory } from './common';
 
 export type Breadcrumb = {
   label: string;

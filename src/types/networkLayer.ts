@@ -1,6 +1,6 @@
 import { Metric } from './metric';
 import { Event } from './event';
-import { Factory } from './common.ts';
+import { Factory } from './common';
 
 export type NetworkLayer = {
   sendEvents: (events: Event[]) => void;

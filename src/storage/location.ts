@@ -11,11 +11,11 @@ import {
   LocationHistoryTracking,
 } from '../types/location';
 import { persistentData } from './persistentData';
-import { getConfig, getLocation } from './storage';
-import { trackEvent } from '../trackEvent.ts';
-import { PAGEVIEW_EVENT_TYPE } from '../utils/constants.ts';
-import { ActionType, ComponentType } from '../types/perfume.ts';
-import { markNTBT } from '../utils/perfume.ts';
+import {getConfig, getLocation} from './storage';
+import {trackEvent} from '../trackEvent';
+import {PAGEVIEW_EVENT_TYPE} from '../utils/constants';
+import {ActionType, ComponentType} from '../types/perfume';
+import {markNTBT} from '../utils/perfume';
 
 export const DEFAULT_LOCATION: Location = {
   breadcrumbs: [],

@@ -14,7 +14,7 @@ import {
   getReferrerData,
   persistentUAAData,
   uaaValuesFromUrl,
-} from '../storage/location.ts';
+} from '../storage/location';
 import { SetDeviceSize } from '../types/device.ts';
 
 // TODO: i have been thinking about enhancers a little further.

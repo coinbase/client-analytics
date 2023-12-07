@@ -10,6 +10,6 @@ export type Scheduler<T> = {
 
 export type CreateScheduler = <T>(
   sendData: (items: T[]) => void,
-  batchThreshold: number | undefined,
-  timeThreshold: number | undefined
+  batchThreshold?: number | undefined,
+  timeThreshold?: number | undefined
 ) => Scheduler<T>;

@@ -1,11 +1,11 @@
-import { sendEvents, sendMetrics, createNetworkLayer } from './networkLayer.ts';
+import { sendEvents, sendMetrics, createNetworkLayer } from './networkLayer';
 import { Event } from '../types/event.ts';
-import { Metric, MetricType } from '../types/metric.ts';
-import * as apiFetch from '../utils/apiFetch.ts';
-import * as getChecksum from '../utils/dataIntegrity.ts';
+import { Metric, MetricType } from '../types/metric';
+import * as apiFetch from '../utils/apiFetch';
+import * as getChecksum from '../utils/dataIntegrity';
 import { describe, it, expect, vi, SpyInstance, beforeEach } from 'vitest';
-import { getConfig, getIdentity } from './storage.ts';
-import { init as setConfig } from './config.ts';
+import { getConfig, getIdentity } from './storage';
+import { init as setConfig } from './config';
 
 describe('networkLayer', () => {
   describe('sendEvents', () => {

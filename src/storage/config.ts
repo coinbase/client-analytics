@@ -6,12 +6,14 @@ export const DEFAULT_CONFIG = {
   projectName: '',
   isDebug: false,
   onError: () => undefined,
-  eventPath: '/amp',
+  // TODO: all api endpoints should be moved into the network module
+  eventPath: '/events',
   metricPath: '/metrics',
+  apiEndpoint: 'https://cca-lite.coinbase.com', // works for production only
+
   disabled: false,
   isAlwaysAuthed: false,
   version: null,
-  apiEndpoint: 'https://cca-lite.coinbase.com', // works for production only
   ricTimeoutScheduleEvent: 1000,
   // TODO: find better solution to handle reset
   reset: () => {},

@@ -1,4 +1,4 @@
-import { describe, test, expect, beforeEach, vi } from 'vitest';
+import {describe, test, expect, beforeEach, vi, afterEach} from 'vitest';
 import {
   metricEnhancers,
   eventEnhancers,
@@ -370,12 +370,31 @@ describe('enhance', () => {
   });
 
   describe('device', () => {
+    let originalInnerHeight = 0;
+    let originalInnerWidth = 0;
+    beforeEach(() => {
+        const device = getDevice();
+        // reset device properties
+        Object.assign(device, { height: null, width: null });
+        // copy original window properties
+        originalInnerHeight = window.innerHeight;
+        originalInnerWidth = window.innerWidth;
+        //  set window properties
+        Object.defineProperty(window, 'innerHeight', { value: 1000 });
+        Object.defineProperty(window, 'innerWidth', { value: 800 });
+    });
+
+    afterEach(() => {
+      // reset window properties
+      Object.defineProperty(window, 'innerHeight', {value: originalInnerHeight});
+      Object.defineProperty(window, 'innerWidth', {value: originalInnerWidth});
+    });
+
     test('device enhancer sets device properties', () => {
       const device = getDevice();
-      Object.defineProperty(window, 'innerHeight', { value: 1000 });
-      Object.defineProperty(window, 'innerWidth', { value: 800 });
       deviceEnhancer();
-      expect(device).toContain({
+      console.log('device', device)
+      expect(device).toMatchObject({
         height: 1000,
         width: 800,
       });

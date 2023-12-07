@@ -5,13 +5,30 @@ import { NetworkLayer } from '../types/networkLayer';
 import { getNow } from '../utils/time';
 import { getChecksum } from '../utils/dataIntegrity';
 import { apiFetch } from '../utils/apiFetch';
-import { scheduleEvent } from './scheduler';
 
 const NO_OP = () => {};
 
 export const DEFAULT_NETWORK_LAYER = {
   sendMetrics: NO_OP,
   sendEvents: NO_OP,
+};
+
+
+/*
+ * Schedule an event
+ * - on web we create a background task with the requestIdleCallback API
+ * - on iOS and android we use the InteractionManager to schedule
+ *   a task after interactions or animations have completed,
+ *   this helps especially animations to run smoothly.
+ */
+// TODO: this should be moved to the scheduler
+export const scheduleEvent = (cb: () => void) => {
+  const config = getConfig();
+  if (window?.requestIdleCallback) {
+    window.requestIdleCallback(cb, { timeout: config.ricTimeoutScheduleEvent });
+  } else {
+    cb();
+  }
 };
 
 export const sendEvents = (events: Event[]) => {
@@ -62,6 +79,8 @@ export const sendEvents = (events: Event[]) => {
 };
 
 export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
+  console.log('sendMetrics');
+  console.log('skipScheduler', skipScheduler);
   const { apiEndpoint, metricPath, onError } = getConfig();
   const metricEndpoint = `${apiEndpoint}${metricPath}`;
 

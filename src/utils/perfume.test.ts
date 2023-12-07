@@ -607,6 +607,7 @@ describe('perfume', () => {
       storageInit({ ...DEFAULT_TEST_STORAGE_CONFIG, platform: 'web' });
     });
 
+    //  TODO: fix this test
     test('should call markNTBT() when platform is web', () => {
       initPerfMonitoring();
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions

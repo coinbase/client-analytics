@@ -1,9 +1,9 @@
-import { sendEvents, sendMetrics, createNetworkLayer } from './networkLayer';
+import {createNetworkLayer, sendEvents, sendMetrics} from './networkLayer';
 import { Event } from '../types/event.ts';
 import { Metric, MetricType } from '../types/metric';
 import * as apiFetch from '../utils/apiFetch';
 import * as getChecksum from '../utils/dataIntegrity';
-import { describe, it, expect, vi, SpyInstance, beforeEach } from 'vitest';
+import { describe, test, expect, vi, MockInstance, beforeEach } from 'vitest';
 import { getConfig, getIdentity } from './storage';
 import { init as setConfig } from './config';
 
@@ -14,9 +14,9 @@ describe('networkLayer', () => {
       { action: 'hover', component: 'unknown', name: 'defaultEvent2' },
     ];
 
-    let apiFetchSpy: SpyInstance;
-    let configOnErrorSpy: SpyInstance;
-    let checksumSpy: SpyInstance;
+    let apiFetchSpy: MockInstance;
+    let configOnErrorSpy: MockInstance;
+    let checksumSpy: MockInstance;
     const config = getConfig();
     beforeEach(() => {
       vi.resetAllMocks();
@@ -32,7 +32,7 @@ describe('networkLayer', () => {
         .mockImplementation(() => 'c4ca4238a0b923820dcc509a6f75849b');
     });
 
-    it('should call apiFetch once', () => {
+    test('should call apiFetch once', () => {
       setConfig({
         platform: 'unknown',
         projectName: 'testProjectName',
@@ -52,7 +52,7 @@ describe('networkLayer', () => {
       });
     });
 
-    it('should not call apiFetch when there are no events', () => {
+    test('should not call apiFetch when there are no events', () => {
       const emptyEventsList: Event[] = [];
       setConfig({
         platform: 'unknown',
@@ -65,7 +65,7 @@ describe('networkLayer', () => {
       expect(checksumSpy).toHaveBeenCalledTimes(0);
     });
 
-    it('should not call apiFetch when identity.isOptOut is true', () => {
+    test('should not call apiFetch when identity.isOptOut is true', () => {
       const identity = getIdentity();
       identity.isOptOut = true;
       setConfig({
@@ -90,8 +90,8 @@ describe('networkLayer', () => {
       },
     ];
 
-    let apiFetchSpy: SpyInstance;
-    let configOnErrorSpy: SpyInstance;
+    let apiFetchSpy: MockInstance;
+    let configOnErrorSpy: MockInstance;
     const config = getConfig();
     beforeEach(() => {
       vi.resetAllMocks();
@@ -104,7 +104,7 @@ describe('networkLayer', () => {
         .mockImplementation(() => 'apiFetch');
     });
 
-    it('should call apiFetch when skipScheduler is set to true', async () => {
+    test('should call apiFetch when skipScheduler is set to true', async () => {
       setConfig({
         platform: 'unknown',
         projectName: 'testProjectName',
@@ -115,12 +115,12 @@ describe('networkLayer', () => {
       expect(configOnErrorSpy).toHaveBeenCalledTimes(0);
       expect(apiFetchSpy).toHaveBeenCalledWith({
         url: 'https://cca-lite.coinbase.com/metrics',
-        data: { metricData: metrics },
+        data: { metricData: JSON.stringify(metrics) },
         onError: config.onError,
       });
     });
 
-    it('should call apiFetch when skipScheduler is false', async () => {
+    test('should call apiFetch when skipScheduler is false', async () => {
       setConfig({
         platform: 'unknown',
         projectName: 'testProjectName',
@@ -131,14 +131,14 @@ describe('networkLayer', () => {
       expect(configOnErrorSpy).toHaveBeenCalledTimes(0);
       expect(apiFetchSpy).toHaveBeenCalledWith({
         url: 'https://cca-lite.coinbase.com/metrics',
-        data: { metricData: metrics },
+        data: { metricData: JSON.stringify(metrics) },
         onError: config.onError,
       });
     });
   });
 
   describe('networkLayerInit', () => {
-    it('should return a NetworkLayer object', () => {
+    test('should return a NetworkLayer object', () => {
       const networkLayer = createNetworkLayer();
 
       expect(networkLayer).toBeDefined();

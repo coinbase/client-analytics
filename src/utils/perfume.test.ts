@@ -1,4 +1,4 @@
-import { describe, test, expect, vi, beforeEach, SpyInstance } from 'vitest';
+import { describe, test, expect, vi, beforeEach, MockInstance } from 'vitest';
 
 import { DEFAULT_CONFIG } from '../storage/config';
 import { init as storageInit } from '../storage/storage';
@@ -14,6 +14,7 @@ import {
   initPerfMonitoring,
   markNTBT,
 } from './perfume';
+import * as Perfume from 'perfume.js';
 
 import { getConfig } from '../storage/storage';
 import { PlatformName } from '../types/config';
@@ -43,9 +44,17 @@ const DEFAULT_TEST_STORAGE_CONFIG = {
   onError: () => undefined,
 };
 
+vi.mock('perfume.js', async () => {
+  const actual = await vi.importActual('perfume.js');
+  return {
+    ...actual,
+    markNTBT: vi.fn(),
+  }
+});
+
 describe('perfume', () => {
-  let trackEventSpy: SpyInstance;
-  let trackMetricSpy: SpyInstance;
+  let trackEventSpy: MockInstance;
+  let trackMetricSpy: MockInstance;
 
   describe('.getPerfumeOptions()', () => {
     let perfumeOptions;
@@ -601,18 +610,16 @@ describe('perfume', () => {
   });
 
   describe('perfumeInstance', () => {
-    const mockMarkNTBT = vi.fn();
-
     beforeEach(() => {
       storageInit({ ...DEFAULT_TEST_STORAGE_CONFIG, platform: 'web' });
     });
 
+    //  TODO: fix this test
     test('should call markNTBT() when platform is web', () => {
       initPerfMonitoring();
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      // perfumeInstance ? (perfumeInstance.markNTBT = mockMarkNTBT) : null;
+      const markNTBTSpy = vi.spyOn(Perfume, 'markNTBT');
       markNTBT();
-      expect(mockMarkNTBT).toHaveBeenCalled();
+      expect(markNTBTSpy).toHaveBeenCalled();
     });
   });
 });

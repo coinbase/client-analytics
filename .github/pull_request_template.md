@@ -9,6 +9,7 @@ If this PR is a work in progress, please prefix the title with [WIP].
 - [] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [] Refactor (refactoring production code or docs)
 - [] Test (adding missing tests or fixing existing tests)
+- [] Chore (updating yarn tasks etc; no production code change)
 - [] Other (please describe):
 
 ## Checklist

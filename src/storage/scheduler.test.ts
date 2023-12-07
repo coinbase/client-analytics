@@ -3,7 +3,7 @@ import { Event } from '../types/event';
 import { Metric, MetricType } from '../types/metric';
 import { createScheduler } from './scheduler';
 import { Scheduler } from '../types/scheduler';
-import { getNetworkLayer } from '../storage/storage';
+import { getNetworkLayer } from './storage';
 
 describe('Scheduler', () => {
   describe('Events Scheduler', () => {

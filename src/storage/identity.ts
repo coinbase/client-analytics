@@ -1,6 +1,6 @@
 import { getConfig, getIdentity, getStorage } from './storage';
-import { Identity, SetIdentity } from '../types/identity';
-import { Config, PlatformName } from '../types/config';
+import { CreateIdentity, SetIdentity } from '../types/identity';
+import { PlatformName } from '../types/config';
 import { isMobileWeb } from '../utils/isPlatform';
 import { setDevice } from '../utils/enhancers';
 
@@ -63,7 +63,8 @@ export const optIn = () => {
   setIdentity({ isOptOut: false });
 };
 
-export const identityInit = (config: Config): Identity => {
+export const createIdentity: CreateIdentity = () => {
+  const config = getConfig();
   return {
     ...DEFAULT_IDENTITY,
     isAuthed: () => {

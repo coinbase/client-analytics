@@ -24,7 +24,7 @@ export const trackEvent = (
   }
 
   if (!isValidPlatform()) {
-    return Promise.resolve(null)
+    return Promise.resolve(null);
   }
 
   // anything that adds/modify an event should go into the enhancer

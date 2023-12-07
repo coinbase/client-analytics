@@ -31,15 +31,29 @@ yarn add client-analytics
 ### Init Example
 
 ```typescript
+import { init } from 'client-analytics';
+
 init({
   platform: 'web',
   projectName: 'analytics-example',
 });
 ```
 
+## Usage
+
+The Client analytics library provides multiple features. You can use all of them or only the ones you need.
+
+- TrackEvent is used to track user interactions such as clicks, form submissions, page views, and custom events.
+- TrackMetric is used to monitor key performance metrics such as page load times, resource timings, and network latency.
+- TrackPageView is used to track page views.
+- InitTrackPageView is used to automatically track page view events.
+
 ### InitTrackPageView Example
 
 ```typescript
+import { initTrackPageview } from 'client-analytics';
+// you can pass any object that implement the listen method
+// in this case we use createBrowserHistory
 const history = createBrowserHistory();
 
 initTrackPageview({
@@ -50,6 +64,8 @@ initTrackPageview({
 ### trackEvent Example
 
 ```typescript
+import { trackEvent } from 'client-analytics';
+
 trackEvent({
   //required parameters
   action: 'click',
@@ -63,6 +79,8 @@ trackEvent({
 ### trackMetric Example
 
 ```typescript
+import { trackMetric } from 'client-analytics';
+
 trackMetric({
   //required parameters
   metricName: 'button_click',
@@ -75,6 +93,71 @@ trackMetric({
 });
 ```
 
+## Customization
+
+The Client Analytics library is composed of multiple modules that can be used independently. You can customize the library to suit your application's specific tracking and reporting needs.
+This is the list of modules that you can customize:
+
+```typescript
+export type Storage = {
+  networkLayer: NetworkLayer;
+  metricScheduler: Scheduler<Metric>;
+  eventScheduler: Scheduler<Event>;
+  location: Location;
+  identity: Identity;
+  device: Device;
+};
+```
+
+In order to customize the library, you need to create a custom storage object and pass it to the init function.
+An example of cusotmization can be found in our [tests](./src/storage/storage.test.ts).
+
+```typescript
+import { init, injectComponents } from 'client-analytics';
+
+// this will override the network layer
+const overrides = {
+  createNetworkLayer: () => {
+    return {
+      sendEvents: (events) => {
+        // here you can send the events to your backend
+        // or any other service
+        console.log('sendEvents', events);
+      },
+      sendMetrics: (metrics) => {
+        // here you can send the metrics to your backend
+        // or any other service
+        console.log('sendMetrics', metrics);
+      },
+    };
+  },
+};
+
+init(
+  {
+    platform: 'web',
+    projectName: 'analytics-example',
+  },
+  overrides
+);
+
+// or if you like closures
+const cusotmInit = injectComponents(overrides);
+cusotmInit({
+  platform: 'web',
+  projectName: 'analytics-example',
+});
+
+// both options are equivalent
+```
+
+### Default behavior
+
+![client-analytics-default-behavior](https://github.com/coinbase/client-analytics/assets/138020133/d5ecab57-4988-4a8f-b872-82cb099f37c9)
+
+### Custom behavior
+
+![client-analytis-custom-behavior](https://github.com/coinbase/client-analytics/assets/138020133/8af12013-c198-4cef-a204-b23cf268f0d1)
 
 ## Contributing
 

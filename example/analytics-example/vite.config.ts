@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "client-analytics": path.resolve(__dirname, '../../src'),
+      'client-analytics': path.resolve(__dirname, '../../src'),
     },
   },
-})
+});

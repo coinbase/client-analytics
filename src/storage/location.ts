@@ -7,14 +7,15 @@ import {
   Location,
   PageviewConfig,
   History,
-  LogPageViewOptions, LocationHistoryTracking,
+  LogPageViewOptions,
+  LocationHistoryTracking,
 } from '../types/location';
 import { persistentData } from './persistentData';
 import {getConfig, getLocation} from './storage';
-import {trackEvent} from "../trackEvent.ts";
-import {PAGEVIEW_EVENT_TYPE} from "../utils/constants.ts";
-import {ActionType, ComponentType} from "../types/perfume.ts";
-import {markNTBT} from "../utils/perfume.ts";
+import {trackEvent} from '../trackEvent';
+import {PAGEVIEW_EVENT_TYPE} from '../utils/constants';
+import {ActionType, ComponentType} from '../types/perfume';
+import {markNTBT} from '../utils/perfume';
 
 export const DEFAULT_LOCATION: Location = {
   breadcrumbs: [],
@@ -82,7 +83,6 @@ export const getPagePath = (): string => {
  * doing what they do best, have statless content based on the complete web URL.
  */
 export const setPagePath = (): void => {
-
   const location = getLocation();
 
   const pagePath = getPagePath();
@@ -94,7 +94,6 @@ export const setPagePath = (): void => {
     setPrevPagePath();
   }
   location.pagePath = pagePath;
-
 };
 
 /**
@@ -170,7 +169,7 @@ export const getReferrerData = (): ReferrerData => {
 };
 
 export function trackPageView(
-    options: LogPageViewOptions = { callMarkNTBT: true }
+  options: LogPageViewOptions = { callMarkNTBT: true }
 ) {
   const config = getConfig();
   const {
@@ -202,18 +201,18 @@ export const setLocationHistory = (history: History) => {
   location.history.listen(() => {
     setPagePath();
     trackPageView();
-  })
-}
+  });
+};
 
 export const setLocationTracking = (options: LocationHistoryTracking) => {
-  const {blacklistRegex, isEnabled, history} = options;
-  setPageviewConfig({blacklistRegex, isEnabled});
+  const { blacklistRegex, isEnabled, history } = options;
+  setPageviewConfig({ blacklistRegex, isEnabled });
   setLocationHistory(history);
   trackPageView({ callMarkNTBT: false });
-}
+};
 
 // TODO: we could pass the history object as an input
-export const locationInit = (): Location => {
+export const createLocation = (): Location => {
   return {
     ...DEFAULT_LOCATION,
   };

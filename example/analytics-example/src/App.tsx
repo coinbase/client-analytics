@@ -1,7 +1,26 @@
-import {FC, useState, useCallback, useContext, useLayoutEffect, useEffect, useRef} from 'react';
+import {
+  FC,
+  useState,
+  useCallback,
+  useContext,
+  useLayoutEffect,
+  useEffect,
+  useRef,
+} from 'react';
 import './App.css';
-import { trackEvent, trackMetric, MetricType, initTrackPageview } from 'client-analytics';
-import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import {
+  trackEvent,
+  trackMetric,
+  MetricType,
+  initTrackPageview,
+} from 'client-analytics';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from 'react-router-dom';
 
 function HomePage() {
   const [count, setCount] = useState(0);
@@ -50,7 +69,6 @@ function HomePage() {
 function SecondaryPage() {
   const [count, setCount] = useState(0);
 
-
   const onButtonClick = useCallback(() => {
     setCount((count) => count + 1);
     trackEvent({
@@ -81,9 +99,7 @@ function SecondaryPage() {
         <button onClick={onButtonClick}>count is {count}</button>
 
         <Link to="/">
-        <button>
-          Click here to Navigate back to home page
-        </button>
+          <button>Click here to Navigate back to home page</button>
         </Link>
       </div>
     </>
@@ -101,16 +117,19 @@ const useHistory = () => {
   const location = useLocation();
   const listeners = useRef<(() => void)[]>([]);
 
-  const listen = useCallback((callback: () => void) => {
-    listeners.current.push(callback);
-  }, [listeners]);
+  const listen = useCallback(
+    (callback: () => void) => {
+      listeners.current.push(callback);
+    },
+    [listeners]
+  );
 
   useEffect(() => {
-    listeners.current.forEach(listen => listen());
+    listeners.current.forEach((listen) => listen());
   }, [location]);
 
-  return {listen};
-}
+  return { listen };
+};
 
 function HistoryProvider() {
   const history = useHistory();

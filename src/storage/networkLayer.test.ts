@@ -1,11 +1,11 @@
-import { sendEvents, sendMetrics, networkLayerInit } from './networkLayer';
-import { Event } from '../types/event';
+import { sendEvents, sendMetrics, createNetworkLayer } from './networkLayer';
+import { Event } from '../types/event.ts';
 import { Metric, MetricType } from '../types/metric';
 import * as apiFetch from '../utils/apiFetch';
 import * as getChecksum from '../utils/dataIntegrity';
 import { describe, it, expect, vi, SpyInstance, beforeEach } from 'vitest';
-import { getConfig, getIdentity } from '../storage/storage';
-import { init as setConfig } from '../storage/config';
+import { getConfig, getIdentity } from './storage';
+import { init as setConfig } from './config';
 
 describe('networkLayer', () => {
   describe('sendEvents', () => {
@@ -139,7 +139,7 @@ describe('networkLayer', () => {
 
   describe('networkLayerInit', () => {
     it('should return a NetworkLayer object', () => {
-      const networkLayer = networkLayerInit();
+      const networkLayer = createNetworkLayer();
 
       expect(networkLayer).toBeDefined();
       expect(networkLayer.sendEvents).toBeDefined();

@@ -1,3 +1,5 @@
+import { Factory } from './common';
+
 export type Identity = {
   countryCode: string | null;
   deviceId: string | null;
@@ -12,3 +14,5 @@ export type Identity = {
 };
 
 export type SetIdentity = Partial<Identity>;
+
+export type CreateIdentity = Factory<Identity>;

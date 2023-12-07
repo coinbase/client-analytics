@@ -24,5 +24,5 @@ export const initTrackPageview = ({
     blacklistRegex: blacklistRegex || [],
     isEnabled: true,
     history: browserHistory,
-  })
+  });
 };

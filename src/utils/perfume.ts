@@ -6,7 +6,6 @@ import { trackEvent } from '../trackEvent';
 import { trackMetric } from '../trackMetric';
 import { initPerfume, markNTBT as perfumeMarkNTBT } from 'perfume.js';
 
-
 type IVitalsScore = 'good' | 'needsImprovement' | 'poor' | null;
 
 interface IPerfumeNavigationTiming {
@@ -295,7 +294,6 @@ export const getPerfumeOptions = () => {
     maxMeasureTime: MAX_MEASURE_TIME,
   };
 };
-
 
 /**
  * markNTBT is used to initiate Navigation Total Blocking Time from perfume.js

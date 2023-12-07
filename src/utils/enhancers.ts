@@ -14,14 +14,20 @@ import {
   getReferrerData,
   persistentUAAData,
   uaaValuesFromUrl,
-} from '../storage/location.ts';
+} from '../storage/location';
 import { SetDeviceSize } from '../types/device.ts';
 
+// TODO: i have been thinking about enhancers a little further.
+// i think each component should have its own enhancer and we should
+// compose them together when we init the app.
+
+// TODO: move to identity object
 const setLanguageCode = () => {
   const identity = getIdentity();
   identity.languageCode = navigator?.languages[0] || navigator?.language || '';
 };
 
+// TODO: move to device object
 const setDeviceSize = (properties: SetDeviceSize) => {
   const device = getDevice();
   device.height = properties.height;
@@ -31,6 +37,7 @@ const setDeviceSize = (properties: SetDeviceSize) => {
 /**
  * Set device information based on the platform used
  */
+// TODO: move to device
 export const setDevice = () => {
   const device = getDevice();
   device.userAgent = window?.navigator?.userAgent || null;
@@ -40,10 +47,12 @@ export const setDevice = () => {
   });
 };
 
+// TODO: move to identity
 export const identityEnhancer = () => {
   setLanguageCode();
 };
 
+// TODO: move to device
 export const deviceEnhancer = () => {
   setDevice();
 };

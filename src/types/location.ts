@@ -1,3 +1,5 @@
+import { Factory } from './common';
+
 export type Breadcrumb = {
   label: string;
   href: string;
@@ -14,7 +16,7 @@ export type PageviewConfig = {
 };
 
 export type LocationHistoryTracking = PageviewConfig & {
-  history: History
+  history: History;
 };
 
 export type UAAData = {
@@ -60,3 +62,5 @@ export type Location = {
 };
 
 export type SetLocation = Partial<Location>;
+
+export type CreateLocation = Factory<Location>;

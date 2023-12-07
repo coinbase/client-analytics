@@ -1,3 +1,5 @@
+import { Factory } from './common';
+
 export type SetDeviceSize = {
   height: number;
   width: number;
@@ -11,3 +13,5 @@ export type Device = {
   height: number | null;
   width: number | null;
 };
+
+export type CreateDevice = Factory<Device>;

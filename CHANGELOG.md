@@ -1,5 +1,11 @@
 # client-analytics
 
+## 0.0.4
+
+### Patch Changes
+
+- 2396bd5: [chore] Pack Transpiled Javascript for Release
+
 ## 0.0.3
 
 ### Patch Changes

@@ -12,6 +12,9 @@
       "require": "./dist/client-analytics.umd.cjs"
     }
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

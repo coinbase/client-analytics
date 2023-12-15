@@ -1,4 +1,4 @@
-export { init } from './init';
+export { init, injectComponents } from './init';
 export { initTrackPageview } from './trackPageView';
 export { trackEvent } from './trackEvent';
 export { trackMetric } from './trackMetric';

@@ -1,5 +1,11 @@
 # client-analytics
 
+## 0.0.5
+
+### Patch Changes
+
+- [chore] Updated default metrics payload
+
 ## 0.0.4
 
 ### Patch Changes

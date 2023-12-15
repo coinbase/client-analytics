@@ -101,8 +101,6 @@ export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
     metricData: JSON.stringify(metricNameEnhancer(metrics)),
   };
 
-  console.log(data)
-
   if (skipScheduler) {
     apiFetch({
       url: metricEndpoint,

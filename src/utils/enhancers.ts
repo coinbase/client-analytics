@@ -77,10 +77,17 @@ const locationPagePathEnhancer = <T extends Metric>(entity: T) => {
 
 const tagsEnhancer = <T extends Metric>(entity: T) => {
   const identity = getIdentity();
+  const config = getConfig();
 
   entity.tags = {
+    auth: identity.isAuthed() ? 'loggedIn' : 'notLoggedIn',
+    platform: config.platform,
+    project_name: config.projectName,
+    metric_name: entity.metricName,
+    type: entity.metricType,
     ...entity.tags,
     locale: identity.locale ?? '',
+    version_name: config.version?.toString() || '',
   };
 
   return entity;

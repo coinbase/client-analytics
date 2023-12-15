@@ -113,7 +113,6 @@ describe('networkLayer', () => {
       sendMetrics(metrics, true);
       expect(apiFetchSpy).toHaveBeenCalledTimes(1);
       expect(configOnErrorSpy).toHaveBeenCalledTimes(0);
-      console.log('JSON.stringify(metrics)', JSON.stringify(metrics));
       expect(apiFetchSpy).toHaveBeenCalledWith({
         url: 'https://cca-lite.coinbase.com/metrics',
         data: { metricData: JSON.stringify(metrics) },

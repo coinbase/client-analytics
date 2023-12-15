@@ -27,7 +27,6 @@ describe('trackMetric', () => {
       tags: {
         locale: '',
         auth: "notLoggedIn",
-        metric_name: "test",
         platform: "web",
         project_name: "testing",
         type: "count",

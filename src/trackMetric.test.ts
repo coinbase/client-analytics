@@ -29,7 +29,6 @@ describe('trackMetric', () => {
         auth: "notLoggedIn",
         platform: "web",
         project_name: "testing",
-        type: "count",
         version_name: "",
       },
     });

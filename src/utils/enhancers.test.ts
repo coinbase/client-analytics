@@ -53,7 +53,6 @@ describe('enhance', () => {
             auth: 'notLoggedIn',
             platform: 'unknown',
             project_name: '',
-            type: 'count',
             version_name: '',
           },
         });
@@ -74,7 +73,6 @@ describe('enhance', () => {
             auth: 'notLoggedIn',
             platform: 'unknown',
             project_name: '',
-            type: 'count',
             version_name: '',
           },
         });
@@ -91,7 +89,6 @@ describe('enhance', () => {
             auth: 'notLoggedIn',
             platform: 'unknown',
             project_name: '',
-            type: 'count',
             version_name: '',
           },
         });
@@ -122,7 +119,6 @@ describe('enhance', () => {
             auth: 'notLoggedIn',
             platform: 'unknown',
             project_name: '',
-            type: 'count',
             version_name: '',
           },
         });
@@ -141,7 +137,6 @@ describe('enhance', () => {
             auth: 'notLoggedIn',
             platform: 'unknown',
             project_name: '',
-            type: 'count',
             version_name: '',
           },
         });
@@ -165,7 +160,6 @@ describe('enhance', () => {
             auth: 'notLoggedIn',
             platform: 'unknown',
             project_name: '',
-            type: 'count',
             version_name: '',
           },
         });
@@ -193,7 +187,6 @@ describe('enhance', () => {
           auth: 'notLoggedIn',
           platform: 'unknown',
           project_name: '',
-          type: 'count',
           version_name: '',
         },
       });

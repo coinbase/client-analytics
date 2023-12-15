@@ -21,6 +21,10 @@ function metricNameEnhancer(
       metric.metric_name = metric.metricName;
       delete metric['metricName'];
     }
+    if (metric['metricType']) {
+      metric.type = metric.metricType;
+      delete metric['metricType'];
+    }
   });
   return metrics;
 }
@@ -96,6 +100,8 @@ export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
   const data = {
     metricData: JSON.stringify(metricNameEnhancer(metrics)),
   };
+
+  console.log(data)
 
   if (skipScheduler) {
     apiFetch({

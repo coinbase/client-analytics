@@ -83,7 +83,6 @@ const tagsEnhancer = <T extends Metric>(entity: T) => {
     auth: identity.isAuthed() ? 'loggedIn' : 'notLoggedIn',
     platform: config.platform,
     project_name: config.projectName,
-    type: entity.metricType,
     ...entity.tags,
     locale: identity.locale ?? '',
     version_name: config.version?.toString() || '',

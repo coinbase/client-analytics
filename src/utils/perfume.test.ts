@@ -49,7 +49,7 @@ vi.mock('perfume.js', async () => {
   return {
     ...actual,
     markNTBT: vi.fn(),
-  }
+  };
 });
 
 describe('perfume', () => {

@@ -1,12 +1,4 @@
-import {
-  FC,
-  useState,
-  useCallback,
-  useContext,
-  useLayoutEffect,
-  useEffect,
-  useRef,
-} from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import './App.css';
 import {
   trackEvent,

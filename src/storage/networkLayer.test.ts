@@ -1,4 +1,4 @@
-import {createNetworkLayer, sendEvents, sendMetrics} from './networkLayer';
+import { createNetworkLayer, sendEvents, sendMetrics } from './networkLayer';
 import { Event } from '../types/event.ts';
 import { Metric, MetricType } from '../types/metric';
 import * as apiFetch from '../utils/apiFetch';

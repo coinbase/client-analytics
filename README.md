@@ -142,7 +142,7 @@ init(
 );
 
 // or if you like closures
-const cusotmInit = injectComponents(overrides);
+const customInit = injectComponents(overrides);
 cusotmInit({
   platform: 'web',
   projectName: 'analytics-example',

@@ -142,8 +142,8 @@ init(
 );
 
 // or if you like closures
-const cusotmInit = injectComponents(overrides);
-cusotmInit({
+const customInit = injectComponents(overrides);
+customInit({
   platform: 'web',
   projectName: 'analytics-example',
 });

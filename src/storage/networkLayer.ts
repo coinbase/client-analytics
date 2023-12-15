@@ -13,6 +13,21 @@ export const DEFAULT_NETWORK_LAYER = {
   sendEvents: NO_OP,
 };
 
+function metricNameEnhancer(
+  metrics: Record<string, unknown>[]
+): Record<string, unknown>[] {
+  metrics.forEach((metric) => {
+    if (metric['metricName']) {
+      metric.metric_name = metric.metricName;
+      delete metric['metricName'];
+    }
+    if (metric['metricType']) {
+      metric.type = metric.metricType;
+      delete metric['metricType'];
+    }
+  });
+  return metrics;
+}
 
 /*
  * Schedule an event
@@ -83,7 +98,7 @@ export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
   const metricEndpoint = `${apiEndpoint}${metricPath}`;
 
   const data = {
-    metricData: JSON.stringify(metrics),
+    metricData: JSON.stringify(metricNameEnhancer(metrics)),
   };
 
   if (skipScheduler) {

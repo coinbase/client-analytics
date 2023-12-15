@@ -1,4 +1,4 @@
-import {describe, test, expect, beforeEach, vi, afterEach} from 'vitest';
+import { describe, test, expect, beforeEach, vi, afterEach } from 'vitest';
 import {
   metricEnhancers,
   eventEnhancers,
@@ -48,7 +48,13 @@ describe('enhance', () => {
           metricType: MetricType.count,
           value: 1,
           pagePath: 'testPagePath',
-          tags: { locale: '' },
+          tags: {
+            locale: '',
+            auth: 'notLoggedIn',
+            platform: 'unknown',
+            project_name: '',
+            version_name: '',
+          },
         });
       });
 
@@ -62,7 +68,13 @@ describe('enhance', () => {
           metricType: MetricType.count,
           value: 1,
           pagePath: 'testPagePath2',
-          tags: { locale: '' },
+          tags: {
+            locale: '',
+            auth: 'notLoggedIn',
+            platform: 'unknown',
+            project_name: '',
+            version_name: '',
+          },
         });
       });
 
@@ -72,7 +84,13 @@ describe('enhance', () => {
           metricName: 'testMetric',
           metricType: MetricType.count,
           value: 1,
-          tags: { locale: '' },
+          tags: {
+            locale: '',
+            auth: 'notLoggedIn',
+            platform: 'unknown',
+            project_name: '',
+            version_name: '',
+          },
         });
       });
     });
@@ -98,6 +116,10 @@ describe('enhance', () => {
             testTag: 'testTagValue',
             testTag1: 'anotherTag',
             locale: '',
+            auth: 'notLoggedIn',
+            platform: 'unknown',
+            project_name: '',
+            version_name: '',
           },
         });
       });
@@ -112,6 +134,10 @@ describe('enhance', () => {
           value: 1,
           tags: {
             locale: 'testLocaleTag',
+            auth: 'notLoggedIn',
+            platform: 'unknown',
+            project_name: '',
+            version_name: '',
           },
         });
       });
@@ -131,6 +157,10 @@ describe('enhance', () => {
             testTag: 'testTagValue',
             testTag1: 'anotherTag',
             locale: 'test',
+            auth: 'notLoggedIn',
+            platform: 'unknown',
+            project_name: '',
+            version_name: '',
           },
         });
       });
@@ -154,6 +184,10 @@ describe('enhance', () => {
           testTag: 'testTagValue',
           testTag1: 'anotherTag',
           locale: 'test',
+          auth: 'notLoggedIn',
+          platform: 'unknown',
+          project_name: '',
+          version_name: '',
         },
       });
     });
@@ -373,21 +407,25 @@ describe('enhance', () => {
     let originalInnerHeight = 0;
     let originalInnerWidth = 0;
     beforeEach(() => {
-        const device = getDevice();
-        // reset device properties
-        Object.assign(device, { height: null, width: null });
-        // copy original window properties
-        originalInnerHeight = window.innerHeight;
-        originalInnerWidth = window.innerWidth;
-        //  set window properties
-        Object.defineProperty(window, 'innerHeight', { value: 1000 });
-        Object.defineProperty(window, 'innerWidth', { value: 800 });
+      const device = getDevice();
+      // reset device properties
+      Object.assign(device, { height: null, width: null });
+      // copy original window properties
+      originalInnerHeight = window.innerHeight;
+      originalInnerWidth = window.innerWidth;
+      //  set window properties
+      Object.defineProperty(window, 'innerHeight', { value: 1000 });
+      Object.defineProperty(window, 'innerWidth', { value: 800 });
     });
 
     afterEach(() => {
       // reset window properties
-      Object.defineProperty(window, 'innerHeight', {value: originalInnerHeight});
-      Object.defineProperty(window, 'innerWidth', {value: originalInnerWidth});
+      Object.defineProperty(window, 'innerHeight', {
+        value: originalInnerHeight,
+      });
+      Object.defineProperty(window, 'innerWidth', {
+        value: originalInnerWidth,
+      });
     });
 
     test('device enhancer sets device properties', () => {

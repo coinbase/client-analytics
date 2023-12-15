@@ -1,6 +1,4 @@
-import { init, initTrackPageview } from 'client-analytics';
-
-import { BrowserHistory } from 'history';
+import { init } from 'client-analytics';
 
 export function initAnalytics() {
   init({

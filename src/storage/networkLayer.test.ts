@@ -1,4 +1,4 @@
-import {createNetworkLayer, sendEvents, sendMetrics} from './networkLayer';
+import { createNetworkLayer, sendEvents, sendMetrics } from './networkLayer';
 import { Event } from '../types/event.ts';
 import { Metric, MetricType } from '../types/metric';
 import * as apiFetch from '../utils/apiFetch';
@@ -113,6 +113,7 @@ describe('networkLayer', () => {
       sendMetrics(metrics, true);
       expect(apiFetchSpy).toHaveBeenCalledTimes(1);
       expect(configOnErrorSpy).toHaveBeenCalledTimes(0);
+      console.log('JSON.stringify(metrics)', JSON.stringify(metrics));
       expect(apiFetchSpy).toHaveBeenCalledWith({
         url: 'https://cca-lite.coinbase.com/metrics',
         data: { metricData: JSON.stringify(metrics) },

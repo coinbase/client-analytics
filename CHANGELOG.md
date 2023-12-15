@@ -1,5 +1,11 @@
 # client-analytics
 
+## 0.0.6
+
+### Patch Changes
+
+- Added new custom example
+
 ## 0.0.5
 
 ### Patch Changes

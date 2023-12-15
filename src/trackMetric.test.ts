@@ -26,10 +26,10 @@ describe('trackMetric', () => {
       value: 1,
       tags: {
         locale: '',
-        auth: "notLoggedIn",
-        platform: "web",
-        project_name: "testing",
-        version_name: "",
+        auth: 'notLoggedIn',
+        platform: 'web',
+        project_name: 'testing',
+        version_name: '',
       },
     });
   });

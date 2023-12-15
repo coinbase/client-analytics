@@ -36,8 +36,8 @@ const setDeviceSize = (properties: SetDeviceSize) => {
 
 // TODO: create a test for userAgent
 export const setUserAgent = () => {
-    const device = getDevice();
-    device.userAgent = window?.navigator?.userAgent || null;
+  const device = getDevice();
+  device.userAgent = window?.navigator?.userAgent || null;
 };
 
 /**

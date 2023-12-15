@@ -26,6 +26,12 @@ describe('trackMetric', () => {
       value: 1,
       tags: {
         locale: '',
+        auth: "notLoggedIn",
+        metric_name: "test",
+        platform: "web",
+        project_name: "testing",
+        type: "count",
+        version_name: "",
       },
     });
   });

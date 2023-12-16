@@ -43,18 +43,18 @@ const UAA_QUERIES: AnalyticsQueries[] = [
 ];
 
 export function setBreadcrumbs(breadcrumbs: Breadcrumb[]) {
-  const location = getLocation();
-  Object.assign(location, { breadcrumbs });
+  setLocation({ breadcrumbs });
 }
 
 export function setPageviewConfig(pageviewConfig: PageviewConfig) {
-  const location = getLocation();
-  Object.assign(location, { pageviewConfig });
+  setLocation({ pageviewConfig });
 }
 
 export function setLocation(data: SetLocation) {
   const location = getLocation();
-  Object.assign(location, data);
+  // console.log('setLocation before', location, data);
+  Object.assign(location, structuredClone(data));
+  // console.log('setLocation after', location);
 }
 
 export const getUrlParams = (): string => {
@@ -213,7 +213,5 @@ export const setLocationTracking = (options: LocationHistoryTracking) => {
 
 // TODO: we could pass the history object as an input
 export const createLocation = (): Location => {
-  return {
-    ...DEFAULT_LOCATION,
-  };
+  return structuredClone(DEFAULT_LOCATION);
 };

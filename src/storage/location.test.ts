@@ -11,15 +11,21 @@ import {
   setPageviewConfig,
   uaaValuesFromUrl,
 } from '../storage/location';
-import { describe, test, expect, beforeEach } from 'vitest';
+import { describe, test, expect, beforeEach, afterEach } from 'vitest';
 import { DEFAULT_LOCATION } from '../storage/location';
 
 const resetState = () => {
-  const location = getLocation();
-  location.breadcrumbs = [];
-  location.initialUAAData = {};
-  location.pagePath = '';
-  location.prevPagePath = '';
+  setLocation({
+    breadcrumbs: [],
+    initialUAAData: {},
+    pagePath: '',
+    prevPagePath: '',
+    pageviewConfig: {
+      isEnabled: false,
+      blacklistRegex: [],
+    },
+    history: undefined,
+  });
 };
 
 describe('location', () => {
@@ -33,6 +39,15 @@ describe('location', () => {
       value: { hostname: '' },
       configurable: true,
     });
+  });
+
+  test('should return the same value when called multiple times', () => {
+    expect(getLocation()).toBe(getLocation());
+    const location = getLocation();
+    setLocation({ breadcrumbs: [{ label: 'test', href: 'test' }] });
+    expect(location).toBe(getLocation());
+    setLocation(DEFAULT_LOCATION);
+    expect(location).toBe(getLocation());
   });
 
   test('should init with right values', () => {
@@ -71,6 +86,7 @@ describe('location', () => {
 
   test('should set breadcrumbs with custom values', () => {
     const location = getLocation();
+    expect(location).toEqual(DEFAULT_LOCATION);
     setBreadcrumbs([
       {
         label: 'test',
@@ -105,6 +121,10 @@ describe('location', () => {
   });
 
   describe('getDocumentReferrer()', () => {
+    beforeEach(() => {
+      resetState();
+    });
+
     test('should return string when document.referrer is undefined', () => {
       expect(getDocumentReferrer()).toBe('');
     });
@@ -122,6 +142,10 @@ describe('location', () => {
   });
 
   describe('getReferrerData()', () => {
+    beforeEach(() => {
+      setLocation(DEFAULT_LOCATION);
+    });
+
     test('should return an empty object when document.referrer is an empty string', () => {
       expect(getReferrerData()).toEqual({});
     });
@@ -146,6 +170,10 @@ describe('location', () => {
   });
 
   describe('getUrlHostname()', () => {
+    beforeEach(() => {
+      resetState();
+    });
+
     test('should return string when global.location is undefined', () => {
       expect(getUrlHostname()).toBe('');
     });
@@ -160,6 +188,10 @@ describe('location', () => {
   });
 
   describe('getUrlParams()', () => {
+    beforeEach(() => {
+      resetState();
+    });
+
     test('should return empty string when global.location is undefined', () => {
       expect(getUrlParams()).toBe('');
     });
@@ -173,6 +205,13 @@ describe('location', () => {
   });
 
   describe('uaaValuesFromUrl', () => {
+    beforeEach(() => {
+      setLocation(DEFAULT_LOCATION);
+    });
+
+    afterEach(() => {
+      setLocation(DEFAULT_LOCATION);
+    });
     test('returns UAA values', () => {
       Object.defineProperty(window, 'location', {
         value: { search: '?&utm_term=some-new-value' },
@@ -183,7 +222,10 @@ describe('location', () => {
 
   describe('pageviewConfig', () => {
     beforeEach(() => {
-      resetState();
+      setLocation(DEFAULT_LOCATION);
+    });
+
+    afterEach(() => {
       setLocation(DEFAULT_LOCATION);
     });
 
@@ -214,7 +256,10 @@ describe('location', () => {
       });
     });
 
-    test.only('modifying pageViewConfig should not touch location properties', () => {
+    test('modifying pageViewConfig should not touch location properties', () => {
+      let location = getLocation();
+
+      expect(location).toEqual(DEFAULT_LOCATION);
       setLocation({
         breadcrumbs: [{ label: 'test', href: 'test' }],
         initialUAAData: { utm_term: 'test' },

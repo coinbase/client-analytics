@@ -104,23 +104,7 @@ describe('networkLayer', () => {
         .mockImplementation(() => 'apiFetch');
     });
 
-    test('should call apiFetch when skipScheduler is set to true', async () => {
-      setConfig({
-        platform: 'unknown',
-        projectName: 'testProjectName',
-        apiEndpoint: 'https://cca-lite.coinbase.com',
-      });
-      sendMetrics(metrics, true);
-      expect(apiFetchSpy).toHaveBeenCalledTimes(1);
-      expect(configOnErrorSpy).toHaveBeenCalledTimes(0);
-      expect(apiFetchSpy).toHaveBeenCalledWith({
-        url: 'https://cca-lite.coinbase.com/metrics',
-        data: { metricData: JSON.stringify(metrics) },
-        onError: config.onError,
-      });
-    });
-
-    test('should call apiFetch when skipScheduler is false', async () => {
+    test('should call apiFetch', async () => {
       setConfig({
         platform: 'unknown',
         projectName: 'testProjectName',
@@ -131,7 +115,7 @@ describe('networkLayer', () => {
       expect(configOnErrorSpy).toHaveBeenCalledTimes(0);
       expect(apiFetchSpy).toHaveBeenCalledWith({
         url: 'https://cca-lite.coinbase.com/metrics',
-        data: { metricData: JSON.stringify(metrics) },
+        data: { metrics: metrics },
         onError: config.onError,
       });
     });

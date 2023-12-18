@@ -1,5 +1,11 @@
 # client-analytics
 
+## 0.0.7
+
+### Patch Changes
+
+- e332706: Fixed metric payload
+
 ## 0.0.6
 
 ### Patch Changes

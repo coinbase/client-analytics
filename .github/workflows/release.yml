@@ -25,9 +25,9 @@ jobs:
       - name: "Setup"
         uses: ./.github/actions/setup
         
-      - name: Build
+      - name: Install
         shell: bash
-        run: yarn build
+        run: yarn
 
       - name: Set deployment token
         run: npm config set '//registry.npmjs.org/:_authToken' "${{ secrets.NPM_TOKEN }}"

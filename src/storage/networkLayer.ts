@@ -93,29 +93,19 @@ export const sendEvents = (events: Event[]) => {
   });
 };
 
-export const sendMetrics = (metrics: Metric[], skipScheduler = false) => {
+export const sendMetrics = (metrics: Metric[]) => {
   const { apiEndpoint, metricPath, onError } = getConfig();
   const metricEndpoint = `${apiEndpoint}${metricPath}`;
 
   const data = {
-    metricData: JSON.stringify(metricNameEnhancer(metrics)),
+    metrics: metricNameEnhancer(metrics),
   };
 
-  if (skipScheduler) {
-    apiFetch({
-      url: metricEndpoint,
-      data,
-      onError: onError,
-    });
-  } else {
-    scheduleEvent(() => {
-      apiFetch({
-        url: metricEndpoint,
-        data,
-        onError: onError,
-      });
-    });
-  }
+  apiFetch({
+    url: metricEndpoint,
+    data,
+    onError: onError,
+  });
 };
 
 // TODO: network layer should be generic as the scheduler

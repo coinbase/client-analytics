@@ -14,6 +14,10 @@ export const trackEvent = (
 ): Promise<Event | null> => {
   const { config, identity } = getStorage();
 
+  if(config.disableEventApi) {
+    return Promise.resolve(null);
+  }
+
   // TODO: combine validation in a set of validators
   if (identity.isOptOut) {
     return Promise.resolve(null);

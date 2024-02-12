@@ -1,5 +1,11 @@
 # client-analytics
 
+## 0.0.9
+
+### Patch Changes
+
+- [Feature] Added new parameters to provide the option of disabling event/metric calls
+
 ## 0.0.8
 
 ### Patch Changes

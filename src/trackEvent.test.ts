@@ -43,6 +43,17 @@ describe('trackEvent', () => {
     });
   });
 
+  test('should return null when disableEventApi is true', async () => {
+    const config = getConfig();
+    Object.assign(config, { disableEventApi: true });
+    const event = await trackEvent({
+      action: 'test',
+      component: 'testComponent',
+      name: 'testName',
+    });
+    expect(event).toBe(null);
+  });
+
   test('should return null when identity.isOptOut is true', async () => {
     const identity = getIdentity();
     Object.assign(identity, { isOptOut: true });

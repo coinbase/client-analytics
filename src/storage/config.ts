@@ -10,7 +10,8 @@ export const DEFAULT_CONFIG = {
   eventPath: '/events',
   metricPath: '/metrics',
   apiEndpoint: 'https://cca-lite.coinbase.com', // works for production only
-
+  disableEventApi: false,
+  disableMetricApi: false,
   disabled: false,
   isAlwaysAuthed: false,
   version: null,

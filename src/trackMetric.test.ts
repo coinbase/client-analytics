@@ -45,6 +45,17 @@ describe('trackMetric', () => {
     expect(metric).toBe(null);
   });
 
+  test('should return null when metric api is disabled', async () => {
+    const config = getConfig();
+    Object.assign(config, { disableMetricApi: true });
+    const metric = await trackMetric({
+      metricName: 'test',
+      metricType: MetricType.count,
+      value: 1,
+    });
+    expect(metric).toBe(null);
+  });
+
   test('should return null when platform is not web', async () => {
     const config = setConfig({
       platform: 'unknown',

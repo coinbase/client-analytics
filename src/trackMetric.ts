@@ -9,6 +9,11 @@ import { getConfig, getMetricScheduler } from './storage/storage';
  */
 export const trackMetric = (metric: Metric): Promise<Metric | null> => {
   const config = getConfig();
+
+  if (config.disableMetricApi) {
+    return Promise.resolve(null);
+  }
+
   if (config.disabled) {
     return Promise.resolve(null);
   }

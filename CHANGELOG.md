@@ -1,6 +1,6 @@
 # client-analytics
 
-## 0.1.0
+## 0.0.9
 
 ### Patch Changes
 

@@ -1,5 +1,11 @@
 # client-analytics
 
+## 0.1.0
+
+### Minor Changes
+
+- c861a15: New feature to disable metric/event api calls
+
 ## 0.0.9
 
 ### Patch Changes

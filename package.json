@@ -1,6 +1,6 @@
 {
   "name": "client-analytics",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "type": "module",
   "main": "./dist/client-analytics.umd.cjs",
   "module": "./dist/client-analytics.js",

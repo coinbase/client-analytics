@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
- - [Feature] Added new parameters to provide the option of disabling event/metric calls 
+- [Feature] Added new parameters to provide the option of disabling event/metric calls
 
 ## 0.0.8
 

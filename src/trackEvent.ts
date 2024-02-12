@@ -14,7 +14,7 @@ export const trackEvent = (
 ): Promise<Event | null> => {
   const { config, identity } = getStorage();
 
-  if(config.disableEventApi) {
+  if (config.disableEventApi) {
     return Promise.resolve(null);
   }
 

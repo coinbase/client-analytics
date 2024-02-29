@@ -167,7 +167,12 @@ We welcome contributions from the community! If you encounter any issues or have
 
 We use [Changesets](https://github.com/changesets/changesets) in this repository to manage our releases and deployments. Please make sure to create a changeset for each change you make to the library.
 
-After you have created a PR and pushed your final changes, you can run `yarn changeset` to create a new changeset. This will prompt you to decide the appropriate bump in the package version. After this, you will be asked to write a summary of the changes you made. The summary will be used in the changelog to describe the changes in the new version. Once you have completed the changeset, you can commit the changeset file and push it to the repository. For more information on how to use changesets, please refer to the [Changesets documentation](https://github.com/changesets/changesets/blob/main/docs/adding-a-changeset.md#i-am-in-a-single-package-repository) for a single package repository.
+Steps
+1. Create a new PR with your changes.
+2. Run `yarn changeset` to create a new changeset.
+3. Choose the appropriate bump in the package version.
+4. Write a summary of the changes you made. This will be used in the changelog to describe the changes in the new version.
+5. Commit the changeset file and push it to the repository.
 
 Once the PR is merged, the package will be published to npm and the changes will be reflected in the library.
 

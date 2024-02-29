@@ -163,6 +163,13 @@ customInit({
 
 We welcome contributions from the community! If you encounter any issues or have suggestions for improvements, please open an issue on our GitHub repository.
 
+### Changeset usage
+
+We use [Changesets](https://github.com/changesets/changesets) in this repository to manage our releases. Please make sure to create a changeset for every change you make to the library.
+
+Instructions
+1. 
+
 ## License
 
 This project is licensed under the MIT License.

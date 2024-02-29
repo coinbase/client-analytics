@@ -168,6 +168,7 @@ We welcome contributions from the community! If you encounter any issues or have
 We use [Changesets](https://github.com/changesets/changesets) in this repository to manage our releases and deployments. Please make sure to create a changeset for each change you make to the library.
 
 Steps
+
 1. Create a new PR with your changes.
 2. Run `yarn changeset` to create a new changeset.
 3. Choose the appropriate bump in the package version.

@@ -163,6 +163,20 @@ customInit({
 
 We welcome contributions from the community! If you encounter any issues or have suggestions for improvements, please open an issue on our GitHub repository.
 
+### Changeset usage
+
+We use [Changesets](https://github.com/changesets/changesets) in this repository to manage our releases and deployments. Please make sure to create a changeset for each change you make to the library.
+
+Steps
+
+1. Create a new PR with your changes.
+2. Run `yarn changeset` to create a new changeset.
+3. Choose the appropriate bump in the package version.
+4. Write a summary of the changes you made. This will be used in the changelog to describe the changes in the new version.
+5. Commit the changeset file and push it to the repository.
+
+Once the PR is merged, the package will be published to npm and the changes will be reflected in the library.
+
 ## License
 
 This project is licensed under the MIT License.
